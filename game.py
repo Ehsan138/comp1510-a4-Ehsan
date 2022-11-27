@@ -243,9 +243,26 @@ def is_alive(character):
         return False
 
 
-# def execute_challenge_protocol(character):
+def execute_challenge_protocol(character, board):
+    if board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_1':
+        trivia_1()
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_2':
+        trivia_2()
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_3':
+        trivia_3()
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_4':
+        trivia_4()
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_5':
+        trivia_5()
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_6':
+        trivia_6()
 
 
+def character_has_leveled(character, level):
+    if character['Level'] - level == 1:
+        return True
+    else:
+        return False
 
 
 def main():
