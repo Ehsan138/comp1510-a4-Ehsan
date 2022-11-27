@@ -60,7 +60,7 @@ def make_board(rows, columns):
 
             # text += f"{row * column} \t"
 
-            board[(row, column)] = 'None'
+            board[(row, column)] = ['None', 'None']
 
             # print('{:3}'.format(x * y), end=' ')
             # board[(row, column)] = ["Welcome to the pit of doom", None]
@@ -102,7 +102,7 @@ def describe_current_location(board, character):
     :param character:
     :return:
     """
-    board[(character["x_coordinate"], character["y_coordinate"])] = 'current location'
+    board[(character["x_coordinate"], character["y_coordinate"])][0] = 'current'
     print(board_visual(board, 10, 10))
 
 
@@ -196,7 +196,22 @@ def move_character(character, direction, steps):
 
 
 def update_current_location(board, character):
-    board[(character["x_coordinate"], character["y_coordinate"])] = 'current location'
+    board[(character["x_coordinate"], character["y_coordinate"])][0] = 'current'
+
+
+def check_for_challenges(board, character):
+    if board[(character["x_coordinate"], character["y_coordinate"])][1] == 'challenge':
+        return True
+    else:
+        return False
+
+
+def is_alive(character):
+    if character['Current HP'] > 0:
+        return True
+    else:
+        return False
+
 
 
 def main():
@@ -214,9 +229,11 @@ def main():
     print(validate_move(character, direction, steps))
     move_character(character, direction, steps)
     update_current_location(board, character)
-    print(character)
-    print(board)
-    print(board_visual(board, 10, 10))
+    # print(character)
+    # print(board)
+    # print(board_visual(board, 10, 10))
+    there_is_a_challenge = check_for_challenges(board, character)
+    print(there_is_a_challenge)
 
 
 if __name__ == "__main__":
