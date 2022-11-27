@@ -40,10 +40,12 @@ def make_character(name):
     :param name: a string
     :return: dictionary that contains key:value pairs
     """
-    character_dictionary = {"Name": name, "x_coordinate": 0,
-                            "y_coordinate": 0, "Current HP": 5, "Max HP": 5}
+    character_dictionary = {"Name": name, "x_coordinate": 1,
+                            "y_coordinate": 1, "Current HP": 5, "Max HP": 5}
 
     return character_dictionary
+
+# character = make_character('Chris')
 
 
 def make_board(rows, columns):
@@ -69,14 +71,16 @@ def make_board(rows, columns):
     return board
 
 
-def board_visual(rows, columns):
+# board = make_board(10, 10)
+
+def board_visual(board, rows, columns):
     """
 
     :param rows:
     :param columns:
     :return:
     """
-    board = make_board(rows, columns)
+    # board = make_board(rows, columns)
     text = ''
 
     # for key in board:
@@ -91,21 +95,34 @@ def board_visual(rows, columns):
     return text
 
 
+def describe_current_location(board, character):
+    """
+
+    :param board:
+    :param character:
+    :return:
+    """
+    board[(character["x_coordinate"], character["y_coordinate"])] = 'current location'
+    print(board_visual(board, 10, 10))
+
+
+
+
 
 
 
     # board[(0, 0)] = adfkjdfklj
 
 
-def board(coordinate_x , coordinate_y):
-    """
-
-    :param coordinate_x:
-    :param coordinate_y:
-    :return:
-    """
-
-    return 'Empty'
+# def board(coordinate_x , coordinate_y):
+#     """
+#
+#     :param coordinate_x:
+#     :param coordinate_y:
+#     :return:
+#     """
+#
+#     return 'Empty'
 
 
 # def describe_current_location():
@@ -121,9 +138,12 @@ def board(coordinate_x , coordinate_y):
 
 
 def main():
+    character = make_character('Chris')
     print(make_board(10, 10))
-    print(board_visual(10, 10))
-
+    board = make_board(10, 10)
+    print(board_visual(board, 10, 10))
+    describe_current_location(board, character)
+    # print(board_visual(board, 10, 10))
 
 if __name__ == "__main__":
     main()
