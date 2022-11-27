@@ -40,6 +40,10 @@ def make_character(name):
     :param name: a string
     :return: dictionary that contains key:value pairs
     """
+    character_dictionary = {"Name" : name, "X-coordinate": 0,
+                            "Y-coordinate": 0, "Current HP": 5, "Max HP": 5}
+
+    return character_dictionary
 
 
 def make_board():
