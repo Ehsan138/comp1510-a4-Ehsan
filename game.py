@@ -89,7 +89,7 @@ def board_visual(board, rows, columns):
     for row in range(1, rows + 1):
         text += '\n'
         for column in range(1, columns + 1):
-            text += f"{board[(row, column)]} \t"
+            text += f"{board[(column, row)]} \t"
             # if (row, column) in board:
 
     return text
@@ -150,19 +150,19 @@ def get_user_choice():
 def get_user_steps():
     steps = ''
     while steps not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
-        steps = input(f"How many steps do u wanna take? (this number must be 1 and 9)")
+        steps = input(f"How many steps do u wanna take? (this number must be 1 and 9) \n")
 
     return steps
 
 
 def validate_move(character, direction, steps):
-    if int(direction) == 0 and character['y_coordinate'] - steps >= 1:
+    if int(direction) == 0 and character['y_coordinate'] - int(steps) >= 1:
         return True
-    elif int(direction) == 1 and character['y_coordinate'] + steps <= 10:
+    elif int(direction) == 1 and character['y_coordinate'] + int(steps) <= 10:
         return True
-    elif int(direction) == 2 and character['x_coordinate'] - steps >= 1:
+    elif int(direction) == 2 and character['x_coordinate'] - int(steps) >= 1:
         return True
-    elif int(direction) == 3 and character['x_coordinate'] + steps <= 10:
+    elif int(direction) == 3 and character['x_coordinate'] + int(steps) <= 10:
         return True
     else:
         return False
@@ -186,15 +186,17 @@ def validate_move(character, direction, steps):
 
 def move_character(character, direction, steps):
     if int(direction) == 0:
-        character['y_coordinate'] -= steps
+        character['y_coordinate'] -= int(steps)
     elif int(direction) == 1:
-        character['y_coordinate'] += steps
+        character['y_coordinate'] += int(steps)
     elif int(direction) == 2:
-        character['x_coordinate'] -= steps
+        character['x_coordinate'] -= int(steps)
     elif int(direction) == 3:
-        character['x_coordinate'] += steps
+        character['x_coordinate'] += int(steps)
 
 
+def update_current_location(board, character):
+    board[(character["x_coordinate"], character["y_coordinate"])] = 'current location'
 
 
 def main():
@@ -208,11 +210,13 @@ def main():
 
     direction = get_user_choice()
     print(direction)
-    steps = 3
+    steps = get_user_steps()
     print(validate_move(character, direction, steps))
     move_character(character, direction, steps)
-    # print(board)
+    update_current_location(board, character)
     print(character)
+    print(board)
+    print(board_visual(board, 10, 10))
 
 
 if __name__ == "__main__":
