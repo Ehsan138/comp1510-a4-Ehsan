@@ -106,8 +106,16 @@ def describe_current_location(board, character):
     print(board_visual(board, 10, 10))
 
 
+def get_user_choice():
+    directions = ['North', 'South', 'West', 'East']
+    enumerate_directions = list(enumerate(directions))
+
+    response = ''
+    while response not in ['0', '1', '2', '3']:
+        response = input(f"Where do u wanna go broski? \n{enumerate_directions} \n")
 
 
+    return response
 
     # board[(0, 0)] = adfkjdfklj
 
@@ -132,12 +140,28 @@ def describe_current_location(board, character):
 # def validate_move():
 
 
-def is_alive(character):
-    if HP > 0:
+# def is_alive(character):
+#     if HP > 0:
+#         return True
+#     else:
+#         return False
+
+
+def validate_move(character, direction):
+    if int(direction) == 0 and character['y_coordinate'] - 1 >= 1:
+        character['y_coordinate'] -= 1
+        return True
+    elif int(direction) == 1 and character['y_coordinate'] + 1 <= 10:
+        character['y_coordinate'] += 1
+        return True
+    elif int(direction) == 2 and character['x_coordinate'] - 1 >= 1:
+        character['x_coordinate'] -= 1
+        return True
+    elif int(direction) == 3 and character['x_coordinate'] + 1 <= 10:
+        character['x_coordinate'] += 1
         return True
     else:
         return False
-
 
 
 def main():
@@ -146,7 +170,14 @@ def main():
     board = make_board(10, 10)
     print(board_visual(board, 10, 10))
     describe_current_location(board, character)
+
     # print(board_visual(board, 10, 10))
+
+    direction = get_user_choice()
+    print(direction)
+    print(validate_move(character, direction))
+    # print(board)
+
 
 if __name__ == "__main__":
     main()
