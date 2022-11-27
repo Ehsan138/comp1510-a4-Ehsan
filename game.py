@@ -10,7 +10,7 @@ Michelle Kwok A01323329
 #     board = make_board(rows, columns)
 #     character = make_character("Player name")
 #     achieved_goal = False
-#     while not achieved_goal:
+#     while is_alive(character) and not achieved_goal:
 #         # Tell the user where they are describe_current_location(board, character)
 #         direction = get_user_choice()
 #         valid_move = validate_move(board, character, direction)
@@ -109,8 +109,6 @@ def describe_current_location(board, character):
 
 
 
-
-
     # board[(0, 0)] = adfkjdfklj
 
 
@@ -134,6 +132,11 @@ def describe_current_location(board, character):
 # def validate_move():
 
 
+def is_alive(character):
+    if HP > 0:
+        return True
+    else:
+        return False
 
 
 
