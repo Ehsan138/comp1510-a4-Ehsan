@@ -1,0 +1,53 @@
+
+def trivia_one():
+    options = ["Electric, Ground, and Poison", "Grass, Water, and Fire", "Fighting, Psychic, and Ghost", "Dragon, "
+                                                                                                         "Flying, and "
+                                                                                                         "Normal"]
+    print("What are the three types of starter Pokémon?")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    answer = input("Please enter the number of the correct answer:")
+    if answer == '2':
+        print("That's correct!")
+    else:
+        print("Oops, you got that wrong.")
+
+
+def trivia_two():
+    options = ["Evolution stone", "Lightning stone", "Thunder stone", "Leveling up to Lvl 14"]
+    print("How do you evolve a Pikachu?")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    answer = input("Please enter the number of the correct answer:")
+    if answer == '3':
+        print("That's correct!")
+    else:
+        print("Oops, you got that wrong.")
+
+
+def trivia_three():
+    potions = 0
+    options = ["Psychic", "Fighting", "Fairy", "Dark"]
+    print("What type of Pokémon is Mewtwo?")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    answer = input("Please enter the number of the correct answer:")
+    if answer == '1':
+        print("That's correct! Few people know anything about Mewtwo so I'm surprised you got it so easily. Your "
+              "Pikachu looks so tired. Let me heal him up for ya.")
+        if character_dictionary["Current HP"] < 100:
+            character_dictionary["Max HP"] = 100
+        else:
+            print("Oh, actually, your Pikachu is well rested.")
+    else:
+        print("Oops, you got that wrong.")
+
+
+def main():
+    trivia_one()
+    trivia_two()
+    trivia_three()
+
+
+if __name__ == "__main__":
+    main()
