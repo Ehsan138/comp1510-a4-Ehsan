@@ -49,13 +49,13 @@ def battle_one():
         print(count, options)
     will_battle = input("What do you want to do?")
     if will_battle == "1":
-        print("'If you have Pokémon with you, then you're an official Pokémon trainer! You can't say no to my challenge"
+        print("'If you have Pokemon with you, then you're an official Pokemon trainer! You can't say no to my challenge"
               "!'\nYoungster Allen sent out Wurmple (Lvl 1)! \nGo Pikachu! \nPikachu used Thunder Shock! \nWurmple's hp"
               " went down 30hp! \nFoe Wurmple used String Shot! \nPikachu's SPEED was harshly lowered! \nPikachu used "
               "Thunder Shock! \nWurmple fainted! \nPikachu gained 20 EXP Points! \nPikachu grew to Level 2! \nPikachu "
               "learned the new move Spark! \nPlayer defeated Youngster Allen. \n'I called you because I thought I could"
-              " beat you... I can tell you're new to battling. Let me give you some advice. \nWhen Pokémon battle, they"
-              " eventually level up and become stronger. If the Pokémon with you become stronger, you'll be able to go "
+              " beat you... I can tell you're new to battling. Let me give you some advice. \nWhen Pokemon battle, they"
+              " eventually level up and become stronger. If the Pokemon with you become stronger, you'll be able to go "
               "farther away from here.'")
     else:
         move_character()
@@ -73,14 +73,14 @@ def battle_two():
               "went down 40hp! \nFoe Ekans used Bite! \nPikachu's hp went down 30hp! \nPikachu used Spark! \nEkans' hp "
               "went down 50hp! \nEkans fainted! \nPikachu gained 30 EXP Points! \nPikachu grew to Level 3! \nPikachu "
               "learned the new move Thunderbolt! \nPlayer defeated Team Rocket Jessie! \n'Just you wait! Our Team "
-              "Rocket Leader Giovanni has something BIG in store for you...All I can say is a powerful Pokémon will "
+              "Rocket Leader Giovanni has something BIG in store for you...All I can say is a powerful Pokemon will "
               "help us achieve great things!'")
     else:
         move_character()
 
 
 def battle_three():
-    print("There is a menacing Pokémon towering over you, blocking the only path you can take.", """
+    print("There is a menacing pokemon towering over you, blocking the only path you can take.", """
                               ⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣷⠀⠀⠀⠀⣸⣶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⡞⣿⣷⣮⣻⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -109,7 +109,7 @@ def battle_three():
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⡿⣏⣃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠿⠿⠟⠈⠁⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⡿⠿⠿⠿⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀""")
-    print("\nUpon closer inspection it is legendary Pokémon Mewtwo! \nMewtwo makes eye contact with you. It seems you "
+    print("\nUpon closer inspection it is legendary pokemon Mewtwo! \nMewtwo makes eye contact with you. It seems you "
           "must battle Mewtwo to pass. \nPikachu seems a little bit worried about being able to battle.")
     options = ["Battle", "Flee"]
     for count, options in enumerate(options, start=1):
@@ -122,7 +122,7 @@ def battle_three():
               "\nMewtwo used Flamethrower! \nPikachu's hp went down by 35 hp! \nPikachu used Thunderbolt! \nMewtwo's hp"
               " decreased by 40 hp! \nMewtwo used Confusion! \nPikachu moved out of the way just in time. \nPikachu"
               "looks at you waiting to be complimented. \nPikachu used Thunderbolt! \nMewtwo's hp decreased by 30 hp! "
-              "... \nMewtwo fainted! \n.......")
+              "... \nMewtwo fainted! \n...)
 
 
 def main():

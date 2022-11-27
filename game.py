@@ -4,6 +4,11 @@ Michelle Kwok A01323329
 """
 
 
+# from random import choice
+# import numpy as np
+import random
+
+
 # def game():
 #     rows = 10
 #     columns = 10
@@ -41,7 +46,9 @@ def make_character(name):
     :return: dictionary that contains key:value pairs
     """
     character_dictionary = {"Name": name, "x_coordinate": 1,
-                            "y_coordinate": 1, "Current HP": 5, "Max HP": 5}
+                            "y_coordinate": 1, "Current HP": 5,
+                            "Max_HP": 5, "Experience_Points": 0,
+                            "Level": 1}
 
     return character_dictionary
 
@@ -72,6 +79,25 @@ def make_board(rows, columns):
 
 
 # board = make_board(10, 10)
+
+
+def placing_challenges(board):
+    list_of_coordinate = [(x_coordinate, y_coordinate)
+                          for x_coordinate in range(1, 11) for y_coordinate in range(1, 11)]
+
+    while True:
+        challenge_1 = random.sample(list_of_coordinate, 5)
+        if challenge_1 != (1, 1) and challenge_1 != (10, 10):
+            break
+
+    print(challenge_1)
+
+    for coordinate in challenge_1:
+        board[coordinate][1] = f"challenge"
+
+    # print(board)
+
+
 
 def board_visual(board, rows, columns):
     """
@@ -108,12 +134,15 @@ def describe_current_location(board, character):
 
 def get_user_choice():
     directions = ['North', 'South', 'West', 'East']
-    enumerate_directions = list(enumerate(directions))
+    # enumerate_directions = list(enumerate(directions))
 
     response = ''
     while response not in ['0', '1', '2', '3']:
-        response = input(f"Where do u wanna go broski? \n{enumerate_directions} \n")
-
+        print("Where do u wanna go broski")
+        for number, direction in enumerate(directions):
+            print(f"{number}:\t {direction}")
+        # response = input(f"Where do u wanna go broski? \n{enumerate_directions} \n")
+        response = input("Please enter the number of the correct answer: ")
 
     return response
 
@@ -150,7 +179,8 @@ def get_user_choice():
 def get_user_steps():
     steps = ''
     while steps not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
-        steps = input(f"How many steps do u wanna take? (this number must be 1 and 9) \n")
+        print("How many steps do u wanna take? (this number must be 1 and 9)")
+        steps = input("Please enter your answer here: ")
 
     return steps
 
@@ -207,10 +237,14 @@ def check_for_challenges(board, character):
 
 
 def is_alive(character):
-    if character['Current HP'] > 0:
+    if character['Current_HP'] > 0:
         return True
     else:
         return False
+
+
+# def execute_challenge_protocol(character):
+
 
 
 
@@ -218,6 +252,7 @@ def main():
     character = make_character('Chris')
     print(make_board(10, 10))
     board = make_board(10, 10)
+    placing_challenges(board)
     print(board_visual(board, 10, 10))
     describe_current_location(board, character)
 
