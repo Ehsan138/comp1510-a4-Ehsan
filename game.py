@@ -147,21 +147,54 @@ def get_user_choice():
 #         return False
 
 
-def validate_move(character, direction):
-    if int(direction) == 0 and character['y_coordinate'] - 1 >= 1:
-        character['y_coordinate'] -= 1
+def get_user_steps():
+    steps = ''
+    while steps not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
+        steps = input(f"How many steps do u wanna take? (this number must be 1 and 9)")
+
+    return steps
+
+
+def validate_move(character, direction, steps):
+    if int(direction) == 0 and character['y_coordinate'] - steps >= 1:
         return True
-    elif int(direction) == 1 and character['y_coordinate'] + 1 <= 10:
-        character['y_coordinate'] += 1
+    elif int(direction) == 1 and character['y_coordinate'] + steps <= 10:
         return True
-    elif int(direction) == 2 and character['x_coordinate'] - 1 >= 1:
-        character['x_coordinate'] -= 1
+    elif int(direction) == 2 and character['x_coordinate'] - steps >= 1:
         return True
-    elif int(direction) == 3 and character['x_coordinate'] + 1 <= 10:
-        character['x_coordinate'] += 1
+    elif int(direction) == 3 and character['x_coordinate'] + steps <= 10:
         return True
     else:
         return False
+
+
+    # if int(direction) == 0 and character['y_coordinate'] - 1 >= 1:
+    #     character['y_coordinate'] -= 1
+    #     return True
+    # elif int(direction) == 1 and character['y_coordinate'] + 1 <= 10:
+    #     character['y_coordinate'] += 1
+    #     return True
+    # elif int(direction) == 2 and character['x_coordinate'] - 1 >= 1:
+    #     character['x_coordinate'] -= 1
+    #     return True
+    # elif int(direction) == 3 and character['x_coordinate'] + 1 <= 10:
+    #     character['x_coordinate'] += 1
+    #     return True
+    # else:
+    #     return False
+
+
+def move_character(character, direction, steps):
+    if int(direction) == 0:
+        character['y_coordinate'] -= steps
+    elif int(direction) == 1:
+        character['y_coordinate'] += steps
+    elif int(direction) == 2:
+        character['x_coordinate'] -= steps
+    elif int(direction) == 3:
+        character['x_coordinate'] += steps
+
+
 
 
 def main():
@@ -175,8 +208,11 @@ def main():
 
     direction = get_user_choice()
     print(direction)
-    print(validate_move(character, direction))
+    steps = 3
+    print(validate_move(character, direction, steps))
+    move_character(character, direction, steps)
     # print(board)
+    print(character)
 
 
 if __name__ == "__main__":
