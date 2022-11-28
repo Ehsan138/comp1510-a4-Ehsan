@@ -4,8 +4,6 @@ Michelle Kwok A01323329
 """
 
 
-# from random import choice
-# import numpy as np
 import random
 
 
@@ -38,6 +36,35 @@ import random
 #     # enumerated list to give users a selection of answers so they can type as little as possible
 #     # picked from enumerated list if they want to go N, S, E, W: return true if they can move is valid, false if illegal
 
+
+def game():
+    rows = 10
+    columns = 10
+    board = make_board(rows, columns)
+    character = make_character("Chris")
+    achieved_goal = False
+    while is_alive(character) and not achieved_goal:
+        describe_current_location(board, character)
+        board_visual(board, rows, columns)
+        direction = get_user_choice()
+        steps = get_user_steps()
+        valid_move = validate_move(character, direction, steps, rows, columns)
+        if valid_move:
+            move_character(character, direction, steps)
+            describe_current_location(board, character)
+            there_is_a_challenge = check_for_challenges(board, character)
+            if there_is_a_challenge and first_time_challenge(board, character):
+                level = character["Level"]
+                execute_challenge_protocol(board, character)
+                if character_has_leveled(character, level):
+                    execute_glow_up_protocol()
+            achieved_goal = check_if_goal_attained(board, character, rows, columns)
+        else:
+            # Tell the user they can't go in that direction
+    # Print end of game (congratulations or sorry you died)
+
+
+
 def make_character(name):
     """
     Creates and returns a dictionary that contains key:value pairs.
@@ -46,7 +73,7 @@ def make_character(name):
     :return: dictionary that contains key:value pairs
     """
     character_dictionary = {"Name": name, "x_coordinate": 1,
-                            "y_coordinate": 1, "Current HP": 5,
+                            "y_coordinate": 1, "Current_HP": 5,
                             "Max_HP": 5, "Experience_Points": 0,
                             "Level": 1}
 
@@ -185,14 +212,14 @@ def get_user_steps():
     return steps
 
 
-def validate_move(character, direction, steps):
+def validate_move(character, direction, steps, rows, columns):
     if int(direction) == 0 and character['y_coordinate'] - int(steps) >= 1:
         return True
-    elif int(direction) == 1 and character['y_coordinate'] + int(steps) <= 10:
+    elif int(direction) == 1 and character['y_coordinate'] + int(steps) <= rows:
         return True
     elif int(direction) == 2 and character['x_coordinate'] - int(steps) >= 1:
         return True
-    elif int(direction) == 3 and character['x_coordinate'] + int(steps) <= 10:
+    elif int(direction) == 3 and character['x_coordinate'] + int(steps) <= columns:
         return True
     else:
         return False
@@ -225,8 +252,8 @@ def move_character(character, direction, steps):
         character['x_coordinate'] += int(steps)
 
 
-def update_current_location(board, character):
-    board[(character["x_coordinate"], character["y_coordinate"])][0] = 'current'
+# def update_current_location(board, character):
+#     board[(character["x_coordinate"], character["y_coordinate"])][0] = 'current'
 
 
 def check_for_challenges(board, character):
@@ -252,18 +279,26 @@ def first_time_challenge(board, character):
 
 
 def execute_challenge_protocol(board, character):
-    if board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_1':
-        trivia_1()
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_2':
-        trivia_2()
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_3':
-        trivia_3()
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_4':
-        trivia_4()
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_5':
-        trivia_5()
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_6':
-        trivia_6()
+    if board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_one':
+        trivia_one(character)
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_two':
+        trivia_two(character)
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_three':
+        trivia_three(character)
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_four':
+        trivia_four(character)
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_five':
+        trivia_five(character)
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_one':
+        battle_one()
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_two':
+        battle_two()
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_three':
+        battle_three()
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_four':
+        battle_four()
+    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_final':
+        battle_final()
 
 
 def character_has_leveled(character, level):
@@ -276,11 +311,217 @@ def character_has_leveled(character, level):
 # def execute_glow_up_protocol():
 
 
-def check_if_goal_attained(board, character):
-    if character[board[(character["x_coordinate"], character["y_coordinate"])][1]] == 1:
-        return True
+# def check_if_goal_attained(board, character):
+#     if character[board[(character["x_coordinate"], character["y_coordinate"])][1]] == 1:
+#         return True
+#     else:
+#         return False
+
+def check_if_goal_attained(board, character, rows, columns):
+    return character[board[(rows, columns)][1]] == 1
+
+
+#############################################################################################
+
+def trivia_one(character):
+    options = ["Electric, Ground, and Poison", "Grass, Water, and Fire", "Fighting, Psychic, and Ghost", "Dragon, "
+                                                                                                         "Flying, and "
+                                                                                                         "Normal"]
+    print("What are the three types of starter Pokémon?")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    answer = input("Please enter the number of the correct answer:")
+    if answer == '2':
+        print("That's correct!As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.")
+        if character["Current_HP"] < character["Max_HP"]:
+            character["Current_HP"] *= 1.10
+        else:
+            print("Oh, actually, your Pikachu is well rested.")
     else:
-        return False
+        print("Oops, you got that wrong.")
+
+
+def trivia_two(character):
+    options = ["Evolution stone", "Lightning stone", "Thunder stone", "Leveling up to Lvl 14"]
+    print("How do you evolve a Pikachu?")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    answer = input("Please enter the number of the correct answer:")
+    if answer == '3':
+        print("That's correct!As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.")
+        if character["Current_HP"] < character["Max_HP"]:
+            character["Current_HP"] *= 1.10
+        else:
+            print("Oh, actually, your Pikachu is well rested.")
+    else:
+        print("Oops, you got that wrong.")
+
+
+def trivia_three(character):
+    options = ["Psychic", "Fighting", "Fairy", "Dark"]
+    print("What type of Pokémon is Mewtwo?")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    answer = input("Please enter the number of the correct answer:")
+    if answer == '1':
+        print("That's correct! Few people know anything about Mewtwo so I'm surprised you got it so easily. Your "
+              "Pikachu looks so tired. Let me heal him up for ya.")
+        if character["Current_HP"] < character["Max_HP"]:
+            character["Current_HP"] = character["Max_HP"]
+        else:
+            print("Oh, actually, your Pikachu is well rested.")
+    else:
+        print("Oops, you got that wrong.")
+
+
+def trivia_four(character):
+    options = ["Pikachu", "Charmander", "Squirtle", "Bulbasaur"]
+    print("Who is #1 in the Pokédex?")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    answer = input("Please enter the number of the correct answer:")
+    if answer == '4':
+        print("That's correct! As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.")
+        if character["Current_HP"] < character["Max_HP"]:
+            character["Current_HP"] *= 1.10
+        else:
+            print("Oh, actually, your Pikachu is well rested.")
+    else:
+        print("Oops, you got that wrong.")
+
+
+def trivia_five(character):
+    options = ["Onix", "Rhydon", "Charizard", "Diglet"]
+    print("Which Pokémon can live in molten lava of 3600 degrees?")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    answer = input("Please enter the number of the correct answer:")
+    if answer == '2':
+        print("That's correct! As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.")
+        if character["Current_HP"] < character["Max_HP"]:
+            character["Current_HP"] *= 1.10
+        else:
+            print("Oh, actually, your Pikachu is well rested.")
+    else:
+        print("Oops, you got that wrong.")
+
+
+def battle_one():
+    options = ["Battle", "Flee"]
+    print("Youngster Allen looks like he wants to battle with you.")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    will_battle = input("What do you want to do?")
+    if will_battle == "1":
+        print("'If you have Pokemon with you, then you're an official Pokemon trainer! You can't say no to my challenge"
+              "!'\nYoungster Allen sent out Wurmple (Lvl 1)! \nGo Pikachu! \nPikachu used Thunder Shock! \nWurmple's hp"
+              " went down 30hp! \nFoe Wurmple used String Shot! \nPikachu's SPEED was harshly lowered! \nPikachu used "
+              "Thunder Shock! \nWurmple fainted! \nPikachu gained 20 EXP Points! \nPikachu grew to Level 2! \nPikachu "
+              "learned the new move Spark! \nPlayer defeated Youngster Allen. \n'I called you because I thought I could"
+              " beat you... I can tell you're new to battling. Let me give you some advice. \nWhen Pokemon battle, they"
+              " eventually level up and become stronger. If the Pokemon with you become stronger, you'll be able to go "
+              "farther away from here.'")
+    else:
+        move_character()
+
+
+def battle_two():
+    options = ["Battle", "Flee"]
+    print("Team Rocket Jessie is looking to start a fight.")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    will_battle = input("Will you take her on?")
+    if will_battle == "1":
+        print("'To protect the world from devastation! To unite all people within our nation! To denounce the evils of "
+              "truth and love!' \nTeam Rocket Jessie sends out Ekans! \nGo Pikachu! \nPikachu used Spark! \nEkans' hp "
+              "went down 40hp! \nFoe Ekans used Bite! \nPikachu's hp went down 30hp! \nPikachu used Spark! \nEkans' hp "
+              "went down 50hp! \nEkans fainted! \nPikachu gained 30 EXP Points! \nPikachu grew to Level 3! \nPikachu "
+              "learned the new move Thunderbolt! \nPlayer defeated Team Rocket Jessie! \n'Just you wait! Our Team "
+              "Rocket Boss Giovanni has something BIG in store for you...All I can say is a powerful Pokemon will help "
+              "us achieve great things!'")
+    else:
+        move_character()
+
+
+def battle_three():
+    options = ["Battle", "Flee"]
+    print("Team Rocket James is looking to start a fight.")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    will_battle = input("Will you take him on?")
+    if will_battle == "1":
+        print("'You may have defeated Jessie but I will avenge her! Get ready to cry at my feet!' \nTeam Rocket James "
+              "sends out Meowth! \nGo Pikachu! \nPikachu used Spark! \nMeowth's hp went down 40hp! \nFoe Meowth used "
+              "Pay Day! \nPikachu's hp went down 30hp! \nPikachu used Spark! \nMeowth's hp went down 50hp! \nMeowth "
+              "fainted! \nPikachu gained 30 EXP Points! \nPikachu grew to Level 3! \nPikachu learned the new move "
+              "Thunderbolt! \nPlayer defeated Team Rocket James! \n'Okay...You may have defeated me too BUT we will "
+              "NEVER give up! \nNot until our goal is achieved!'")
+    else:
+        move_character()
+
+
+def battle_four():
+    options = ["Battle", "Flee"]
+    print("Team Rocket Boss Giovanni is furiously glaring at you.")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    will_battle = input("Will you battle him?")
+    if will_battle == "1":
+        print("'I heard about what happened from my underlings. If you are so adamant on opposing us, show me your "
+              "power!' \nTeam Rocket Boss Giovanni sends out Persian! \nGo Pikachu! \nPikachu used Spark! \nPersian's "
+              "hp went down 40hp! \nFoe Persian used Assurance! \nPikachu's hp went down 30hp! \nPikachu used Spark! \n"
+              "Persian's hp went down 50hp! \nPersian fainted! \nPikachu gained 30 EXP Points! \nPikachu grew to Level "
+              "3! \nPikachu learned the new move Thunderbolt! \nPlayer defeated Team Rocket Boss Giovanni! \n'I lost "
+              "because of bad luck. Next time I will battle you with better Pokémon. \nNow I just need to look for "
+              "Mewtwo...'")
+    else:
+        move_character()
+
+
+def battle_final():
+    print("There is a menacing pokemon towering over you, blocking the only path you can take.", """
+                              ⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣷⠀⠀⠀⠀⣸⣶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⡞⣿⣷⣮⣻⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣾⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⡝⢿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⡀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⠸⣸⣻⣏⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣿⣿⡿⡀⠀⠀⠀⠀⠀⣾⡞⡝⣿⢿⣿⣿⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠩⣾⣿⣶⢦⣤⣀⠸⠻⢭⣥⡻⣧⠀⡙⠛⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣄⢠⣴⣾⣿⣿⣿⣏⣶⣾⡽⣿⣷⣟⣿⣿⣿⣻⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⣀⣀⣀⠀⠀⠀⠸⣿⡿⠘⠻⢿⣿⣿⠟⠛⠿⠿⠃⢍⣿⣿⢸⣿⣿⣿⡽⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⣰⣟⠛⠛⢿⣿⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣜⢿⣿⡿⡷⡿⣼⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⢰⣿⠃⠀⠀⠀⠈⢿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣷⣯⣾⣿⡀⠀⠙⠻⢿⣶⣄⠀⠀⠀⠀⠀⠀⠀
+    ⢸⣿⠀⠀⠀⠀⠀⠀⢻⣿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣧⡀⠀⠀⠀⠙⢿⣧⡀⠀⠀⠀⠀⠀
+    ⢸⣿⡀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣬⣽⣿⣿⢟⣛⣳⠀⠀⠀⠀⠀⠹⣿⣆⠀⠀⠀⠀
+    ⠀⣿⣇⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣷⢻⣾⣿⣿⣷⡽⣄⠀⠀⢀⣾⣿⣷⣄⠀⠀
+    ⠀⠘⣿⣆⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣷⣄⡀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⡇⣿⣿⣿⣿⣿⢹⣦⠀⢸⣇⠀⠹⣏⢧⡀
+    ⠀⠀⠹⣿⣷⡀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⡆⣿⣿⣿⣿⣿⣿⣿⣿⣧⣿⣿⣿⣿⣿⢸⣿⡄⠈⠛⠀⣶⠟⠼⠇
+    ⠀⠀⠀⠹⣿⣿⣷⣤⡀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⣿⡿⣼⣿⣿⣿⣿⡿⣾⣿⠁⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠙⣿⣿⣿⣿⣶⣄⠀⠀⠈⠻⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⡿⣱⣿⣿⣿⣿⢟⣼⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠈⢻⣿⣿⣿⣿⣧⡀⠀⠀⠈⠻⢿⣿⢸⣿⣿⣿⡿⢟⣫⣾⣿⣿⠿⣛⣵⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⡇⠀⠀⠀⠀⠀⢈⣾⣿⡟⠙⠚⠛⠛⠋⠉⠀⠘⣿⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠁⠀⠀⠀⠀⢀⣾⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⡿⡏⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣯⢻⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠋⠘⠻⣿⣿⣷⣶⣒⣒⢢⡄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⡿⣏⣃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠿⠿⠟⠈⠁⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⡿⠿⠿⠿⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀""")
+    print("\nUpon closer inspection it is legendary pokemon Mewtwo! \nMewtwo makes eye contact with you. It seems you "
+          "must battle Mewtwo to pass. \nPikachu seems a little bit worried about being able to battle.")
+    options = ["Battle", "Flee"]
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    will_battle = input("Will you battle Mewtwo?")
+    if will_battle == "1":
+        print("Go Pikachu! \nPikachu used Thunderbolt! \nOh no, Mewtwo dodged it. \nMewtwo used Confusion! \nPikachu is"
+              " confused! \nPikachu hurt himself in his confusion! \nMewtwo used Ice Beam! \nPikachu lost 50 hp! "
+              "\nPikachu snapped out of his confusion. \nPikachu used Thunderbolt! \nMewtwo's hp decreased by 30 hp! "
+              "\nMewtwo used Flamethrower! \nPikachu's hp went down by 35 hp! \nPikachu used Thunderbolt! \nMewtwo's hp"
+              " decreased by 40 hp! \nMewtwo used Confusion! \nPikachu moved out of the way just in time. \nPikachu"
+              "looks at you waiting to be complimented. \nPikachu used Thunderbolt! \nMewtwo's hp decreased by 30 hp! "
+              "... \nMewtwo fainted! \n...")
 
 
 
