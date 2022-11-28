@@ -123,15 +123,26 @@ def placing_challenges(board, rows, columns):
     list_of_coordinate = [(x_coordinate, y_coordinate)
                           for x_coordinate in range(1, columns + 1) for y_coordinate in range(1, rows + 1)]
 
-    while True:
-        challenge_1 = random.sample(list_of_coordinate, 5)
-        if challenge_1 != (1, 1) and challenge_1 != (10, 10):
-            break
+    board[(3, 3)][1] = 'battle_two'
+    board[(5, 8)][1] = 'battle_three'
+    board[(8, 3)][1] = 'battle_four'
+    board[(10, 10)][1] = 'battle_final'
 
-    print(challenge_1)
+    list_of_coordinate = [coordinate for coordinate in list_of_coordinate
+                          if coordinate not in [(1, 1), (10, 10), (3, 3), (5, 8), (8, 3)]]
 
-    for coordinate in challenge_1:
-        board[coordinate][1] = f"challenge"
+    trivia = random.sample(list_of_coordinate, 10)
+
+
+    # while True:
+    #     trivia = random.sample(list_of_coordinate, 5)
+    #     if trivia != (1, 1) and trivia != (10, 10):
+    #         break
+
+    print(trivia)
+
+    for coordinate in trivia:
+        board[coordinate][1] = random.choice(['trivia_1', 'trivia_2', 'trivia_3', 'trivia_4', 'trivia_5'])
 
     # print(board)
 
@@ -451,7 +462,7 @@ def trivia_five(character):
 
 
 def battle_one(character):
-    options = ["Battle", "Flee"]
+    options = ("Battle", "Flee")
     print("Youngster Allen looks like he wants to battle with you.")
     for count, options in enumerate(options, start=1):
         print(count, options)
@@ -473,7 +484,7 @@ def battle_one(character):
 
 
 def battle_two(character):
-    options = ["Battle", "Flee"]
+    options = ("Battle", "Flee")
     print("Team Rocket Jessie is looking to start a fight.")
     for count, options in enumerate(options, start=1):
         print(count, options)
@@ -669,12 +680,12 @@ def game_fail():
 
 
 def main():
-    # character = make_character('Chris')
-    # print(make_board(10, 10))
-    # board = make_board(10, 10)
-    # placing_challenges(board)
-    # print(board_visual(board, 10, 10))
-    # describe_current_location(board, character)
+    character = make_character()
+    print(make_board(10, 10))
+    board = make_board(10, 10)
+    placing_challenges(board, 10, 10)
+    print(board_visual(board, 10, 10))
+    describe_current_location(board, character)
     #
     # # print(board_visual(board, 10, 10))
     #
@@ -690,7 +701,7 @@ def main():
     # there_is_a_challenge = check_for_challenges(board, character)
     # print(there_is_a_challenge)
 
-    game()
+    # game()
 
 
 if __name__ == "__main__":
