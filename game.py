@@ -458,7 +458,7 @@ def battle_one(character):
         print(count, options)
     will_battle = input("What do you want to do?")
     if will_battle == "1":
-        character["Experience_Points"] += random.randint(500, 650)
+        character["Experience_Points"] += random.randint(200, 300)
         character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
         character["battle_one"] = 1
         print("'If you have Pokemon with you, then you're an official Pokemon trainer! You can't say no to my challenge"
@@ -500,18 +500,21 @@ def battle_three(character):
     for count, options in enumerate(options, start=1):
         print(count, options)
     will_battle = input("Will you take him on?")
-    if will_battle == "1":
+    if will_battle == "1" and character["battle_two"] == 1:
         character["Experience_Points"] += random.randint(500, 650)
         character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
         character["battle_three"] = 1
-        print("'You may have defeated Jessie but I will avenge her! Get ready to cry at my feet!' \nTeam Rocket James "
-              "sends out Meowth! \nGo Pikachu! \nPikachu used Spark! \nMeowth's hp went down 40hp! \nFoe Meowth used "
-              "Pay Day! \nPikachu's hp went down 30hp! \nPikachu used Spark! \nMeowth's hp went down 50hp! \nMeowth "
-              "fainted! \nPikachu gained 30 EXP Points! \nPikachu grew to Level 3! \nPikachu learned the new move "
-              "Thunderbolt! \nPlayer defeated Team Rocket James! \n'Okay...You may have defeated me too BUT we will "
-              "NEVER give up! \nNot until our goal is achieved!'")
+        print("'You may have defeated Jessie but I will avenge her! Get ready to cry at my feet!' \nTeam Rocket "
+              "James sends out Meowth! \nGo Pikachu! \nPikachu used Spark! \nMeowth's hp went down 40hp! \nFoe "
+              "Meowth used Pay Day! \nPikachu's hp went down 30hp! \nPikachu used Spark! \nMeowth's hp went down "
+              "50hp! \nMeowth fainted! \nPikachu gained 30 EXP Points! \nPikachu grew to Level 3! \nPikachu learned"
+              " the new move Thunderbolt! \nPlayer defeated Team Rocket James! \n'Okay...You may have defeated me "
+              "too BUT we will NEVER give up! \nNot until our goal is achieved!'")
+    elif will_battle == "1" and character["battle_two"] == 0:
+        print("Oh nevermind, go find Team Rocket Jessie first before battling me.")
     else:
         character["Experience_Points"] -= 50
+        print("You lose 50 EXP Points for fleeing from battle.")
 
 
 def battle_four(character):
@@ -520,7 +523,7 @@ def battle_four(character):
     for count, options in enumerate(options, start=1):
         print(count, options)
     will_battle = input("Will you battle him?")
-    if will_battle == "1":
+    if will_battle == "1" and character["battle_three"] == 1:
         character["Experience_Points"] += random.randint(500, 650)
         character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
         character["battle_four"] = 1
@@ -531,8 +534,11 @@ def battle_four(character):
               "3! \nPikachu learned the new move Thunderbolt! \nPlayer defeated Team Rocket Boss Giovanni! \n'I lost "
               "because of bad luck. Next time I will battle you with better Pokémon. \nNow I just need to look for "
               "Mewtwo...'")
+    elif will_battle == "1" and character["battle_three"] == 0:
+        print("Oh nevermind, go find Team Rocket James first before battling me.")
     else:
         character["Experience_Points"] -= 50
+        print("You lose 50 EXP Points for fleeing from battle.")
 
 
 def battle_final(character):
@@ -571,7 +577,7 @@ def battle_final(character):
     for count, options in enumerate(options, start=1):
         print(count, options)
     will_battle = input("Will you battle Mewtwo?")
-    if will_battle == "1":
+    if will_battle == "1" and character["battle_four"] == 1:
         character["Experience_Points"] += random.randint(500, 650)
         character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
         character["battle_final"] = 1
@@ -582,7 +588,11 @@ def battle_final(character):
               " decreased by 40 hp! \nMewtwo used Confusion! \nPikachu moved out of the way just in time. \nPikachu"
               "looks at you waiting to be complimented. \nPikachu used Thunderbolt! \nMewtwo's hp decreased by 30 hp! "
               "... \nMewtwo fainted! \n...")
-
+    elif will_battle == "1" and character["battle_four"] == 0:
+        print("Oh, seems like Mewtwo deems you unworthy of battle. Maybe go find Team Rocket Boss Giovanni first.")
+    else:
+        character["Experience_Points"] -= 50
+        print("You lose 50 EXP Points for fleeing from battle.")
 #################################################################################################################
 
 
@@ -654,6 +664,7 @@ def game_fail():
         game()
     else:
         sys.exit()
+
 
 
 
