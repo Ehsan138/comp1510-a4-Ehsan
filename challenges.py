@@ -127,11 +127,11 @@ def battle_three():
     will_battle = input("Will you take him on?")
     if will_battle == "1":
         print("'You may have defeated Jessie but I will avenge her! Get ready to cry at my feet!' \nTeam Rocket James "
-              "sends out Meowth! \nGo Pikachu! \nPikachu used Spark! \nMeowth's hp went down 40hp! \nFoe Meowth used Pay"
-              " Day! \nPikachu's hp went down 30hp! \nPikachu used Spark! \nMeowth's hp went down 50hp! \nMeowth "
+              "sends out Meowth! \nGo Pikachu! \nPikachu used Spark! \nMeowth's hp went down 40hp! \nFoe Meowth used "
+              "Pay Day! \nPikachu's hp went down 30hp! \nPikachu used Spark! \nMeowth's hp went down 50hp! \nMeowth "
               "fainted! \nPikachu gained 30 EXP Points! \nPikachu grew to Level 3! \nPikachu learned the new move "
               "Thunderbolt! \nPlayer defeated Team Rocket James! \n'Okay...You may have defeated me too BUT we will "
-              "never give up! \nNot until our goal is achieved!'")
+              "NEVER give up! \nNot until our goal is achieved!'")
     else:
         move_character()
 
@@ -147,9 +147,9 @@ def battle_four():
               "power!' \nTeam Rocket Boss Giovanni sends out Persian! \nGo Pikachu! \nPikachu used Spark! \nPersian's "
               "hp went down 40hp! \nFoe Persian used Assurance! \nPikachu's hp went down 30hp! \nPikachu used Spark! \n"
               "Persian's hp went down 50hp! \nPersian fainted! \nPikachu gained 30 EXP Points! \nPikachu grew to Level "
-              "3! \nPikachu learned the new move Thunderbolt! \nPlayer defeated Team Rocket Boss Giovanni! \nI lost "
-              "because of bad luck. \nNext time I will battle you with better Pokémon. \nNow I just need to look for "
-              "Mewtwo...")
+              "3! \nPikachu learned the new move Thunderbolt! \nPlayer defeated Team Rocket Boss Giovanni! \n'I lost "
+              "because of bad luck. Next time I will battle you with better Pokémon. \nNow I just need to look for "
+              "Mewtwo...'")
     else:
         move_character()
 
