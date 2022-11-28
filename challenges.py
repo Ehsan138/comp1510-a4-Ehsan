@@ -113,13 +113,48 @@ def battle_two():
               "went down 40hp! \nFoe Ekans used Bite! \nPikachu's hp went down 30hp! \nPikachu used Spark! \nEkans' hp "
               "went down 50hp! \nEkans fainted! \nPikachu gained 30 EXP Points! \nPikachu grew to Level 3! \nPikachu "
               "learned the new move Thunderbolt! \nPlayer defeated Team Rocket Jessie! \n'Just you wait! Our Team "
-              "Rocket Leader Giovanni has something BIG in store for you...All I can say is a powerful Pokemon will "
-              "help us achieve great things!'")
+              "Rocket Boss Giovanni has something BIG in store for you...All I can say is a powerful Pokemon will help "
+              "us achieve great things!'")
     else:
         move_character()
 
 
 def battle_three():
+    options = ["Battle", "Flee"]
+    print("Team Rocket James is looking to start a fight.")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    will_battle = input("Will you take him on?")
+    if will_battle == "1":
+        print("'You may have defeated Jessie but I will avenge her! Get ready to cry at my feet!' \nTeam Rocket James "
+              "sends out Meowth! \nGo Pikachu! \nPikachu used Spark! \nMeowth's hp went down 40hp! \nFoe Meowth used Pay"
+              " Day! \nPikachu's hp went down 30hp! \nPikachu used Spark! \nMeowth's hp went down 50hp! \nMeowth "
+              "fainted! \nPikachu gained 30 EXP Points! \nPikachu grew to Level 3! \nPikachu learned the new move "
+              "Thunderbolt! \nPlayer defeated Team Rocket James! \n'Okay...You may have defeated me too BUT we will "
+              "never give up! \nNot until our goal is achieved!'")
+    else:
+        move_character()
+
+
+def battle_four():
+    options = ["Battle", "Flee"]
+    print("Team Rocket Boss Giovanni is furiously glaring at you.")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    will_battle = input("Will you battle him?")
+    if will_battle == "1":
+        print("'I heard about what happened from my underlings. If you are so adamant on opposing us, show me your "
+              "power!' \nTeam Rocket Boss Giovanni sends out Persian! \nGo Pikachu! \nPikachu used Spark! \nPersian's "
+              "hp went down 40hp! \nFoe Persian used Assurance! \nPikachu's hp went down 30hp! \nPikachu used Spark! \n"
+              "Persian's hp went down 50hp! \nPersian fainted! \nPikachu gained 30 EXP Points! \nPikachu grew to Level "
+              "3! \nPikachu learned the new move Thunderbolt! \nPlayer defeated Team Rocket Boss Giovanni! \nI lost "
+              "because of bad luck. \nNext time I will battle you with better Pokémon. \nNow I just need to look for "
+              "Mewtwo...")
+    else:
+        move_character()
+
+
+def battle_final():
     print("There is a menacing pokemon towering over you, blocking the only path you can take.", """
                               ⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣷⠀⠀⠀⠀⣸⣶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
