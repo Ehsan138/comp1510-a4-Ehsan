@@ -81,9 +81,9 @@ def make_board(rows, columns):
 # board = make_board(10, 10)
 
 
-def placing_challenges(board):
+def placing_challenges(board, rows, columns):
     list_of_coordinate = [(x_coordinate, y_coordinate)
-                          for x_coordinate in range(1, 11) for y_coordinate in range(1, 11)]
+                          for x_coordinate in range(1, columns + 1) for y_coordinate in range(1, rows + 1)]
 
     while True:
         challenge_1 = random.sample(list_of_coordinate, 5)
@@ -243,7 +243,15 @@ def is_alive(character):
         return False
 
 
-def execute_challenge_protocol(character, board):
+def first_time_challenge(board, character):
+    if character[board[(character["x_coordinate"], character["y_coordinate"])][1]] == 0:
+        return True
+    else:
+        return False
+
+
+
+def execute_challenge_protocol(board, character):
     if board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_1':
         trivia_1()
     elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_2':
@@ -263,6 +271,18 @@ def character_has_leveled(character, level):
         return True
     else:
         return False
+
+
+# def execute_glow_up_protocol():
+
+
+def check_if_goal_attained(board, character):
+    if character[board[(character["x_coordinate"], character["y_coordinate"])][1]] == 1:
+        return True
+    else:
+        return False
+
+
 
 
 def main():
