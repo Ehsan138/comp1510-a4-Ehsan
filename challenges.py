@@ -8,7 +8,11 @@ def trivia_one():
         print(count, options)
     answer = input("Please enter the number of the correct answer:")
     if answer == '2':
-        print("That's correct!")
+        print("That's correct!As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.")
+        if character_dictionary["Current HP"] < character_dictionary["Max HP"]:
+            character_dictionary["Current HP"] *= 1.10
+        else:
+            print("Oh, actually, your Pikachu is well rested.")
     else:
         print("Oops, you got that wrong.")
 
@@ -20,7 +24,11 @@ def trivia_two():
         print(count, options)
     answer = input("Please enter the number of the correct answer:")
     if answer == '3':
-        print("That's correct!")
+        print("That's correct!As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.")
+        if character_dictionary["Current HP"] < character_dictionary["Max HP"]:
+            character_dictionary["Current HP"] *= 1.10
+        else:
+            print("Oh, actually, your Pikachu is well rested.")
     else:
         print("Oops, you got that wrong.")
 
@@ -36,6 +44,38 @@ def trivia_three():
               "Pikachu looks so tired. Let me heal him up for ya.")
         if character_dictionary["Current HP"] < character_dictionary["Max HP"]:
             character_dictionary["Current HP"] = character_dictionary["Max HP"]
+        else:
+            print("Oh, actually, your Pikachu is well rested.")
+    else:
+        print("Oops, you got that wrong.")
+
+
+def trivia_four():
+    options = ["Pikachu", "Charmander", "Squirtle", "Bulbasaur"]
+    print("Who is #1 in the Pokédex?")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    answer = input("Please enter the number of the correct answer:")
+    if answer == '4':
+        print("That's correct! As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.")
+        if character_dictionary["Current HP"] < character_dictionary["Max HP"]:
+            character_dictionary["Current HP"] *= 1.10
+        else:
+            print("Oh, actually, your Pikachu is well rested.")
+    else:
+        print("Oops, you got that wrong.")
+
+
+def trivia_five():
+    options = ["Onix", "Rhydon", "Charizard", "Diglet"]
+    print("Which Pokémon can live in molten lava of 3600 degrees?")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    answer = input("Please enter the number of the correct answer:")
+    if answer == '2':
+        print("That's correct! As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.")
+        if character_dictionary["Current HP"] < character_dictionary["Max HP"]:
+            character_dictionary["Current HP"] *= 1.10
         else:
             print("Oh, actually, your Pikachu is well rested.")
     else:
