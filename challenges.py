@@ -197,7 +197,7 @@ def battle_final():
               "\nMewtwo used Flamethrower! \nPikachu's hp went down by 35 hp! \nPikachu used Thunderbolt! \nMewtwo's hp"
               " decreased by 40 hp! \nMewtwo used Confusion! \nPikachu moved out of the way just in time. \nPikachu"
               "looks at you waiting to be complimented. \nPikachu used Thunderbolt! \nMewtwo's hp decreased by 30 hp! "
-              "... \nMewtwo fainted! \n...)
+              "... \nMewtwo fainted! \n...")
 
 
 def main():
