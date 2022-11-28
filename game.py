@@ -73,7 +73,6 @@ def game():
 
 
 
-
 def make_character():
     """
     Creates and returns a dictionary that contains key:value pairs.
