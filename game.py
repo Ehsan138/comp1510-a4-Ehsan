@@ -5,6 +5,7 @@ Michelle Kwok A01323329
 
 
 import random
+import sys
 
 
 # def game():
@@ -41,7 +42,7 @@ def game():
     rows = 10
     columns = 10
     board = make_board(rows, columns)
-    character = make_character("Chris")
+    character = make_character()
     achieved_goal = False
     while is_alive(character) and not achieved_goal:
         describe_current_location(board, character)
@@ -56,26 +57,36 @@ def game():
             if there_is_a_challenge and first_time_challenge(board, character):
                 level = character["Level"]
                 execute_challenge_protocol(board, character)
+                level_up(character)
                 if character_has_leveled(character, level):
-                    execute_glow_up_protocol()
+                    execute_glow_up_protocol(character)
             achieved_goal = check_if_goal_attained(board, character, rows, columns)
         else:
-            # Tell the user they can't go in that direction
+            print("Tell the user they can't go in that direction.")
+
+    if not is_alive(character):
+        game_fail()
+    elif achieved_goal:
+        game_succeed()
+
     # Print end of game (congratulations or sorry you died)
 
 
 
-def make_character(name):
+def make_character():
     """
     Creates and returns a dictionary that contains key:value pairs.
 
-    :param name: a string
     :return: dictionary that contains key:value pairs
     """
+    name = input("Name: ")
     character_dictionary = {"Name": name, "x_coordinate": 1,
-                            "y_coordinate": 1, "Current_HP": 5,
-                            "Max_HP": 5, "Experience_Points": 0,
-                            "Level": 1}
+                            "y_coordinate": 1, "Current_HP": 100,
+                            "Max_HP": 100, "Experience_Points": 0,
+                            "Level": 1, "trivia_one": 0, "trivia_two": 0,
+                            "trivia_three": 0, "trivia_four": 0, "trivia_five": 0,
+                            "battle_one": 0, "battle_two": 0, "battle_three": 0,
+                            "battle_four": 0, "battle_final": 0}
 
     return character_dictionary
 
@@ -308,7 +319,30 @@ def character_has_leveled(character, level):
         return False
 
 
-# def execute_glow_up_protocol():
+def level_up(character):
+    character["Level"] = (character["Experience_Points"] // 1000) + 1
+    # if 0 <= character["Experience_Points"] < 1000:
+    #     character["Level"] = 1
+    #     character["Max_HP"] += 100
+    #     character["Current_HP"] = character["Max_HP"]
+    # elif 1000 <= character["Experience_Points"] < 2000:
+    #     character["Level"] = 2
+    #     character["Max_HP"] += 100
+    #     character["Current_HP"] = character["Max_HP"]
+    # elif 2000 <= character["Experience_Points"] < 3000:
+    #     character["Level"] = 3
+    #     character["Max_HP"] += 100
+    #     character["Current_HP"] = character["Max_HP"]
+
+
+def execute_glow_up_protocol(character):
+    character["Max_HP"] += 100
+    character["Current_HP"] = character["Max_HP"]
+    print(f"Name: {character['Name']} \n"
+          f"Level: {character['Level']} \n"
+          f"Current HP: {character['Current_HP']} \n"
+          f"Max HP: {character['Max_HP']} \n"
+          f"Experience Points: {character['Experience_Points']} \n")
 
 
 # def check_if_goal_attained(board, character):
@@ -332,6 +366,8 @@ def trivia_one(character):
         print(count, options)
     answer = input("Please enter the number of the correct answer:")
     if answer == '2':
+        character["Experience_Points"] += 100
+        character["trivia_one"] = 1
         print("That's correct!As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.")
         if character["Current_HP"] < character["Max_HP"]:
             character["Current_HP"] *= 1.10
@@ -348,6 +384,8 @@ def trivia_two(character):
         print(count, options)
     answer = input("Please enter the number of the correct answer:")
     if answer == '3':
+        character["Experience_Points"] += 100
+        character["trivia_two"] = 1
         print("That's correct!As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.")
         if character["Current_HP"] < character["Max_HP"]:
             character["Current_HP"] *= 1.10
@@ -364,6 +402,8 @@ def trivia_three(character):
         print(count, options)
     answer = input("Please enter the number of the correct answer:")
     if answer == '1':
+        character["Experience_Points"] += 500
+        character["trivia_three"] = 1
         print("That's correct! Few people know anything about Mewtwo so I'm surprised you got it so easily. Your "
               "Pikachu looks so tired. Let me heal him up for ya.")
         if character["Current_HP"] < character["Max_HP"]:
@@ -381,6 +421,8 @@ def trivia_four(character):
         print(count, options)
     answer = input("Please enter the number of the correct answer:")
     if answer == '4':
+        character["Experience_Points"] += 100
+        character["trivia_four"] = 1
         print("That's correct! As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.")
         if character["Current_HP"] < character["Max_HP"]:
             character["Current_HP"] *= 1.10
@@ -397,6 +439,8 @@ def trivia_five(character):
         print(count, options)
     answer = input("Please enter the number of the correct answer:")
     if answer == '2':
+        character["Experience_Points"] += 100
+        character["trivia_five"] = 1
         print("That's correct! As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.")
         if character["Current_HP"] < character["Max_HP"]:
             character["Current_HP"] *= 1.10
@@ -406,13 +450,16 @@ def trivia_five(character):
         print("Oops, you got that wrong.")
 
 
-def battle_one():
+def battle_one(character):
     options = ["Battle", "Flee"]
     print("Youngster Allen looks like he wants to battle with you.")
     for count, options in enumerate(options, start=1):
         print(count, options)
     will_battle = input("What do you want to do?")
     if will_battle == "1":
+        character["Experience_Points"] += random.randint(500, 650)
+        character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
+        character["battle_one"] = 1
         print("'If you have Pokemon with you, then you're an official Pokemon trainer! You can't say no to my challenge"
               "!'\nYoungster Allen sent out Wurmple (Lvl 1)! \nGo Pikachu! \nPikachu used Thunder Shock! \nWurmple's hp"
               " went down 30hp! \nFoe Wurmple used String Shot! \nPikachu's SPEED was harshly lowered! \nPikachu used "
@@ -422,16 +469,19 @@ def battle_one():
               " eventually level up and become stronger. If the Pokemon with you become stronger, you'll be able to go "
               "farther away from here.'")
     else:
-        move_character()
+        character["Experience_Points"] -= 50
 
 
-def battle_two():
+def battle_two(character):
     options = ["Battle", "Flee"]
     print("Team Rocket Jessie is looking to start a fight.")
     for count, options in enumerate(options, start=1):
         print(count, options)
     will_battle = input("Will you take her on?")
     if will_battle == "1":
+        character["Experience_Points"] += random.randint(500, 650)
+        character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
+        character["battle_two"] = 1
         print("'To protect the world from devastation! To unite all people within our nation! To denounce the evils of "
               "truth and love!' \nTeam Rocket Jessie sends out Ekans! \nGo Pikachu! \nPikachu used Spark! \nEkans' hp "
               "went down 40hp! \nFoe Ekans used Bite! \nPikachu's hp went down 30hp! \nPikachu used Spark! \nEkans' hp "
@@ -440,16 +490,19 @@ def battle_two():
               "Rocket Boss Giovanni has something BIG in store for you...All I can say is a powerful Pokemon will help "
               "us achieve great things!'")
     else:
-        move_character()
+        character["Experience_Points"] -= 50
 
 
-def battle_three():
+def battle_three(character):
     options = ["Battle", "Flee"]
     print("Team Rocket James is looking to start a fight.")
     for count, options in enumerate(options, start=1):
         print(count, options)
     will_battle = input("Will you take him on?")
     if will_battle == "1":
+        character["Experience_Points"] += random.randint(500, 650)
+        character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
+        character["battle_three"] = 1
         print("'You may have defeated Jessie but I will avenge her! Get ready to cry at my feet!' \nTeam Rocket James "
               "sends out Meowth! \nGo Pikachu! \nPikachu used Spark! \nMeowth's hp went down 40hp! \nFoe Meowth used "
               "Pay Day! \nPikachu's hp went down 30hp! \nPikachu used Spark! \nMeowth's hp went down 50hp! \nMeowth "
@@ -457,16 +510,19 @@ def battle_three():
               "Thunderbolt! \nPlayer defeated Team Rocket James! \n'Okay...You may have defeated me too BUT we will "
               "NEVER give up! \nNot until our goal is achieved!'")
     else:
-        move_character()
+        character["Experience_Points"] -= 50
 
 
-def battle_four():
+def battle_four(character):
     options = ["Battle", "Flee"]
     print("Team Rocket Boss Giovanni is furiously glaring at you.")
     for count, options in enumerate(options, start=1):
         print(count, options)
     will_battle = input("Will you battle him?")
     if will_battle == "1":
+        character["Experience_Points"] += random.randint(500, 650)
+        character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
+        character["battle_four"] = 1
         print("'I heard about what happened from my underlings. If you are so adamant on opposing us, show me your "
               "power!' \nTeam Rocket Boss Giovanni sends out Persian! \nGo Pikachu! \nPikachu used Spark! \nPersian's "
               "hp went down 40hp! \nFoe Persian used Assurance! \nPikachu's hp went down 30hp! \nPikachu used Spark! \n"
@@ -475,10 +531,10 @@ def battle_four():
               "because of bad luck. Next time I will battle you with better Pokémon. \nNow I just need to look for "
               "Mewtwo...'")
     else:
-        move_character()
+        character["Experience_Points"] -= 50
 
 
-def battle_final():
+def battle_final(character):
     print("There is a menacing pokemon towering over you, blocking the only path you can take.", """
                               ⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣷⠀⠀⠀⠀⣸⣶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -515,6 +571,9 @@ def battle_final():
         print(count, options)
     will_battle = input("Will you battle Mewtwo?")
     if will_battle == "1":
+        character["Experience_Points"] += random.randint(500, 650)
+        character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
+        character["battle_final"] = 1
         print("Go Pikachu! \nPikachu used Thunderbolt! \nOh no, Mewtwo dodged it. \nMewtwo used Confusion! \nPikachu is"
               " confused! \nPikachu hurt himself in his confusion! \nMewtwo used Ice Beam! \nPikachu lost 50 hp! "
               "\nPikachu snapped out of his confusion. \nPikachu used Thunderbolt! \nMewtwo's hp decreased by 30 hp! "
@@ -523,30 +582,104 @@ def battle_final():
               "looks at you waiting to be complimented. \nPikachu used Thunderbolt! \nMewtwo's hp decreased by 30 hp! "
               "... \nMewtwo fainted! \n...")
 
+#################################################################################################################
+
+
+def game_succeed():
+    print("""
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⡆
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⡇
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⡇⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⠿⠋⠁⡇
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡞⠁⠀⠀⢰⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀          ⣀⠴⠋⢳⠀⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠁⠀⠀⠀⡼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠤⠔⠒⠒⠚⣻⣿⣿⣿⣷⣶⠆⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠈⡆⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢠⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠴⠚⠉⠁⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⠟⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⢣⠀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⢠⠇⠀⠀⢀⡟⢀⣀⣀⡤⠤⠤⢄⣀⣀⡀⠀⠀⠀⣠⠴⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠿⠋⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⢸⡆
+    ⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⣠⠴⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠶⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠾⠛⠁⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇
+    ⠀⠀⠀⠀⠀⠀⠀⠀⣸⠟⠁⠀⠀⠀⠀⠀⠀⠀⢀⡴⠶⣤⣀⠀⠀⠀⠠⡀⠀⠀⠀⠀⣀⣀⣠⠤⠔⠒⠉⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸
+    ⠀⠀⠀⠀⠀⠀⠀⣴⢃⣤⡄⠀⠀⠀⠀⠀⠀⠀⠸⣷⣤⣿⣿⠄⠀⠀⠀⠉⠛⢼⣿⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸
+    ⠀⠀⠀⠀⠀⠀⢠⣷⣾⣠⡇⢀⡀⠀⠀⠀⠀⠀⠀⠉⠻⠿⠋⠀⠀⠀⠀⠀⠀⠀⠉⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠁⠀⠀⠀⠀⠀⠀⣀⣀⠀⠄⠀⠀⠀⢀⣠⠶⠋
+    ⠀⠀⠀⠀⠀⠀⣸⠸⠿⠏⠀⢈⡁⠀⠀⠀⣤⡆⠀⠀⠀⢀⡴⠟⠛⠶⣄⠀⠀⠀⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣋⣠⠤⠶⠒⠒⠛⠉⠁⠀⠀⠀⠀⢀⣠⠔⠋⠁
+    ⠀⠀⠀⠀⠀⣰⡿⡄⠀⠐⢺⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⢾⠁⢠⣤⡀⣹⠀⠀⠀⠀⠈⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⡅⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠞⠋
+    ⠀⠀⠀⠀⠀⣟⠀⣷⠀⠀⠈⢻⣿⣿⣿⣿⣿⠀⠀⠀⠀⠘⢷⣤⣈⣶⠟⠀⠀⠀⠀⠀⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡀⠀⠀⠀⠀⠀⣀⡤⠞⠋
+    ⠀⠀⠀⠀⠀⢻⣶⠏⠀⠀⠀⠀⠹⣏⠁⠀⢹⡇⠀⠀⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⠈⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⡀⠀⠀⠀⠀⡏
+    ⠀⠀⠀⠀⠀⠈⠳⡄⠀⠀⠀⠀⠀⠙⢦⣀⡼⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀⠈⢧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢷⡀⠀⠀⠀⣿
+    ⠀⠀⠀⠀⠀⠀⠀⢈⣢⡀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⡾⢭⣠⡈⡉⠀⠀⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠈⢳⠀⠀⠀⢹
+    ⠀⠀⢀⣠⠤⠒⠛⠉⠁⠙⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⠾⠁⠀⠀⠀⠉⠇⠀⠀⠀⢿⣆⠀⠀⠀⠀⠀⠀⣠⠖⠋⠀⠀⠀⢸⡇
+    ⢰⡖⠉⠁⠀⠀⠀⠀⠀⠀⠀⢙⠀⠀⠠⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⢹⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠏⠳⡄⠀⣠⡴⠚⠁⠀⠀⠀⣠⠶⠋⠀⠀⠀⠀⠀⠀⠀⠀
+    ⣻⠁⠻⠁⠀⠀⠀⠀⠀⠀⠀⠀⢣⡀⠀⠈⠳⣄⣀⣠⠄⠀⠀⠀⠀⠀⢳⣄⠀⠀⠀⠀⠀⠀⣀⠀⠀⠀⠀⠈⢧⡈⠳⣄⠀⠀⢰⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⢹⣧⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠳⢭⣉⣉⣟⡿⠁⠀⠀⠀⠀⠀⠀⢱⣄⠙⢧⣰⣯⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠉⠛⠒⠤⠤⠤⣄⣀⣀⣀⣀⣹⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣦⣀⣹⣿⣿⣿⣦⡀
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠈⢻⣿⣿⠿⠟⠛⠁
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣏⠁
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣻⣷⡦
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠛⡇
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡤⠞⠁⢠⠇
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀⢀⣠⠴⠒⠚⢻⣭⣥⣤⣀⡀⠀⠒⠒⠒⠒⠒⠋⠉⠀⠀⢠⡟
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠲⢤⣄⣊⣉⣁⣤⠴⠚⠉⠁⠀⠀⠈⠉⠓⠲⠤⣤⣀⣀⣀⣀⣠⡴⢻⡇
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣇⣴⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⡆⠀⢸⡇
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣹⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⣦⢦⣧
+    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣂⡤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⢿⡏
+    """)
+    print("Congratulations on beating the game! \nYou've done excellent work. \nYou've really proved yourself as a "
+          "Pokémon Trainer. \nI will be expecting great things from you here on out. \nKeep battling with Pikachu and "
+          "you'll go far. \nUntil next time...")
+
+
+def game_fail():
+    print("""
+    ⢀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⣠⣤⣶⣶
+    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⢰⣿⣿⣿⣿
+    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣀⣀⣾⣿⣿⣿⣿
+    ⣿⣿⣿⣿⣿⡏⠉⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿
+    ⣿⣿⣿⣿⣿⣿⠀⠀⠀⠈⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠉⠁⠀⣿
+    ⣿⣿⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠙⠿⠿⠿⠻⠿⠿⠟⠿⠛⠉⠀⠀⠀⠀⠀⣸⣿
+    ⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿
+    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣴⣿⣿⣿⣿
+    ⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⢰⣹⡆⠀⠀⠀⠀⠀⠀⣭⣷⠀⠀⠀⠸⣿⣿⣿⣿
+    ⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠈⠉⠀⠀⠤⠄⠀⠀⠀⠉⠁⠀⠀⠀⠀⢿⣿⣿⣿
+    ⣿⣿⣿⣿⣿⣿⣿⣿⢾⣿⣷⠀⠀⠀⠀⡠⠤⢄⠀⠀⠀⠠⣿⣿⣷⠀⢸⣿⣿⣿
+    ⣿⣿⣿⣿⣿⣿⣿⣿⡀⠉⠀⠀⠀⠀⠀⢄⠀⢀⠀⠀⠀⠀⠉⠉⠁⠀⠀⣿⣿⣿
+    ⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿
+    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿
+    """)
+    print("Oh no! \nPikachu has fainted from running out of HP! \nYou must heal him up before he can do any more "
+          "battles. \nMewtwo is still blocking the path so you must go back to the beginning if you want to pass.")
+    options = ["Restart", "Quit"]
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    restart_game = input("Would you like to restart?")
+    if restart_game == "1":
+        game()
+    else:
+        sys.exit()
+
 
 
 
 def main():
-    character = make_character('Chris')
-    print(make_board(10, 10))
-    board = make_board(10, 10)
-    placing_challenges(board)
-    print(board_visual(board, 10, 10))
-    describe_current_location(board, character)
-
+    # character = make_character('Chris')
+    # print(make_board(10, 10))
+    # board = make_board(10, 10)
+    # placing_challenges(board)
     # print(board_visual(board, 10, 10))
+    # describe_current_location(board, character)
+    #
+    # # print(board_visual(board, 10, 10))
+    #
+    # direction = get_user_choice()
+    # print(direction)
+    # steps = get_user_steps()
+    # print(validate_move(character, direction, steps))
+    # move_character(character, direction, steps)
+    # update_current_location(board, character)
+    # # print(character)
+    # # print(board)
+    # # print(board_visual(board, 10, 10))
+    # there_is_a_challenge = check_for_challenges(board, character)
+    # print(there_is_a_challenge)
 
-    direction = get_user_choice()
-    print(direction)
-    steps = get_user_steps()
-    print(validate_move(character, direction, steps))
-    move_character(character, direction, steps)
-    update_current_location(board, character)
-    # print(character)
-    # print(board)
-    # print(board_visual(board, 10, 10))
-    there_is_a_challenge = check_for_challenges(board, character)
-    print(there_is_a_challenge)
+    game()
 
 
 if __name__ == "__main__":
