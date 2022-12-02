@@ -1,5 +1,6 @@
 {
-  "name": "random_battle_one",
-  "opponent_introduction": "Youngster Allen looks like he wants to battle with you.",
-  "dependencies": "If you have Pokemon with you, then you're an official Pokemon trainer! You can't say no to my challenge!'\nYoungster Allen sent out Wurmple (Lvl 1)! \nGo Pikachu! \nPikachu used Thunder Shock! \nWurmple's hp went down 30hp! \nFoe Wurmple used String Shot! \nPikachu's SPEED was harshly lowered! \nPikachu used Thunder Shock! \nWurmple fainted! \nPikachu gained 20 EXP Points! \nPikachu grew to Level 2! \nPikachu learned the new move Spark! \nPlayer defeated Youngster Allen. \n'I called you because I thought I could beat you... I can tell you're new to battling. Let me give you some advice. \nWhen Pokemon battle, they eventually level up and become stronger. If the Pokemon with you become stronger, you'll be able to go farther away from here."
+    "battle_one": {
+    "opponent_introduction": "Youngster Allen looks like he wants to battle with you.",
+    "dependencies": "If you have Pokemon with you, then you're an official Pokemon trainer! You can't say no to my challenge!'\nYoungster Allen sent out Wurmple (Lvl 1)! \nGo Pikachu! \nPikachu used Thunder Shock! \nWurmple's hp went down 30hp! \nFoe Wurmple used String Shot! \nPikachu's SPEED was harshly lowered! \nPikachu used Thunder Shock! \nWurmple fainted! \nPikachu gained 20 EXP Points! \nPikachu grew to Level 2! \nPikachu learned the new move Spark! \nPlayer defeated Youngster Allen. \n'I called you because I thought I could beat you... I can tell you're new to battling. Let me give you some advice. \nWhen Pokemon battle, they eventually level up and become stronger. If the Pokemon with you become stronger, you'll be able to go farther away from here."
+  }
 }

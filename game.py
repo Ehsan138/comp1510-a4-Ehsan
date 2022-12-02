@@ -6,6 +6,7 @@ Michelle Kwok A01323329
 
 import random
 import sys
+import json
 
 
 # def game():
@@ -368,6 +369,70 @@ def check_if_goal_attained(board, character, rows, columns):
 
 #############################################################################################
 
+
+def fixed_battles(challenge_name):
+    file = open('package.json')
+    data = json.load(file)
+
+    options = ("Battle", "Flee")
+    print(data[challenge_name]["opponent_introduction"])
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    will_battle = input("What do you want to do?")
+    if will_battle == "1":
+        character["Experience_Points"] += random.randint(500, 650)
+        character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
+        character[challenge_name] = 1
+        print(data[challenge_name]["dependencies"])
+    else:
+        character["Experience_Points"] -= 50
+
+def random_battles(challenge_name):
+    file = open('package.json')
+    data = json.load(file)
+
+    options = ("Battle", "Flee")
+    print(data[challenge_name]["opponent_introduction"])
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    will_battle = input("What do you want to do?")
+    if will_battle == "1":
+        character["Experience_Points"] += random.randint(200, 300)
+        character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
+        character[challenge_name] = 1
+        print(data[challenge_name]["dependencies"])
+    else:
+        character["Experience_Points"] -= 50
+
+
+def trivias(trivia_name):
+    file = open('package.json')
+    data = json.load(file)
+
+    options = data[trivia_name]["options"]
+    print(data[trivia_name]["question"])
+
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    answer = input("Please enter the number of the correct answer:")
+    if answer == data[trivia_name]["answer"]:
+        if trivia_name == 'trivia_three':
+            character["Experience_Points"] += 500
+        else:
+            character["Experience_Points"] += 100
+        character[trivia_name] = 1
+        print(data[trivia_name]['award'])
+        if (character["Current_HP"] < character["Max_HP"]) and trivia_name == 'trivia_three':
+            character["Current_HP"] = character["Max_HP"]
+        elif (character["Current_HP"] < character["Max_HP"]) and trivia_name != 'trivia_three':
+            character["Current_HP"] *= 1.10
+        else:
+            print("Oh, actually, your Pikachu is well rested.")
+    else:
+        print("Oops, you got that wrong.")
+
+
+
 def trivia_one(character):
     options = ["Electric, Ground, and Poison", "Grass, Water, and Fire", "Fighting, Psychic, and Ghost", "Dragon, "
                                                                                                          "Flying, and "
@@ -677,15 +742,24 @@ def game_fail():
 
 
 
+def access_jason(name):
+    file = open('package.json')
+    data = json.load(file)
+    print(data[name]["opponent_introduction"])
+
+
+
 
 
 def main():
-    character = make_character()
-    print(make_board(10, 10))
-    board = make_board(10, 10)
-    placing_challenges(board, 10, 10)
-    print(board_visual(board, 10, 10))
-    describe_current_location(board, character)
+    # character = make_character()
+    # print(make_board(10, 10))
+    # board = make_board(10, 10)
+    # placing_challenges(board, 10, 10)
+    # print(board_visual(board, 10, 10))
+    # describe_current_location(board, character)
+
+
     #
     # # print(board_visual(board, 10, 10))
     #
@@ -702,6 +776,8 @@ def main():
     # print(there_is_a_challenge)
 
     # game()
+
+    access_jason('battle_one')
 
 
 if __name__ == "__main__":
