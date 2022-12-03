@@ -2,34 +2,34 @@
   "trivia_one": {
     "options": ["Psychic", "Fighting", "Fairy", "Dark"],
     "question": "What are the three types of starter Pokémon?",
-    "right_answer": 2,
+    "right_answer": "2",
     "award": "That's correct!As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP."
   },
 
   "trivia_two": {
     "options": ["Evolution stone", "Lightning stone", "Thunder stone", "Leveling up to Lvl 14"],
     "question": "How do you evolve a Pikachu?",
-    "right_answer": 3,
+    "right_answer": "3",
     "award": "That's correct!As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP."
   },
 
   "trivia_three": {
     "options": ["Psychic", "Fighting", "Fairy", "Dark"],
     "question": "What type of Pokémon is Mewtwo?",
-    "right_answer": 1,
-    "award": "That's correct! Few people know anything about Mewtwo so I'm surprised you got it so easily. Your Pikachu looks so tired. Let me heal him up for ya."
+    "right_answer": "1",
+    "award": "That's correct! Few people know anything about Mewtwo so I'm surprised you got it so easily.\nYour Pikachu looks so tired. Let me heal him up for ya."
   },
 
   "trivia_four": {
     "options": ["Pikachu", "Charmander", "Squirtle", "Bulbasaur"],
     "question": "Who is #1 in the Pokédex?",
-    "right_answer": 4,
+    "right_answer": "4",
     "award": "That's correct! As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP." },
 
   "trivia_five": {
     "options": ["Onix", "Rhydon", "Charizard", "Diglet"],
     "question": "Which Pokémon can live in molten lava of 3600 degrees?",
-    "right_answer": 2,
+    "right_answer": "2",
     "award": "That's correct! As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP." },
 
   "battle_one": {
@@ -55,12 +55,12 @@
   "battle_five": {
     "opponent_introduction": "Team Rocket James is looking to start a fight.",
     "battle_statement": "'You may have defeated Jessie but I will avenge her! Get ready to cry at my feet!' \nTeam Rocket James sends out Meowth! \nGo Pikachu! \nPikachu used Spark! \nMeowth's hp went down 40hp! \nFoe Meowth used Pay Day! \nPikachu's hp went down 30hp! \nPikachu used Spark! \nMeowth's hp went down 50hp! \nMeowth fainted! \nPikachu gained %d EXP Points! \nPikachu grew to Level %d! \nPikachu learned the new move Thunderbolt! \nPlayer defeated Team Rocket James! \n'Okay...You may have defeated me too BUT we will NEVER give up! \nNot until our goal is achieved!'",
-    "not_ready": "Oh nevermind, go find Team Rocket Jessie first before battling me."
+    "is_not_ready": "Oh nevermind, go find Team Rocket Jessie first before battling me."
   },
 
   "battle_six": {
     "opponent_introduction": "Team Rocket Boss Giovanni is furiously glaring at you.",
     "battle_statement":  "'I heard about what happened from my underlings. If you are so adamant on opposing us, show me your power!' \nTeam Rocket Boss Giovanni sends out Persian! \nGo Pikachu! \nPikachu used Spark! \nPersian's hp went down 40hp! \nFoe Persian used Assurance! \nPikachu's hp went down 30hp! \nPikachu used Spark! \n Persian's hp went down 50hp! \nPersian fainted! \nPikachu gained %d EXP Points! \nPikachu grew to Level %d! \nPikachu learned the new move Thunderbolt! \nPlayer defeated Team Rocket Boss Giovanni! \n'I lost because of bad luck. Next time I will battle you with better Pokémon. \nNow I just need to look for Mewtwo...'",
-    "not_ready": "Oh nevermind, go find Team Rocket James first before battling me."
+    "is_not_ready": "Oh nevermind, make sure you have found both Team Rocket Jessie and James first before battling me."
   }
 }
