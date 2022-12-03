@@ -124,9 +124,9 @@ def placing_challenges(board, rows, columns):
     list_of_coordinate = [(x_coordinate, y_coordinate)
                           for x_coordinate in range(1, columns + 1) for y_coordinate in range(1, rows + 1)]
 
-    board[(3, 3)][1] = 'battle_two'
-    board[(5, 8)][1] = 'battle_three'
-    board[(8, 3)][1] = 'battle_four'
+    board[(3, 3)][1] = 'battle_four'
+    board[(5, 8)][1] = 'battle_five'
+    board[(8, 3)][1] = 'battle_six'
     board[(10, 10)][1] = 'battle_final'
 
     list_of_coordinate = [coordinate for coordinate in list_of_coordinate
@@ -383,9 +383,13 @@ def fixed_battles(challenge_name):
         character["Experience_Points"] += random.randint(500, 650)
         character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
         character[challenge_name] = 1
-        print(data[challenge_name]["dependencies"])
+        print(data[challenge_name]["dependencies"]) % (character["Experience_Points"])
+    elif (challenge_name == 'battle_five' or challenge_name == 'battle_six') and \
+            will_battle == "1" and character["battle_two"] == 0:
+        print(data[challenge_name]["not_ready"])
     else:
         character["Experience_Points"] -= 50
+        print("You lose 50 EXP Points for fleeing from battle.")
 
 def random_battles(challenge_name):
     file = open('package.json')
@@ -400,9 +404,10 @@ def random_battles(challenge_name):
         character["Experience_Points"] += random.randint(200, 300)
         character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
         character[challenge_name] = 1
-        print(data[challenge_name]["dependencies"])
+        print(data[challenge_name]["dependencies"]) % (character["Experience_Points"])
     else:
         character["Experience_Points"] -= 50
+        print("You lose 50 EXP Points for fleeing from battle.")
 
 
 def trivias(trivia_name):
