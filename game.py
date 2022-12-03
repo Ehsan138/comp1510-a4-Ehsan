@@ -833,9 +833,7 @@ def main():
     # there_is_a_challenge = check_for_challenges(board, character)
     # print(there_is_a_challenge)
 
-    # game()
-
-    access_jason('battle_one')
+    game()
 
 
 if __name__ == "__main__":
