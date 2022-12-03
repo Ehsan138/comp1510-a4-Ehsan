@@ -238,9 +238,9 @@ def get_user_choice():
     # enumerate_directions = list(enumerate(directions))
 
     response = ''
-    while response not in ['0', '1', '2', '3']:
+    while response not in ['1', '2', '3', '4']:
         print("Where do u wanna go broski")
-        for number, direction in enumerate(directions):
+        for number, direction in enumerate(directions, start=1):
             print(f"{number}:\t {direction}")
         # response = input(f"Where do u wanna go broski? \n{enumerate_directions} \n")
         response = input("Please enter the number of the correct answer: ")
@@ -287,13 +287,13 @@ def get_user_steps():
 
 
 def validate_move(character, direction, steps, rows, columns):
-    if int(direction) == 0 and character['y_coordinate'] - int(steps) >= 1:
+    if int(direction) == 1 and character['y_coordinate'] - int(steps) >= 1:
         return True
-    elif int(direction) == 1 and character['y_coordinate'] + int(steps) <= rows:
+    elif int(direction) == 2 and character['y_coordinate'] + int(steps) <= rows:
         return True
-    elif int(direction) == 2 and character['x_coordinate'] - int(steps) >= 1:
+    elif int(direction) == 3 and character['x_coordinate'] - int(steps) >= 1:
         return True
-    elif int(direction) == 3 and character['x_coordinate'] + int(steps) <= columns:
+    elif int(direction) == 4 and character['x_coordinate'] + int(steps) <= columns:
         return True
     else:
         return False
@@ -316,13 +316,13 @@ def validate_move(character, direction, steps, rows, columns):
 
 
 def move_character(character, direction, steps):
-    if int(direction) == 0:
+    if int(direction) == 1:
         character['y_coordinate'] -= int(steps)
-    elif int(direction) == 1:
-        character['y_coordinate'] += int(steps)
     elif int(direction) == 2:
-        character['x_coordinate'] -= int(steps)
+        character['y_coordinate'] += int(steps)
     elif int(direction) == 3:
+        character['x_coordinate'] -= int(steps)
+    elif int(direction) == 4:
         character['x_coordinate'] += int(steps)
 
 
@@ -331,10 +331,14 @@ def move_character(character, direction, steps):
 
 
 def check_for_challenges(board, character):
-    if board[(character["x_coordinate"], character["y_coordinate"])][1] == 'challenge':
-        return True
-    else:
-        return False
+    list_of_challenges = ["trivia_one", "trivia_two", "trivia_three", "trivia_four",
+                          "trivia_five", "battle_one", "battle_two", "battle_three",
+                          "battle_four", "battle_five", "battle_six", "battle_final"]
+    for challenge in list_of_challenges:
+        if board[(character["x_coordinate"], character["y_coordinate"])][1] == challenge:
+            return True
+        else:
+            return False
 
 
 def is_alive(character):
