@@ -4,12 +4,12 @@
     "battle_statement": "'If you have Pokemon with you, then you're an official Pokemon trainer! You can't say no to my challenge!'\nYoungster Allen sent out Wurmple (Lvl 1)! \nGo Pikachu! \nPikachu used Thunder Shock! \nWurmple's hp went down 30hp! \nFoe Wurmple used String Shot! \nPikachu's SPEED was harshly lowered! \nPikachu used Thunder Shock! \nWurmple fainted! \nPikachu gained %d EXP Points! \nPikachu grew to Level %d! \nPikachu learned the new move Spark! \nPlayer defeated Youngster Allen. \n'I called you because I thought I could beat you... I can tell you're new to battling. Let me give you some advice. \nWhen Pokemon battle, they eventually level up and become stronger. If the Pokemon with you become stronger, you'll be able to go farther away from here."
   },
   "battle_two": {
-    "opponent_introduction": ,
-    "battle_statement":
+    "opponent_introduction": "Schoolboy Patrick looks like he wants to battle with you.",
+    "battle_statement": "'If you have Pokemon with you, then you're an official Pokemon trainer! You can't say no to my challenge!'\nSchoolboy Patrick sent out Raticate (Lvl 3)! \nGo Pikachu! \nPikachu used Thunder Shock! \nRaticate's hp went down 30hp! \nFoe Raticate used Crunch! \nPikachu's SPEED was harshly lowered! \nPikachu used Thunder Shock! \nRaticate fainted! \nPikachu gained 20 EXP Points! \nPikachu grew to Level 2! \nPikachu learned the new move Spark! \nPlayer defeated Schoolboy Patrick. \n'Aw man, Mom is going to yell at me for skipping school.'"
   },
   "battle_three": {
-    "opponent_introduction": ,
-    "battle_statement":
+    "opponent_introduction": "Scientist Wendy looks like he wants to battle with you.",
+    "battle_statement": "'If you have Pokemon with you, then you're an official Pokemon trainer! You can't say no to my challenge!'\nScientist Wendy sent out Dodrio (Lvl 2)! \nGo Pikachu! \nPikachu used Thunder Shock! \nDodrio's hp went down 30hp! \nFoe Dodrio used Wing Attack! \nPikachu's SPEED was harshly lowered! \nPikachu used Thunder Shock! \nDodrio fainted! \nPikachu gained 20 EXP Points! \nPikachu grew to Level 2! \nPikachu learned the new move Spark! \nPlayer defeated Scientist Wendy. \n'Science is the future...We need to do more research on the trainer-Pokémon relationship' \n'Gotta go back to the lab ASAP!'"
   },
   "battle_four": {
     "opponent_introduction": "Team Rocket Jessie is looking to start a fight.",
