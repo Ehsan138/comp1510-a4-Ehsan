@@ -133,6 +133,11 @@ def make_board(rows, columns):
 # board = make_board(10, 10)
 
 
+def filtering_fixed_coordinates(coordinate):
+    list_of_fixed_coordinates = [(1, 1), (10, 10), (3, 3), (5, 8), (8, 3)]
+    return coordinate not in list_of_fixed_coordinates
+
+
 def placing_challenges(board, rows, columns):
     """
     Places challenges on the board.
@@ -155,8 +160,12 @@ def placing_challenges(board, rows, columns):
     board[(3, 3)][1], board[(5, 8)][1], board[(8, 3)][1], board[(10, 10)][1] = \
         'battle_four', 'battle_five', 'battle_six', 'battle_final'
 
-    list_of_coordinate = [coordinate for coordinate in list_of_coordinate
-                          if coordinate not in [(1, 1), (10, 10), (3, 3), (5, 8), (8, 3)]]
+    list_of_coordinate = list(filter(filtering_fixed_coordinates, list_of_coordinate))
+
+    # list_of_coordinate = [filter(filtering_fixed_coordinates, coordinate) for coordinate in list_of_coordinate]
+
+    # list_of_coordinate = [coordinate for coordinate in list_of_coordinate
+    #                       if coordinate not in [(1, 1), (10, 10), (3, 3), (5, 8), (8, 3)]]
 
     random_trivia_coordinates = random.sample(list_of_coordinate, 10)
 
@@ -289,6 +298,9 @@ def get_user_steps():
         steps = input("Please enter your answer here: ")
 
     return steps
+
+
+# def pre_validate_move()
 
 
 def validate_move(character, direction, steps, rows, columns):
