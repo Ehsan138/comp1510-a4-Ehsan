@@ -219,7 +219,19 @@ def board_visual(board, rows, columns):
         text += '\n'
         for column in range(1, columns + 1):
             text += f"{board[(column, row)]} \t"
-            # if (row, column) in board:
+
+            if board[(column, row)][0] == 'None':
+
+            elif board[(column, row)][0] == 'current':
+
+            elif board[(column, row)][0] == 'past_location':
+                if  board[(column, row)][1] in ['battle_four', 'battle_five', 'battle_six']:
+
+                else:
+
+            elif board[(column, row)][0] == 'battle_final':
+
+
 
     return text
 
