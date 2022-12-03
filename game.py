@@ -45,10 +45,11 @@ def game():
     columns = 10
     board = make_board(rows, columns)
     character = make_character()
+    placing_challenges(board, rows, columns)
     achieved_goal = False
     while is_alive(character) and not achieved_goal:
         describe_current_location(board, character)
-        board_visual(board, rows, columns)
+        # board_visual(board, rows, columns)
         direction = get_user_choice()
         steps = get_user_steps()
         valid_move = validate_move(character, direction, steps, rows, columns)
@@ -171,7 +172,7 @@ def placing_challenges(board, rows, columns):
     iterator_trivias = itertools.cycle(list_trivias)
 
     for coordinate in random_trivia_coordinates:
-        board[coordinate][1] = list_trivias.next()
+        board[coordinate][1] = next(iterator_trivias)
         list_of_coordinate.remove(coordinate)
 
 
@@ -186,7 +187,7 @@ def placing_challenges(board, rows, columns):
     iterator_random_battles = itertools.cycle(list_random_battles)
 
     for coordinate in random_battle_coordinates:
-        board[coordinate][1] = list_random_battles.next()
+        board[coordinate][1] = next(iterator_random_battles)
         list_of_coordinate.remove(coordinate)
 
 def board_visual(board, rows, columns):
@@ -224,6 +225,10 @@ def describe_current_location(board, character):
     :postcondition:
 
     """
+    for coordinate in board:
+        if board[coordinate][0] == 'current':
+            board[coordinate][0] = 'past_location'
+
     board[(character["x_coordinate"], character["y_coordinate"])][0] = 'current'
     print(board_visual(board, 10, 10))
 
@@ -280,7 +285,7 @@ def get_user_choice():
 def get_user_steps():
     steps = ''
     while steps not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
-        print("How many steps do u wanna take? (this number must be 1 and 9)")
+        print("How many steps do u wanna take? (this number must be between 1 and 9)")
         steps = input("Please enter your answer here: ")
 
     return steps
@@ -337,8 +342,8 @@ def check_for_challenges(board, character):
     for challenge in list_of_challenges:
         if board[(character["x_coordinate"], character["y_coordinate"])][1] == challenge:
             return True
-        else:
-            return False
+
+    return False
 
 
 def is_alive(character):
@@ -356,26 +361,38 @@ def first_time_challenge(board, character):
 
 
 def execute_challenge_protocol(board, character):
-    if board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_one':
-        trivia_one(character)
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_two':
-        trivia_two(character)
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_three':
-        trivia_three(character)
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_four':
-        trivia_four(character)
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_five':
-        trivia_five(character)
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_one':
-        battle_one()
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_two':
-        battle_two()
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_three':
-        battle_three()
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_four':
-        battle_four()
-    elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_final':
-        battle_final()
+    challenge = board[(character["x_coordinate"], character["y_coordinate"])][1]
+    if challenge in ['battle_one', 'battle_two', 'battle_three']:
+        random_battles(challenge, character)
+    elif challenge in ['battle_four', 'battle_five', 'battle_six']:
+        fixed_battles(challenge, character)
+    elif challenge == 'battle_final':
+        battle_final(character)
+    elif challenge in ['trivia_one', 'trivia_two', 'trivia_three', 'trivia_four', 'trivia_five']:
+        trivias(challenge, character)
+
+
+
+    # if board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_one':
+    #     trivia_one(character)
+    # elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_two':
+    #     trivia_two(character)
+    # elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_three':
+    #     trivia_three(character)
+    # elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_four':
+    #     trivia_four(character)
+    # elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_five':
+    #     trivia_five(character)
+    # elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_one':
+    #     battle_one()
+    # elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_two':
+    #     battle_two()
+    # elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_three':
+    #     battle_three()
+    # elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_four':
+    #     battle_four()
+    # elif board[(character["x_coordinate"], character["y_coordinate"])][1] == 'battle_final':
+    #     battle_final()
 
 
 def character_has_leveled(character, level):
@@ -424,7 +441,7 @@ def check_if_goal_attained(board, character, rows, columns):
 #############################################################################################
 
 
-def fixed_battles(challenge_name):
+def fixed_battles(challenge_name, character):
     file = open('package.json')
     data = json.load(file)
 
@@ -437,7 +454,8 @@ def fixed_battles(challenge_name):
         character["Experience_Points"] += random.randint(500, 650)
         character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
         character[challenge_name] = 1
-        print(data[challenge_name]["dependencies"]) % (character["Experience_Points"])
+        print(data[challenge_name]["battle_statement"].format(health=character["Current_HP"],
+                                                              experience=character["Experience_Points"]))
     elif (challenge_name == 'battle_five' or challenge_name == 'battle_six') and \
             will_battle == "1" and character["battle_two"] == 0:
         print(data[challenge_name]["not_ready"])
@@ -446,7 +464,7 @@ def fixed_battles(challenge_name):
         print("You lose 50 EXP Points for fleeing from battle.")
 
 
-def random_battles(challenge_name):
+def random_battles(challenge_name, character):
     file = open('package.json')
     data = json.load(file)
 
@@ -459,13 +477,14 @@ def random_battles(challenge_name):
         character["Experience_Points"] += random.randint(200, 300)
         character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
         character[challenge_name] = 1
-        print(data[challenge_name]["dependencies"]) % (character["Experience_Points"])
+        print(data[challenge_name]["battle_statement"].format(health=character["Current_HP"],
+                                                              experience=character["Experience_Points"]))
     else:
         character["Experience_Points"] -= 50
         print("You lose 50 EXP Points for fleeing from battle.")
 
 
-def trivias(trivia_name):
+def trivias(trivia_name, character):
     file = open('package.json')
     data = json.load(file)
 
@@ -818,8 +837,23 @@ def main():
     # print(make_board(10, 10))
     # board = make_board(10, 10)
     # placing_challenges(board, 10, 10)
-    # print(board_visual(board, 10, 10))
+    # # print(board_visual(board, 10, 10))
     # describe_current_location(board, character)
+    # print(board)
+    # print(character)
+    #
+    # direction = get_user_choice()
+    # print(direction)
+    # steps = get_user_steps()
+    #
+    # print(character)
+    # print(board)
+    # print(validate_move(character, direction, steps, 10, 10))
+    # move_character(character, direction, steps)
+    #
+    # print(character)
+    # print(board)
+    # print(board[(8, 3)][1] == 'battle_six')
 
 
     #

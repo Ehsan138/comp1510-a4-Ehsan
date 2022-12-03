@@ -82,7 +82,7 @@ def trivia_five():
         print("Oops, you got that wrong.")
 
 
-def battle_one():
+def battle_random1():
     options = ["Battle", "Flee"]
     print("Youngster Allen looks like he wants to battle with you.")
     for count, options in enumerate(options, start=1):
@@ -97,6 +97,40 @@ def battle_one():
               " beat you... I can tell you're new to battling. Let me give you some advice. \nWhen Pokemon battle, they"
               " eventually level up and become stronger. If the Pokemon with you become stronger, you'll be able to go "
               "farther away from here.'")
+    else:
+        move_character()
+
+
+def battle_random2():
+    options = ["Battle", "Flee"]
+    print("Scientist Wendy looks like he wants to battle with you.")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    will_battle = input("What do you want to do?")
+    if will_battle == "1":
+        print("'If you have Pokemon with you, then you're an official Pokemon trainer! You can't say no to my challenge"
+              "!'\nYoungster Allen sent out Dodrio (Lvl 2)! \nGo Pikachu! \nPikachu used Thunder Shock! \nDodrio's hp"
+              " went down 30hp! \nFoe Dodrio used Wing Attack! \nPikachu's SPEED was harshly lowered! \nPikachu used "
+              "Thunder Shock! \nDodrio fainted! \nPikachu gained 20 EXP Points! \nPikachu grew to Level 2! \nPikachu "
+              "learned the new move Spark! \nPlayer defeated Scientist Wendy. \n'Science is the future...We need to do"
+              "more research on the trainer-Pokémon relationship' \n'Gotta go back to the lab ASAP!'")
+    else:
+        move_character()
+
+
+def battle_random3():
+    options = ["Battle", "Flee"]
+    print("Schoolboy Patrick looks like he wants to battle with you.")
+    for count, options in enumerate(options, start=1):
+        print(count, options)
+    will_battle = input("What do you want to do?")
+    if will_battle == "1":
+        print("'If you have Pokemon with you, then you're an official Pokemon trainer! You can't say no to my challenge"
+              "!'\nYoungster Allen sent out Raticate (Lvl 3)! \nGo Pikachu! \nPikachu used Thunder Shock! \nRaticate's "
+              "hp went down 30hp! \nFoe Raticate used Crunch! \nPikachu's SPEED was harshly lowered! \nPikachu used "
+              "Thunder Shock! \nRaticate fainted! \nPikachu gained 20 EXP Points! \nPikachu grew to Level 2! \nPikachu "
+              "learned the new move Spark! \nPlayer defeated Schoolboy Patrick. \n'Aw man, Mom is going to yell at me"
+              "for skipping school.'")
     else:
         move_character()
 
