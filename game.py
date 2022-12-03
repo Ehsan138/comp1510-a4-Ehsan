@@ -7,6 +7,7 @@ Michelle Kwok A01323329
 import random
 import sys
 import json
+import itertools
 
 
 # def game():
@@ -87,7 +88,8 @@ def make_character():
                             "Level": 1, "trivia_one": 0, "trivia_two": 0,
                             "trivia_three": 0, "trivia_four": 0, "trivia_five": 0,
                             "battle_one": 0, "battle_two": 0, "battle_three": 0,
-                            "battle_four": 0, "battle_final": 0}
+                            "battle_four": 0, "battle_five": 0, "battle_six": 0,
+                            "battle_final": 0}
 
     return character_dictionary
 
@@ -124,15 +126,18 @@ def placing_challenges(board, rows, columns):
     list_of_coordinate = [(x_coordinate, y_coordinate)
                           for x_coordinate in range(1, columns + 1) for y_coordinate in range(1, rows + 1)]
 
-    board[(3, 3)][1] = 'battle_four'
-    board[(5, 8)][1] = 'battle_five'
-    board[(8, 3)][1] = 'battle_six'
-    board[(10, 10)][1] = 'battle_final'
+    # board[(3, 3)][1] = 'battle_four'
+    # board[(5, 8)][1] = 'battle_five'
+    # board[(8, 3)][1] = 'battle_six'
+    # board[(10, 10)][1] = 'battle_final'
+
+    board[(3, 3)][1], board[(5, 8)][1], board[(8, 3)][1], board[(10, 10)][1] = \
+        'battle_four', 'battle_five', 'battle_six', 'battle_final'
 
     list_of_coordinate = [coordinate for coordinate in list_of_coordinate
                           if coordinate not in [(1, 1), (10, 10), (3, 3), (5, 8), (8, 3)]]
 
-    trivia = random.sample(list_of_coordinate, 10)
+    random_trivia_coordinates = random.sample(list_of_coordinate, 10)
 
 
     # while True:
@@ -140,13 +145,29 @@ def placing_challenges(board, rows, columns):
     #     if trivia != (1, 1) and trivia != (10, 10):
     #         break
 
-    print(trivia)
+    print(random_trivia_coordinates)
 
-    for coordinate in trivia:
-        board[coordinate][1] = random.choice(['trivia_1', 'trivia_2', 'trivia_3', 'trivia_4', 'trivia_5'])
+    list_trivias = ['trivia_one', 'trivia_two', 'trivia_three', 'trivia_four', 'trivia_five']
+    iterator_trivias = itertools.cycle(list_trivias)
+
+    for coordinate in random_trivia_coordinates:
+        board[coordinate][1] = list_trivias.next()
+        list_of_coordinate.remove(coordinate)
+
+
+    # for coordinate in random_trivia_coordinates:
+    #     board[coordinate][1] = random.choice(['trivia_1', 'trivia_2', 'trivia_3', 'trivia_4', 'trivia_5'])
 
     # print(board)
 
+    random_battle_coordinates = random.sample(list_of_coordinate, 9)
+
+    list_random_battles = ['battle_one', 'battle_two', 'battle_three']
+    iterator_random_battles = itertools.cycle(list_random_battles)
+
+    for coordinate in random_battle_coordinates:
+        board[coordinate][1] = list_random_battles.next()
+        list_of_coordinate.remove(coordinate)
 
 
 def board_visual(board, rows, columns):
