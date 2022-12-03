@@ -420,7 +420,7 @@ def trivias(trivia_name):
     for count, options in enumerate(options, start=1):
         print(count, options)
     answer = input("Please enter the number of the correct answer:")
-    if answer == data[trivia_name]["answer"]:
+    if answer == data[trivia_name]["right_answer"]:
         if trivia_name == 'trivia_three':
             character["Experience_Points"] += 500
         else:
