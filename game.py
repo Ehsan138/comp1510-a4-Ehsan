@@ -73,11 +73,12 @@ def game():
     # Print end of game (congratulations or sorry you died)
 
 
-
 def make_character():
     """
     Creates and returns a dictionary that contains key:value pairs.
 
+    :precondition:
+    :postcondition
     :return: dictionary that contains key:value pairs
     """
     name = input("Name: ")
@@ -95,6 +96,15 @@ def make_character():
 
 
 def make_board(rows, columns):
+    """
+    Makes a board based on specified rows and columns.
+
+    :param rows: number of rows desired
+    :param columns: number of columns desired
+    :precondition:
+    :postcondition:
+    :return:
+    """
     board = {}
     text = ''
 
@@ -121,6 +131,16 @@ def make_board(rows, columns):
 
 
 def placing_challenges(board, rows, columns):
+    """
+    Places challenges on the board.
+
+    :param board:
+    :param rows:
+    :param columns:
+    :precondition:
+    :postcondition:
+    :return:
+    """
     list_of_coordinate = [(x_coordinate, y_coordinate)
                           for x_coordinate in range(1, columns + 1) for y_coordinate in range(1, rows + 1)]
 
@@ -148,12 +168,14 @@ def placing_challenges(board, rows, columns):
     # print(board)
 
 
-
 def board_visual(board, rows, columns):
     """
+    Makes the visuals of the board.
 
     :param rows:
     :param columns:
+    :precondition:
+    :postcondition:
     :return:
     """
     # board = make_board(rows, columns)
@@ -173,16 +195,24 @@ def board_visual(board, rows, columns):
 
 def describe_current_location(board, character):
     """
+    Describes character's current location.
 
     :param board:
     :param character:
-    :return:
+    :precondition:
+    :postcondition:
+
     """
     board[(character["x_coordinate"], character["y_coordinate"])][0] = 'current'
     print(board_visual(board, 10, 10))
 
 
 def get_user_choice():
+    """
+    Gets user's choice of which direction they want to move.
+
+    :return:
+    """
     directions = ['North', 'South', 'West', 'East']
     # enumerate_directions = list(enumerate(directions))
 
@@ -300,7 +330,6 @@ def first_time_challenge(board, character):
         return False
 
 
-
 def execute_challenge_protocol(board, character):
     if board[(character["x_coordinate"], character["y_coordinate"])][1] == 'trivia_one':
         trivia_one(character)
@@ -391,6 +420,7 @@ def fixed_battles(challenge_name):
         character["Experience_Points"] -= 50
         print("You lose 50 EXP Points for fleeing from battle.")
 
+
 def random_battles(challenge_name):
     file = open('package.json')
     data = json.load(file)
@@ -435,7 +465,6 @@ def trivias(trivia_name):
             print("Oh, actually, your Pikachu is well rested.")
     else:
         print("Oops, you got that wrong.")
-
 
 
 def trivia_one(character):
@@ -575,7 +604,7 @@ def battle_two(character):
 
 
 def battle_three(character):
-    options = ["Battle", "Flee"]
+    options = ("Battle", "Flee")
     print("Team Rocket James is looking to start a fight.")
     for count, options in enumerate(options, start=1):
         print(count, options)
@@ -598,7 +627,7 @@ def battle_three(character):
 
 
 def battle_four(character):
-    options = ["Battle", "Flee"]
+    options = ("Battle", "Flee")
     print("Team Rocket Boss Giovanni is furiously glaring at you.")
     for count, options in enumerate(options, start=1):
         print(count, options)
@@ -653,7 +682,7 @@ def battle_final(character):
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀""")
     print("\nUpon closer inspection it is legendary pokemon Mewtwo! \nMewtwo makes eye contact with you. It seems you "
           "must battle Mewtwo to pass. \nPikachu seems a little bit worried about being able to battle.")
-    options = ["Battle", "Flee"]
+    options = ("Battle", "Flee")
     for count, options in enumerate(options, start=1):
         print(count, options)
     will_battle = input("Will you battle Mewtwo?")
@@ -757,6 +786,9 @@ def access_jason(name):
 
 
 def main():
+    """
+    Drives the program.
+    """
     # character = make_character()
     # print(make_board(10, 10))
     # board = make_board(10, 10)
