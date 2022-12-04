@@ -1,8 +1,14 @@
+"""
+Ehsan Emadi A01291627
+Michelle Kwok A01323329
+"""
+
+
 from unittest import TestCase
 import game
 
 
-class TestIsAlive(TestCase):
+class TestGameIsAlive(TestCase):
 
     def test_is_alive_Chris(self):
         character_chris = {"Name": 'Chris', "x_coordinate": 1, "y_coordinate": 1, "Current_HP": 100, "Max_HP": 100}

@@ -1,9 +1,15 @@
+"""
+Ehsan Emadi A01291627
+Michelle Kwok A01323329
+"""
+
+
 from unittest import TestCase
 from unittest.mock import patch
 import game
 
 
-class TestMakeCharacter(TestCase):
+class TestGameMakeCharacter(TestCase):
 
     @patch('builtins.input', side_effect=['Chris'])
     def test_make_character_Chris(self, mock_input):
@@ -24,4 +30,3 @@ class TestMakeCharacter(TestCase):
                     "battle_one": 0, "battle_two": 0, "battle_three": 0, "battle_four": 0,
                     "battle_five": 0, "battle_six": 0, "battle_final": 0}
         self.assertEqual(expected, actual)
-
