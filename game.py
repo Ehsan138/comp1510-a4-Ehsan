@@ -738,7 +738,6 @@ def execute_trivia_protocol(trivia_name, character, answer, data):
 
 
 
-
 #
 # def trivia_one(character):
 #     options = ["Electric, Ground, and Poison", "Grass, Water, and Fire", "Fighting, Psychic, and Ghost", "Dragon, "
