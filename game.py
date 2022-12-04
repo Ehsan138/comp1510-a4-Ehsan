@@ -72,7 +72,7 @@ def game():
         else:
             print("Sorry, that's out of bounds. Try somewhere else.")
 
-    if not is_alive(character):
+    if not (character):
         game_fail()
     elif achieved_goal:
         game_succeed()
@@ -421,7 +421,7 @@ def is_alive(character):
         return False
 
 
-def first_time_challenge(board, character):
+def first_time_challenge(character):
     """
     Checks if it is the first time the character is doing the challenge.
 
@@ -431,7 +431,7 @@ def first_time_challenge(board, character):
     """
     special_cases = ['battle_four', 'battle_five', 'battle_six', 'battle_final']
     for challenge in special_cases:
-        if board[challenge][1] == 0:
+        if character[challenge] == 0:
             return True
         else:
             return False
