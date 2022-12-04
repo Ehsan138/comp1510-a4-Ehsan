@@ -76,7 +76,12 @@ def game_intro_2(character):
           f"the game.")
 
 
-def game_succeed():
+def succeed_game(character):
+    """
+    Prints message upon successful completion of the game.
+
+    :return:
+    """
     print("""
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⡆
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⡇
@@ -112,12 +117,24 @@ def game_succeed():
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣹⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⣦⢦⣧
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣂⡤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⢿⡏
     """)
-    print("Congratulations on beating the game! \nYou've done excellent work. \nYou've really proved yourself as a "
-          "Pokémon Trainer. \nI will be expecting great things from you here on out. \nKeep battling with Pikachu and "
-          "you'll go far. \nUntil next time...")
+    print(f"Congratulations on beating the game! \nYou've done excellent work. "
+          f"{character['Name']}, these are your current stats:\n"
+          f"Level: {character['Level']} \n"
+          f"Current HP: {character['Current_HP']} \n"
+          f"Max HP: {character['Max_HP']} \n"
+          f"Experience Points: {character['Experience_Points']}"
+          f"\nYou've really proved yourself as a Pokémon Trainer. "
+          f"\nI will be expecting great things from you here on out."
+          f"\nKeep battling with Pikachu and you'll go far."
+          f"\nUntil next time...")
 
 
-def game_fail():
+def fail_game():
+    """
+    Prints message upon failure of the game before asking user if they want to restart.
+
+    :return:
+    """
     print("""
     ⢀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⣠⣤⣶⣶
     ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⢰⣿⣿⣿⣿
@@ -135,7 +152,7 @@ def game_fail():
     ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿
     """)
     print("Oh no! \nPikachu has fainted from running out of HP! \nYou must heal him up before he can do any more "
-          "battles.")
+          "battles. \nMewtwo is still blocking the path so you must go back to the beginning if you want to pass.")
     options = ["Restart", "Quit"]
     for count, options in enumerate(options, start=1):
         print(count, options)
@@ -147,7 +164,6 @@ def game_fail():
 
 
 def main():
-    game_fail()
 
 
 if __name__ == "__main__":
