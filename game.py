@@ -447,10 +447,10 @@ def first_time_challenge(character):
 def execute_challenge_protocol(board, character):
     challenge = board[(character["x_coordinate"], character["y_coordinate"])][1]
     if challenge in ['battle_one', 'battle_two', 'battle_three']:
-        if character[challenge] == 0:
-            get_user_choice_random_battles(challenge, character)
+        get_user_choice_random_battles(challenge, character)
     elif challenge in ['battle_four', 'battle_five', 'battle_six']:
-        get_user_choice_fixed_battles(challenge, character)
+        if character[challenge] == 0:
+            get_user_choice_fixed_battles(challenge, character)
     elif challenge == 'battle_final':
         if character[challenge] == 0:
             battle_final(character)
