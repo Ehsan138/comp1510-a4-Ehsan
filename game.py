@@ -74,7 +74,7 @@ def game():
     if not is_alive(character):
         fail_game()
     elif achieved_goal:
-        succeed_game()
+        succeed_game(character)
 
     # Print end of game (congratulations or sorry you died)
 
@@ -519,8 +519,8 @@ def execute_glow_up_protocol(character):
     """
     character["Max_HP"] += 100
     character["Current_HP"] = character["Max_HP"]
-    print(f"Congratulations on beating the game! \nYou've done excellent work."
-          f"{character['Name']}, this is current stats:\n"
+    print(f"Congratulations on leveling up! \nYou've done excellent work!\n"
+          f"{character['Name']}, this is your current stats:\n"
           f"Level: {character['Level']} \n"
           f"Current HP: {character['Current_HP']} \n"
           f"Max HP: {character['Max_HP']} \n"
@@ -592,6 +592,7 @@ def get_user_choice_fixed_battles(challenge_name, character):
     #     else:
     #         character["Experience_Points"] = (character["Experience_Points"] // 1000) * 1000
     #         print('Now you have zero EXP for your current level, sorry not sorry :)')
+
 
 def execute_fixed_battles(challenge_name, character, will_battle, data):
     if will_battle == "1":
@@ -989,7 +990,7 @@ def battle_final(character):
 #################################################################################################################
 
 
-def succeed_game():
+def succeed_game(character):
     """
     Prints message upon successful completion of the game.
 
