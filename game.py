@@ -355,10 +355,10 @@ def is_alive(character):
     :return: a boolean expression, True if the character is alive, else False
 
     >>> character_chris = {"Name": 'Chris', "x_coordinate": 1, "y_coordinate": 1, "Current_HP": 100, "Max_HP": 100}
-    >>> character_chris['Current_HP'] > 0
+    >>> is_alive(character_chris)
     True
     >>> character_hoda = {"Name": 'Hoda', "x_coordinate": 1, "y_coordinate": 1, "Current_HP": 0, "Max_HP": 100}
-    >>> character_hoda['Current_HP'] > 0
+    >>> is_alive(character_hoda)
     False
     """
     return character['Current_HP'] > 0
