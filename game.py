@@ -504,7 +504,8 @@ def execute_glow_up_protocol(character):
     """
     character["Max_HP"] += 100
     character["Current_HP"] = character["Max_HP"]
-    print(f"Name: {character['Name']} \n"
+    print(f"Congratulations on beating the game! \nYou've done excellent work."
+          f"{character['Name']}, this is current stats:\n"
           f"Level: {character['Level']} \n"
           f"Current HP: {character['Current_HP']} \n"
           f"Max HP: {character['Max_HP']} \n"
@@ -945,9 +946,17 @@ def game_succeed():
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣹⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⣦⢦⣧
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣂⡤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⢿⡏
     """)
-    print("Congratulations on beating the game! \nYou've done excellent work. \nYou've really proved yourself as a "
-          "Pokémon Trainer. \nI will be expecting great things from you here on out. \nKeep battling with Pikachu and "
-          "you'll go far. \nUntil next time...")
+    # print(f"Congratulations on beating the game! \nYou've done excellent work. \nYou've really proved yourself as a Pokémon Trainer. \nI will be expecting great things from you here on out. \nKeep battling with Pikachu and you'll go far. \nUntil next time...")
+    print(f"Congratulations on beating the game! \nYou've done excellent work."
+          f"{character['Name']}, this is current stats:\n"
+          f"Level: {character['Level']} \n"
+          f"Current HP: {character['Current_HP']} \n"
+          f"Max HP: {character['Max_HP']} \n"
+          f"Experience Points: {character['Experience_Points']}"
+          f"\nYou've really proved yourself as a Pokémon Trainer. "
+          f"\nI will be expecting great things from you here on out."
+          f"\nKeep battling with Pikachu and you'll go far."
+          f"\nUntil next time...")
 
 
 def game_fail():
