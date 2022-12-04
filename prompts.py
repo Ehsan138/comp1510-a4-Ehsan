@@ -1,6 +1,10 @@
 
 def game_intro_1():
     """
+
+    :return:
+    """
+    """
     Prints welcome statement for the game.
 
     :precondition: User must start the game
@@ -24,6 +28,11 @@ def game_intro_1():
 
 
 def game_intro_2(character):
+    """
+
+    :param character:
+    :return:
+    """
     """
     Prints the game's instructions.
 
@@ -78,6 +87,11 @@ def game_intro_2(character):
 
 def succeed_game(character):
     """
+
+    :param character:
+    :return:
+    """
+    """
     Prints message upon successful completion of the game.
 
     :return:
@@ -130,6 +144,10 @@ def succeed_game(character):
 
 
 def fail_game():
+    """
+
+    :return:
+    """
     """
     Prints message upon failure of the game before asking user if they want to restart.
 
