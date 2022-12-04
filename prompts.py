@@ -1,14 +1,10 @@
+from game import game
+import sys
 
-def game_intro_1():
-    """
 
-    :return:
+def game_intro_1() -> None:
     """
-    """
-    Prints welcome statement for the game.
-
-    :precondition: User must start the game
-    :postcondition: Prints welcome statement.
+    Print welcome statement for the game.
     """
     print("""                          
                                        ,'\ 
@@ -27,17 +23,13 @@ def game_intro_1():
     print("Welcome to Pokémon Pikachu Edition!")
 
 
-def game_intro_2(character):
+def game_intro_2(character: dict) -> None:
     """
+    Print the game's instructions.
 
-    :param character:
-    :return:
-    """
-    """
-    Prints the game's instructions.
-
-    :precondition: User must start the game
-    :postcondition: Prints game's instructions.
+    :param character: a dictionary where keys are strings of letters
+    :precondition: character must be a dictionary where each key is a string of letters
+    :postcondition: the function correctly prints the intro, without changing character
     """
     print("""
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠒⠛⠛⣁⣽⠖⠲⢤⣀⣠⣴⠄⠀⠀⠀⠀⠀⠀⠀
@@ -87,14 +79,11 @@ def game_intro_2(character):
 
 def succeed_game(character):
     """
+    Print message upon successful completion of the game and stats.
 
-    :param character:
-    :return:
-    """
-    """
-    Prints message upon successful completion of the game.
-
-    :return:
+    :param character: a dictionary where keys are strings of letters
+    :precondition: character must be a dictionary where each key is a string of letters
+    :postcondition: the function correctly prints the intro, without changing character
     """
     print("""
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⡆
@@ -145,13 +134,10 @@ def succeed_game(character):
 
 def fail_game():
     """
+    Print message upon failure of the game before asking user if they want to restart.
 
-    :return:
-    """
-    """
-    Prints message upon failure of the game before asking user if they want to restart.
-
-    :return:
+    A function that call the game function again if the player wants to keep playing
+    or quit the script if they don't want to continue.
     """
     print("""
     ⢀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⣠⣤⣶⣶
@@ -182,6 +168,7 @@ def fail_game():
 
 
 def main():
+    pass
 
 
 if __name__ == "__main__":

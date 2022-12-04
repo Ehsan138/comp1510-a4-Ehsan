@@ -4,7 +4,11 @@ Michelle Kwok A01323329
 """
 
 
-import random, sys, json, itertools, prompts
+import random
+import sys
+import json
+import itertools
+import prompts
 
 
 def game():
@@ -45,7 +49,6 @@ def game():
 def quit_game(answer):
     if answer.lower() == 'quit':
         sys.exit()
-
 
 
 def make_character():
@@ -131,6 +134,7 @@ def placing_challenges(board, rows, columns):
     for coordinate in random_battle_coordinates:
         board[coordinate][1] = next(iterator_random_battles)
         list_of_coordinate.remove(coordinate)
+
 
 def board_visual(board, rows, columns, character):
     """
@@ -237,9 +241,6 @@ def get_user_steps():
             print("Sorry, that's out of bounds. Try another number.")
 
     return steps
-
-
-# def pre_validate_move()
 
 
 def validate_move(character, direction, steps, rows, columns):
@@ -430,8 +431,6 @@ def check_fixed_battles_conditions(challenge_name, character, will_battle, data)
             print('Now you have zero EXP for your current level, sorry not sorry :)')
 
 
-
-
 def random_battles(challenge_name, character):
     """
     Executes random battles.
@@ -522,7 +521,6 @@ def battle_final(character):
     file = open('package.json')
     data = json.load(file)
     print(data['battle_final']['narration'])
-    # print("There is a menacing pokemon towering over you, blocking the only path you can take.")
     print("""
                               ⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣷⠀⠀⠀⠀⣸⣶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -552,8 +550,6 @@ def battle_final(character):
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⡿⣏⣃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠿⠿⠟⠈⠁⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⡿⠿⠿⠿⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀""")
-    # print("\nUpon closer inspection it is legendary pokemon Mewtwo! \nMewtwo makes eye contact with you. It seems you "
-    #       "must battle Mewtwo to pass. \nPikachu seems a little bit worried about being able to battle.")
     print(data['battle_final']['opponent_introduction'])
     options = ("Battle", "Flee")
     for count, options in enumerate(options, start=1):
@@ -561,37 +557,6 @@ def battle_final(character):
     will_battle = input("Will you battle Mewtwo? ")
     quit_game(will_battle)
     check_battle_final_conditions(character, will_battle, data)
-
-
-
-
-
-
-    # if will_battle == "1":
-    #     if character["battle_four"] == 1 and character["battle_four"] == 1 and character["battle_four"] == 1 and \
-    #             character["Level"] >= 3:
-    #         character["Experience_Points"] += random.randint(500, 650)
-    #         character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
-    #         character["battle_final"] = 1
-    #         print(data['battle_final']['battle_statement'])
-    #         # print("Go Pikachu! \nPikachu used Thunderbolt! \nOh no, Mewtwo dodged it. \nMewtwo used Confusion! "
-    #         #       "\nPikachu is confused! \nPikachu hurt himself in his confusion! \nMewtwo used Ice Beam! \nPikachu "
-    #         #       "is dazed from the impact! \nPikachu snapped out of his confusion. \nPikachu used Thunderbolt! "
-    #         #       "\nMewtwo's HP sharply dropped! \nMewtwo used Flamethrower! \nPikachu's health is now {health} HP "
-    #         #       "Points! \nPikachu used Thunderbolt! \nIt was a critical hit! \nMewtwo used Confusion! \nPikachu "
-    #         #       "moved out of the way just in time. \nPikachu looks at you waiting to be complimented. \nPikachu "
-    #         #       "used Thunderbolt! \nMewtwo fainted! \nYou have defeated Mewtwo!")
-    #     elif character["battle_four"] == 0 or character["battle_five"] == 0 or character["battle_six"] == 0:
-    #         # print("Oh, seems like Mewtwo deems you unworthy of battle. Maybe go find Team Rocket Jessie 🐍, Team Rocket"
-    #         #       " James 🐱, and Team Rocket Boss Giovanni 🐆 first.")
-    #         print(data['battle_final']['not_complete_all_fixed_battles'])
-    #     elif character["Level"] < 3:
-    #         print(data['battle_final']['not_level_three'])
-    #         # print("You must be at least Level 3 to challenge Mewtwo.")
-    #
-    # else:
-    #     character["Experience_Points"] -= 100
-    #     print("You lose 100 EXP Points for fleeing from battle.")
 
 
 def check_battle_final_conditions(character, will_battle, data):
@@ -602,20 +567,10 @@ def check_battle_final_conditions(character, will_battle, data):
             character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
             character["battle_final"] = 1
             print(data['battle_final']['battle_statement'])
-            # print("Go Pikachu! \nPikachu used Thunderbolt! \nOh no, Mewtwo dodged it. \nMewtwo used Confusion! "
-            #       "\nPikachu is confused! \nPikachu hurt himself in his confusion! \nMewtwo used Ice Beam! \nPikachu "
-            #       "is dazed from the impact! \nPikachu snapped out of his confusion. \nPikachu used Thunderbolt! "
-            #       "\nMewtwo's HP sharply dropped! \nMewtwo used Flamethrower! \nPikachu's health is now {health} HP "
-            #       "Points! \nPikachu used Thunderbolt! \nIt was a critical hit! \nMewtwo used Confusion! \nPikachu "
-            #       "moved out of the way just in time. \nPikachu looks at you waiting to be complimented. \nPikachu "
-            #       "used Thunderbolt! \nMewtwo fainted! \nYou have defeated Mewtwo!")
         elif character["battle_four"] == 0 or character["battle_five"] == 0 or character["battle_six"] == 0:
-            # print("Oh, seems like Mewtwo deems you unworthy of battle. Maybe go find Team Rocket Jessie 🐍, Team Rocket"
-            #       " James 🐱, and Team Rocket Boss Giovanni 🐆 first.")
             print(data['battle_final']['not_complete_all_fixed_battles'])
         elif character["Level"] < 3:
             print(data['battle_final']['not_level_three'])
-            # print("You must be at least Level 3 to challenge Mewtwo.")
 
     else:
         character["Experience_Points"] -= 100
@@ -709,16 +664,6 @@ def fail_game():
         game()
     else:
         sys.exit()
-
-
-
-def access_jason(name):
-    file = open('package.json')
-    data = json.load(file)
-    print(data[name]["opponent_introduction"])
-
-
-
 
 
 def main():
