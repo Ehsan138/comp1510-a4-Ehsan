@@ -52,6 +52,7 @@ def game():
     prompts.game_intro_2(character)
     while is_alive(character) and not achieved_goal:
         describe_current_location(board, character)
+        print(board)
         # board_visual(board, rows, columns)
         direction = get_user_choice()
         steps = get_user_steps()
@@ -59,6 +60,7 @@ def game():
         if valid_move:
             move_character(character, direction, steps)
             describe_current_location(board, character)
+            print()
             there_is_a_challenge = check_for_challenges(board, character)
             if there_is_a_challenge and first_time_challenge(board, character):
                 level = character["Level"]
@@ -427,10 +429,12 @@ def first_time_challenge(board, character):
     :param character:
     :return:
     """
-    if character[board[(character["x_coordinate"], character["y_coordinate"])][1]] == 0:
-        return True
-    else:
-        return False
+    special_cases = ['battle_four', 'battle_five', 'battle_six', 'battle_final']
+    for challenge in special_cases:
+        if character[board[challenge][1]] == 0:
+            return True
+        else:
+            return False
 
 
 def execute_challenge_protocol(board, character):
