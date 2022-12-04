@@ -526,7 +526,7 @@ def execute_glow_up_protocol(character):
     character["Max_HP"] += 100
     character["Current_HP"] = character["Max_HP"]
     print(f"Congratulations on leveling up! \nYou've done excellent work!\n"
-          f"{character['Name']}, this is your current stats:\n"
+          f"{character['Name']}, these are your current stats:\n"
           f"Level: {character['Level']} \n"
           f"Current HP: {character['Current_HP']} \n"
           f"Max HP: {character['Max_HP']} \n"
@@ -970,7 +970,7 @@ def battle_final(character):
     options = ("Battle", "Flee")
     for count, options in enumerate(options, start=1):
         print(count, options)
-    will_battle = input("Will you battle Mewtwo?")
+    will_battle = input("Will you battle Mewtwo? ")
     quit_game(will_battle)
     if will_battle == "1":
         if character["battle_four"] == 1 and character["battle_four"] == 1 and character["battle_four"] == 1:
@@ -991,8 +991,8 @@ def battle_final(character):
             print("You must be at least Level 3 to challenge Mewtwo.")
 
     else:
-        character["Experience_Points"] -= 50
-        print("You lose 50 EXP Points for fleeing from battle.")
+        character["Experience_Points"] -= 100
+        print("You lose 100 EXP Points for fleeing from battle.")
 #################################################################################################################
 
 
@@ -1038,7 +1038,7 @@ def succeed_game(character):
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣂⡤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⢿⡏
     """)
     print(f"Congratulations on beating the game! \nYou've done excellent work. "
-          f"{character['Name']}, this is your current stats:\n"
+          f"{character['Name']}, these are your current stats:\n"
           f"Level: {character['Level']} \n"
           f"Current HP: {character['Current_HP']} \n"
           f"Max HP: {character['Max_HP']} \n"
@@ -1076,7 +1076,7 @@ def fail_game():
     options = ["Restart", "Quit"]
     for count, options in enumerate(options, start=1):
         print(count, options)
-    restart_game = input("Would you like to restart?")
+    restart_game = input("Would you like to restart? ")
     if restart_game == "1":
         game()
     else:
