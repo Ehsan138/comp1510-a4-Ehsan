@@ -431,7 +431,7 @@ def first_time_challenge(board, character):
     """
     special_cases = ['battle_four', 'battle_five', 'battle_six', 'battle_final']
     for challenge in special_cases:
-        if character[board[challenge][1]] == 0:
+        if board[challenge][1] == 0:
             return True
         else:
             return False
