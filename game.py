@@ -584,12 +584,14 @@ def fixed_battles(challenge_name, character):
                 character["Current_HP"] = 0
                 print("Uh oh! Pikachu has fainted!")
     else:
-        if character["Experience_Points"] - 50 >= 0:
-            character["Experience_Points"] -= 50
+        if character["Experience_Points"] - 100 >= 0:
+            character["Experience_Points"] -= 100
             print("You lose 50 EXP Points for fleeing from battle.\nPikachu now has {experience} EXP Points!".format(
                 experience=character["Experience_Points"]))
         else:
-            print("We'll let you off the hook since you don't you have enough EXP.")
+            character["Experience_Points"] = (character["Experience_Points"] // 1000) * 1000
+            # print("We'll let you off the hook since you don't you have enough EXP.")
+            print('Now you have zero EXP for your current level, sorry not sorry :)')
 
 
 
@@ -643,8 +645,8 @@ def random_battles(challenge_name, character):
             character["Current_HP"] = 0
             print("Uh oh! Pikachu has fainted!")
     else:
-        if character["Experience_Points"] - 1000 >= 0:
-            character["Experience_Points"] -= 1000
+        if character["Experience_Points"] - 100 >= 0:
+            character["Experience_Points"] -= 100
             print("You lose 50 EXP Points for fleeing from battle.\nPikachu now has {experience} EXP Points!".format(
                 experience=character["Experience_Points"]))
         else:
