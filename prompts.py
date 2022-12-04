@@ -51,15 +51,16 @@ def game_intro_2(character):
     ⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⡼⠀⠀⠸⣟⣄⠀⡇⠀⢸⣿⠇⠀⠀⠀⠀⠀⠀⠀⢸⡇⢟⣿⣿⠟⠋⠁⠀⠀⠀⠀⠘⡆⠀⠀⠀⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠃⠀⠀⠀⠈⠈⠻⠇⠀⢸⣿⠇⠀⠀⠀⠀⠀⠀⠀⢸⠃⠘⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⢹⡀⠀⠀⠀⠀⠀⠀
     """)
-    print(f"Pleased to make your acquaintance, {character['Name']}"
-    "\nListen carefully to these instructions: \nTo battle the final boss (🐲️), you must be at least Level 3 and have "
-    "battled (🐍🐱🐆) in that order. \nOn top of the battles shown on the board, there are hidden random battles and " \
-    "trivia that will give you rewards so try finding them. \nIf your HP reaches 0, you will die. \nYou gain EXP " \
-    "after each battle and level up every 1000 EXP. \nTo move, you will have to first enter the number of the " \
-    "direction and then the number of steps you wish to take. \nOn the board, 💥 shows your current location and 🟨 " \
-    "shows your past locations. \nPlease note that even if you've already been to the 🐍🐱🐆 spaces, those spaces will" \
-    " not change to 🟨. \nFleeing a battle will deduct 50 EXP. If you want to re-attempt a fled battle, you " \
-    "must leave that space and go back to it in order for the battle to happen.")
+    print(f"Pleased to make your acquaintance, {character['Name']} \nListen carefully to these instructions: \nTo "
+          f"battle the final boss (🐲️), you must be at least Level 3 and have battled (🐍🐱🐆) in that order. \nOn top "
+          f"of the battles shown on the board, there are hidden random battles and trivia that will give you rewards "
+          f"so try finding them. \nIf your HP reaches 0, you will die. \nYou gain EXP after each battle and level up "
+          f"every 1000 EXP. \nTo move, you will have to first enter the number of the direction and then the number of "
+          f"steps you wish to take. \nOn the board, 💥 shows your current location and 🟨 shows your past locations. "
+          f"\nPlease note that even if you've already been to the 🐍🐱🐆 spaces, those spaces will change to 🟨 after "
+          f"you leave the space. \nFleeing a battle will deduct 100 EXP. If you want to re-attempt a fled battle, you "
+          f"must leave that space and go back to it in order for the battle to happen. \nType quit at any time to stop "
+          f"the game.")
 
 
 def game_succeed():
@@ -125,7 +126,7 @@ def game_fail():
     options = ["Restart", "Quit"]
     for count, options in enumerate(options, start=1):
         print(count, options)
-    restart_game = input("Would you like to restart?")
+    restart_game = input("Would you like to restart? ")
     if restart_game == "1":
         game()
     else:
@@ -138,9 +139,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
