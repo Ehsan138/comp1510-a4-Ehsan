@@ -14,7 +14,7 @@ import json
 
 def game() -> None:
     """
-    Runs the game.
+    Run the game.
     """
     prompts.game_intro_1()
     rows = 10
