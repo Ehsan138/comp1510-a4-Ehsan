@@ -93,7 +93,7 @@ def make_character():
     :postcondition
     :return: dictionary that contains key:value pairs
     """
-    name = input("Name: ")
+    name = input("Please enter your name: ")
     quit_game(name)
     character_dictionary = {"Name": name, "x_coordinate": 1,
                             "y_coordinate": 1, "Current_HP": 100,
@@ -1031,7 +1031,7 @@ def succeed_game(character):
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣹⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⣦⢦⣧
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣂⡤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⢿⡏
     """)
-    print(f"Congratulations on beating the game! \nYou've done excellent work."
+    print(f"Congratulations on beating the game! \nYou've done excellent work. "
           f"{character['Name']}, this is your current stats:\n"
           f"Level: {character['Level']} \n"
           f"Current HP: {character['Current_HP']} \n"
