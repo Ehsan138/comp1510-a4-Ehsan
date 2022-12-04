@@ -70,7 +70,7 @@ def game_intro_2(character):
           f"every 1000 EXP. \nWhen you level up, your Max HP will increase and your Current HP will be fully restored."
           f"\nTo move, you will have to first enter the number of the direction and then the number of "
           f"steps you wish to take. \nOn the board, 💥 shows your current location and 🟨 shows your past locations. "
-          f"\nPlease note that even if you've already been to the 🐍🐱🐆 spaces, those spaces will change to 🟨 after "
+          f"\nPlease note that if you've already been to the 🐍🐱🐆 spaces, those spaces will change to 🟨 after "
           f"you leave the space. \nFleeing a battle will deduct 100 EXP. If you want to re-attempt a fled battle, you "
           f"must leave that space and go back to it in order for the battle to happen. \nType quit at any time to stop "
           f"the game.")
