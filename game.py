@@ -92,9 +92,7 @@ def make_board(rows: int, columns: int) -> dict:
     :postcondition: correctly returns a board with the specified number of rows and columns
     :return: a board which is a dictionary
     >>> make_board(3, 3)
-    {(1, 1): ['None', 'None'], (1, 2): ['None', 'None'], (1, 3): ['None', 'None'], (2, 1): ['None', 'None'], (2, 2):
-    ['None', 'None'], (2, 3): ['None', 'None'], (3, 1): ['None', 'None'], (3, 2): ['None', 'None'], (3, 3):
-    ['None', 'None']}
+    {(1, 1): ['None', 'None'], (1, 2): ['None', 'None'], (1, 3): ['None', 'None'], (2, 1): ['None', 'None'], (2, 2): ['None', 'None'], (2, 3): ['None', 'None'], (3, 1): ['None', 'None'], (3, 2): ['None', 'None'], (3, 3): ['None', 'None']}
     """
     board = {}
     text = ''
