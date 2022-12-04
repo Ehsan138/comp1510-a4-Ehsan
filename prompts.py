@@ -1,9 +1,15 @@
 
 def game_intro_1():
+    """
+    Prints welcome statement for the game.
+
+    :precondition: User must start the game
+    :postcondition: Prints welcome statement.
+    """
     print("""                          
                                        ,'\ 
          _.----.        ____         ,'  _\  ___    ___     ____
-     _,-'       `.     |    |  /`.   \,-'   |   \  /   |   |    \  |`.
+     _,-'       `.     |    |  /`.   \,-'   |   \  /   |   |    \  |`. .
      \      __    \    '-.  | /   `.  ___   |    \/    |   '-.   \ |   |
       \.    \ \   |  __  |  |/    ,','_  `. |          | __  |    \|   |
        \    \/   /,' _`.|      ,' / / / /   |          ,' _`.|     |   |
@@ -18,6 +24,12 @@ def game_intro_1():
 
 
 def game_intro_2(character):
+    """
+    Prints the game's instructions.
+
+    :precondition: User must start the game
+    :postcondition: Prints game's instructions.
+    """
     print("""
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠒⠛⠛⣁⣽⠖⠲⢤⣀⣠⣴⠄⠀⠀⠀⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⡞⠃⠀⢀⣤⣞⣿⡟⣠⠴⣚⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀
