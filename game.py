@@ -210,7 +210,7 @@ def placing_challenges(board, rows, columns):
         board[coordinate][1] = next(iterator_random_battles)
         list_of_coordinate.remove(coordinate)
 
-def board_visual(board, rows, columns):
+def board_visual(board, rows, columns, character):
     """
     Makes the visuals of the board.
 
@@ -238,17 +238,20 @@ def board_visual(board, rows, columns):
                 text += "⬜️"
             elif board[(column, row)][0] == 'current' and board[(column, row)][1] not in special_cases:
                 text += "💥"
+            elif board[(column, row)][0] == 'current' and board[(column, row)][1] in special_cases and \
+                    character[board[(column, row)][1]] == 1:
+                text += "💥"
+            elif board[(column, row)][0] == 'past_location' and board[(column, row)][1] not in special_cases:
+                text += "🟨️"
+            elif board[(column, row)][0] == 'past_location' and board[(column, row)][1] in special_cases and \
+                    character[board[(column, row)][1]] == 1:
+                text += "🟨️"
             elif board[(column, row)][1] == 'battle_four':
                 text += "🐍"
             elif board[(column, row)][1] == 'battle_five':
                 text += "🐱"
             elif board[(column, row)][1] == 'battle_six':
                 text += "🐆"
-            # elif board[(column, row)][1] in ['battle_four', 'battle_five', 'battle_six']:
-            #     text += "💥️"
-            elif board[(column, row)][0] == 'past_location' and \
-                    board[(column, row)][1] not in special_cases:
-                text += "🟨️"
             elif board[(column, row)][1] == 'battle_final':
                 text += "🐲️"
 
@@ -272,7 +275,7 @@ def describe_current_location(board, character):
             board[coordinate][0] = 'past_location'
 
     board[(character["x_coordinate"], character["y_coordinate"])][0] = 'current'
-    print(board_visual(board, 10, 10))
+    print(board_visual(board, 10, 10, character))
 
 
 def get_user_choice():
