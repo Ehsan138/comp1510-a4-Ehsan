@@ -64,5 +64,13 @@
     "opponent_introduction": "Team Rocket Boss Giovanni is furiously glaring at you.",
     "battle_statement":  "'I heard about what happened from my underlings. If you are so adamant on opposing us, show me your power!' \nTeam Rocket Boss Giovanni sends out Persian! \nGo Pikachu! \nPikachu used Thunderbolt! \nPersian recoiled from the impact! \nFoe Persian used Assurance! \nPikachu's health is now {health} HP! \nPikachu used Thunderbolt! \nPersian is seething with rage! \nPersian fainted! \nPikachu now has {experience} EXP Points! \nYou have defeated Team Rocket Boss Giovanni! \n'I lost because of bad luck. Next time I will battle you with better Pokémon. \nNow I just need to look for Mewtwo...'",
     "is_not_ready": "Oh nevermind, make sure you have found both Team Rocket Jessie \uD83D\uDC0D and James \uD83D\uDC31 first before battling me."
+  },
+
+  "battle_final": {
+    "narration": "There is a menacing pokemon towering over you, blocking the only path you can take.",
+    "opponent_introduction": "\nUpon closer inspection it is legendary pokemon Mewtwo! \nMewtwo makes eye contact with you. It seems you must battle Mewtwo to pass. \nPikachu seems a little bit worried about being able to battle.",
+    "battle_statement": "Go Pikachu! \nPikachu used Thunderbolt! \nOh no, Mewtwo dodged it. \nMewtwo used Confusion! \nPikachu is confused! \nPikachu hurt himself in his confusion! \nMewtwo used Ice Beam! \nPikachu is dazed from the impact! \nPikachu snapped out of his confusion. \nPikachu used Thunderbolt! \nMewtwo's HP sharply dropped! \nMewtwo used Flamethrower! \nPikachu's health is now {health} HP Points! \nPikachu used Thunderbolt! \nIt was a critical hit! \nMewtwo used Confusion! \nPikachu moved out of the way just in time. \nPikachu looks at you waiting to be complimented. \nPikachu used Thunderbolt! \nMewtwo fainted! \nYou have defeated Mewtwo!",
+    "not_complete_all_fixed_battles": "Oh, seems like Mewtwo deems you unworthy of battle. Maybe go find Team Rocket Jessie 🐍, Team Rocket James 🐱, and Team Rocket Boss Giovanni 🐆 first.",
+    "not_level_three": "You must be at least Level 3 to challenge Mewtwo."
   }
 }
