@@ -87,6 +87,9 @@ def make_board(rows: int, columns: int) -> dict:
     :precondition: rows and columns must be positive non-zero integers
     :postcondition: correctly returns a board with the specified number of rows and columns
     :return: a board which is a dictionary
+
+    >>> make_board(3, 3)
+    {(1, 1): ['None', 'None'], (1, 2): ['None', 'None'], (1, 3): ['None', 'None'], (2, 1): ['None', 'None'], (2, 2): ['None', 'None'], (2, 3): ['None', 'None'], (3, 1): ['None', 'None'], (3, 2): ['None', 'None'], (3, 3): ['None', 'None']}
     """
     board = {}
     text = ''
@@ -97,13 +100,13 @@ def make_board(rows: int, columns: int) -> dict:
     return board
 
 
-def filtering_fixed_coordinates(coordinate):
+def filtering_fixed_coordinates(coordinate: tuple) -> tuple:
     """
     Return coordinates not in the list of coordinates for fixed events.
 
     :param coordinate: a tuple of coordinates
-    :precondition: coordinate must be a tuple of coordinates
-    :postcondition: correctly returns tuples of coordinates not in the list of coordinates for fixed events
+    :precondition: coordinate must be a tuple of two positive non-zero integers
+    :postcondition: correctly returns tuples of coordinates not in the fixed events
     :return: tuples of coordinates
     """
     list_of_fixed_coordinates = [(1, 1), (10, 10), (3, 3), (5, 8), (8, 3)]
@@ -117,9 +120,9 @@ def placing_challenges(board: dict, rows: int, columns: int):
     :param board: a dictionary
     :param rows: an integer
     :param columns: an integer
-    :precondition: rows and columns must be positive non-zero integers
+    :precondition: rows and columns must be positive non-zero integers, must the same number
+    :precondition: board must be a tuple of two positive non-zero integers
     :postcondition: correctly places challenges on the board
-
     """
     list_of_coordinate = [(x_coordinate, y_coordinate)
                           for x_coordinate in range(1, columns + 1) for y_coordinate in range(1, rows + 1)]
@@ -148,15 +151,26 @@ def placing_challenges(board: dict, rows: int, columns: int):
 
 def board_visual(board: dict, rows: int, columns: int, character: dict) -> str:
     """
-    Make the visuals of the board.
+    Return the visual format of the board.
 
     :param board: a dictionary
     :param rows: an integer
     :param columns: an integer
     :param character: a dictionary
-    :precondition: rows and columns must be positive non-zero integers
+    :precondition: rows and columns must be positive non-zero integers, must the same number
+    :precondition: board must be a tuple of two positive non-zero integers
+    :precondition: character must be a dictionary where each key is a string of letters
     :postcondition: correctly displays board as emojis
-    :return: visuals of the board as a string
+    :return: a string which is the visual format of the board
+
+    # >>> rows = 3
+    # >>> columns = 3
+    # >>> board = make_board(rows, columns)
+    # >>> character = {"Name": 'Chris', "x_coordinate": 1, "y_coordinate": 1, "Current_HP": 100, "Max_HP": 100, "Experience_Points": 0, "Level": 1, "trivia_one": 0, "trivia_two": 0, "trivia_three": 0, "trivia_four": 0, "trivia_five": 0, "battle_one": 0, "battle_two": 0, "battle_three": 0, "battle_four": 0, "battle_five": 0, "battle_six": 0, "battle_final": 0}
+    # >>> board_visual(board, rows, columns, character)
+    # 1	⬜️⬜️⬜️
+    # 2	⬜️⬜️⬜️
+    # 3	⬜️⬜️⬜️
     """
     text = ''
     special_cases = ['battle_four', 'battle_five', 'battle_six', 'battle_final']
@@ -193,13 +207,13 @@ def board_visual(board: dict, rows: int, columns: int, character: dict) -> str:
 
 def describe_current_location(board: dict, character: dict):
     """
-    Describes character's current location.
+    Update character's current location in board dictionary.
 
     :param board: a dictionary
     :param character: a dictionary
-    :precondition:
-    :postcondition: correctly
-
+    :precondition: board must be a tuple of two positive non-zero integers
+    :precondition: character must be a dictionary where each key is a string of letters
+    :postcondition: correctly updates character's current location in board dictionary
     """
     for coordinate in board:
         if board[coordinate][0] == 'current':
@@ -212,7 +226,7 @@ def get_user_choice() -> str:
     """
     Get user's choice of which direction they want to move.
 
-    :return:
+    :return: a string which is a number between 1 and 4
     """
     directions = ['North', 'South', 'West', 'East']
     print("Which direction would you like to go?")
@@ -229,9 +243,9 @@ def get_user_choice_check_input(response):
     """
     Check if user's answer is in the range of 1 to 4.
 
-    :param response:
-    :precondition:
-    :postcondition:
+    :param response: a string which is a number between 1 and 4
+    :precondition: response must be a string which is a number between 1 and 4
+    :postcondition: correctly checks if user's answer is in the range of 1 to 4
     """
     directions = ['North', 'South', 'West', 'East']
     while response not in ['1', '2', '3', '4']:
@@ -245,11 +259,9 @@ def get_user_choice_check_input(response):
 
 def get_user_steps() -> str:
     """
-    Ask user how many steps they want to take.
+    Return the user's desired steps.
 
-    :precondition:
-    :postcondition:
-    :return: number of steps as a string
+    :return: a string which is a number between 1 and 9
     """
     steps = ''
     while steps not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
@@ -263,16 +275,20 @@ def get_user_steps() -> str:
 
 def validate_move(character: dict, direction, steps: str, rows: int, columns: int) -> bool:
     """
-    Return True or False if user's move is valid.
+    Return True if user's move is valid, else False.
 
     :param character: a dictionary
-    :param direction:
+    :param direction: a string
     :param steps: a string
     :param rows: an integer
     :param columns: an integer
-    :precondition:
-    :postcondition:
-    :return: True or False if character's move is valid
+    :precondition: rows and columns must be positive non-zero integers, must the same number
+    :precondition: board must be a tuple of two positive non-zero integers
+    :precondition: character must be a dictionary where each key is a string of letters
+    :precondition: direction must be a string which is a number between 1 and 4
+    :precondition: steps must be a string which is a number between 1 and 9
+    :postcondition: return the correct boolean expression
+    :return: a boolean expression, True if user's move is valid, else False
     """
     if int(direction) == 1 and character['y_coordinate'] - int(steps) >= 1:
         return True
@@ -288,10 +304,15 @@ def validate_move(character: dict, direction, steps: str, rows: int, columns: in
 
 def move_character(character: dict, direction, steps: str):
     """
+    Update the current location coordinates of the character dictionary.
 
-    :param character:
-    :param direction:
-    :param steps:
+    :param character: a dictionary
+    :param direction: a string
+    :param steps: a string
+    :precondition: character must be a dictionary where each key is a string of letters
+    :precondition: direction must be a string which is a number between 1 and 4
+    :precondition: steps must be a string which is a number between 1 and 9
+    :postcondition: correctly updates the current location coordinates of the character dictionary
     """
     if int(direction) == 1:
         character['y_coordinate'] -= int(steps)
@@ -305,11 +326,15 @@ def move_character(character: dict, direction, steps: str):
 
 def check_for_challenges(board, character) -> bool:
     """
-    Return True or False if player is on a space that has a challenge.
+    Return True if player is on a space that has a challenge, else False.
 
-    :param board:
-    :param character:
-    :return: True or False if player is on a space that has a challenge
+    :param board: a dictionary
+    :param character: a dictionary
+    :precondition: board must be a tuple of two positive non-zero integers
+    :precondition: character must be a dictionary where each key is a string of letters
+    :postcondition: returns the correct boolean expression, True if player is on
+    a space that has a challenge, else False
+    :return: a boolean expression, True if player is on a space that has a challenge, else False
     """
     list_of_challenges = ["trivia_one", "trivia_two", "trivia_three", "trivia_four",
                           "trivia_five", "battle_one", "battle_two", "battle_three",
@@ -322,21 +347,40 @@ def check_for_challenges(board, character) -> bool:
 
 def is_alive(character):
     """
-    Checks if the character is alive.
+    Return True if the character is alive, else False.
 
-    :param character:
-    :return:
+    :param character: a dictionary
+    :precondition: character must be a dictionary where each key is a string of letters
+    :postcondition: returns the correct boolean expression, True if the character is alive, else False
+    :return: a boolean expression, True if the character is alive, else False
+
+    >>> character_chris = {"Name": 'Chris', "x_coordinate": 1, "y_coordinate": 1, "Current_HP": 100, "Max_HP": 100}
+    >>> character_chris['Current_HP'] > 0
+    True
+    >>> character_hoda = {"Name": 'Hoda', "x_coordinate": 1, "y_coordinate": 1, "Current_HP": 0, "Max_HP": 100}
+    >>> character_hoda['Current_HP'] > 0
+    False
     """
     return character['Current_HP'] > 0
 
 
 def first_time_challenge(character):
     """
-    Checks if it is the first time the character is doing the challenge.
+    Return True if it is the first time the character is doing one of the
+    fixed challenges, else False.
 
-    :param board:
-    :param character:
-    :return:
+    :param character: a dictionary
+    :precondition: character must be a dictionary where each key is a string of letters
+    :postcondition: returns the correct boolean expression, True if it is the first time
+    the character is doing one of the fixed challenges, else False
+    :return: a boolean expression, True if it is the first time the character is doing
+    one of the fixed challenges, else False
+    >>> test_1 = {"battle_three": 0, "battle_four": 0, "battle_five": 0, "battle_six": 0, "battle_final": 0}
+    >>> first_time_challenge(test_1)
+    True
+    >>> test_2 = {"battle_three": 0, "battle_four": 1, "battle_five": 1, "battle_six": 1, "battle_final": 1}
+    >>> first_time_challenge(test_2)
+    False
     """
     special_cases = ['battle_four', 'battle_five', 'battle_six', 'battle_final']
     for challenge in special_cases:
@@ -347,10 +391,14 @@ def first_time_challenge(character):
 
 def execute_challenge_protocol(board, character):
     """
+    Return the challenge functions based on the current event on the board.
 
-    :param board:
-    :param character:
-    :return:
+    :param board: a dictionary
+    :param character: a dictionary
+    :precondition: board must be a tuple of two positive non-zero integers
+    :precondition: character must be a dictionary where each key is a string of letters
+    :postcondition: returns the correct challenge function based on the current
+    event on the board
     """
     challenge = board[(character["x_coordinate"], character["y_coordinate"])][1]
     if challenge in ['battle_one', 'battle_two', 'battle_three']:
@@ -367,38 +415,37 @@ def execute_challenge_protocol(board, character):
 
 def character_has_leveled(character, level) -> bool:
     """
-    Return True or False if character has leveled up.
+    Return True if character has leveled up, else False.
 
-    :param character:
-    :param level:
-    :precondition:
-    :postcondition:
-    :return: True or False if character has leveled up
+    :param character: a dictionary
+    :param level: a positive non-zero integer
+    :precondition: character must be a dictionary where each key is a string of letters
+    :precondition: level must be a positive non-zero integer
+    :postcondition: returns the correct boolean expression, True if character has leveled up, else False
+    :return: a boolean expression, True if character has leveled up, else False
     """
-    if character['Level'] - level == 1:
-        return True
-    else:
-        return False
+    return character['Level'] - level == 1
 
 
 def current_level(character):
     """
-    Calculate the character's current level
+    Update the character's current level.
 
-    :param character:
-    :precondition:
-    :postcondition:
+    :param character: a dictionary
+    :precondition: character must be a dictionary where each key is a string of letters
+    :postcondition: correctly updates the character's current level
     """
     character["Level"] = (character["Experience_Points"] // 1000) + 1
 
 
 def execute_glow_up_protocol(character):
     """
-    Increases character's HP stats and prints their new level, HP, and EXP stats.
+    Update character's HP stats and print their new level, HP, and EXP stats.
 
-    :param character:
-    :precondition:
-    :postcondition:
+    :param character: a dictionary
+    :precondition: character must be a dictionary where each key is a string of letters
+    :postcondition: correctly updates character's HP stats and print their
+    new level, HP, and EXP stats
     """
     character["Max_HP"] += 100
     character["Current_HP"] = character["Max_HP"]
@@ -412,12 +459,13 @@ def execute_glow_up_protocol(character):
 
 def check_if_goal_attained(character):
     """
-    Checks if the character has completed battle_final
+    Return True if the character has completed battle_final, else False.
 
-    :param character:
-    :precondition:
-    :postcondition:
-    :return: 1 if character has completed battle_final
+    :param character: a dictionary
+    :precondition: character must be a dictionary where each key is a string of letters
+    :postcondition: returns the correct boolean expression, True if the
+    character has completed battle_final, else False
+    :return: a boolean expression, True if the character has completed battle_final, else False
     """
     return character['battle_final'] == 1
 
@@ -743,8 +791,7 @@ def main():
     """
     Drives the program.
     """
-    # game()
-    type(board)
+    game()
 
 if __name__ == "__main__":
     main()

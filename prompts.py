@@ -1,4 +1,4 @@
-from game import game
+import game
 import sys
 
 
@@ -162,7 +162,7 @@ def fail_game():
         print(count, options)
     restart_game = input("Would you like to restart? ")
     if restart_game == "1":
-        game()
+        game.game()
     else:
         sys.exit()
 
