@@ -61,7 +61,7 @@ def game():
             move_character(character, direction, steps)
             describe_current_location(board, character)
             there_is_a_challenge = check_for_challenges(board, character)
-            if there_is_a_challenge and first_time_challenge(character):
+            if there_is_a_challenge:
                 level = character["Level"]
                 execute_challenge_protocol(board, character)
                 current_level(character)
