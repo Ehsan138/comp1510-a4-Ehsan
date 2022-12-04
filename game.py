@@ -47,6 +47,11 @@ def game():
 
 
 def quit_game(answer):
+    """
+
+    :param answer:
+    :return:
+    """
     if answer.lower() == 'quit':
         sys.exit()
 
