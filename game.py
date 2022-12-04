@@ -6,15 +6,22 @@ Michelle Kwok A01323329
 
 import random
 import sys
-import json
 import itertools
 import prompts
+import challenges
+import json
 
 
 def game() -> None:
+    """
+
+    :return:
+    """
     prompts.game_intro_1()
     rows = 10
     columns = 10
+    with open('package.json', encoding="utf-8") as file:
+        data = json.load(file)
     board = make_board(rows, columns)
     character = make_character()
     placing_challenges(board, rows, columns)
@@ -32,7 +39,7 @@ def game() -> None:
             there_is_a_challenge = check_for_challenges(board, character)
             if there_is_a_challenge and first_time_challenge(character):
                 level = character["Level"]
-                execute_challenge_protocol(board, character)
+                execute_challenge_protocol(board, character, data)
                 current_level(character)
                 if character_has_leveled(character, level):
                     execute_glow_up_protocol(character)
@@ -41,9 +48,9 @@ def game() -> None:
             print("Sorry, that's out of bounds. Try somewhere else.")
 
     if not is_alive(character):
-        fail_game()
+        prompts.fail_game()
     elif achieved_goal:
-        succeed_game(character)
+        prompts.succeed_game(character)
 
 
 def quit_game(answer: str) -> None:
@@ -100,20 +107,23 @@ def make_board(rows: int, columns: int) -> dict:
     return board
 
 
-def filtering_fixed_coordinates(coordinate: tuple) -> tuple:
+def filtering_fixed_coordinates(coordinate: tuple) -> bool:
     """
-    Return coordinates not in the list of coordinates for fixed events.
+    Return True if tuple coordinate is not in list_of_fixed_coordinates, else False.
 
     :param coordinate: a tuple of coordinates
     :precondition: coordinate must be a tuple of two positive non-zero integers
-    :postcondition: correctly returns tuples of coordinates not in the fixed events
-    :return: tuples of coordinates
+    :postcondition: returns the correct boolean expression, True if tuple
+    coordinate is not in list_of_fixed_coordinates, else False
+    correctly returns tuples of coordinates not in the fixed events
+    :return: a boolean expression, True if tuple coordinate is not
+    in list_of_fixed_coordinates, else False
     """
     list_of_fixed_coordinates = [(1, 1), (10, 10), (3, 3), (5, 8), (8, 3)]
     return coordinate not in list_of_fixed_coordinates
 
 
-def placing_challenges(board: dict, rows: int, columns: int):
+def placing_challenges(board: dict, rows: int, columns: int) -> None:
     """
     Place challenges on the board.
 
@@ -161,16 +171,7 @@ def board_visual(board: dict, rows: int, columns: int, character: dict) -> str:
     :precondition: board must be a tuple of two positive non-zero integers
     :precondition: character must be a dictionary where each key is a string of letters
     :postcondition: correctly displays board as emojis
-    :return: a string which is the visual format of the board
-
-    # >>> rows = 3
-    # >>> columns = 3
-    # >>> board = make_board(rows, columns)
-    # >>> character = {"Name": 'Chris', "x_coordinate": 1, "y_coordinate": 1, "Current_HP": 100, "Max_HP": 100, "Experience_Points": 0, "Level": 1, "trivia_one": 0, "trivia_two": 0, "trivia_three": 0, "trivia_four": 0, "trivia_five": 0, "battle_one": 0, "battle_two": 0, "battle_three": 0, "battle_four": 0, "battle_five": 0, "battle_six": 0, "battle_final": 0}
-    # >>> board_visual(board, rows, columns, character)
-    # 1	⬜️⬜️⬜️
-    # 2	⬜️⬜️⬜️
-    # 3	⬜️⬜️⬜️
+    :return: a string which is the visual format of the board⬜️
     """
     text = ''
     special_cases = ['battle_four', 'battle_five', 'battle_six', 'battle_final']
@@ -205,7 +206,7 @@ def board_visual(board: dict, rows: int, columns: int, character: dict) -> str:
     return text
 
 
-def describe_current_location(board: dict, character: dict):
+def describe_current_location(board: dict, character: dict) -> None:
     """
     Update character's current location in board dictionary.
 
@@ -239,7 +240,7 @@ def get_user_choice() -> str:
     return response
 
 
-def get_user_choice_check_input(response):
+def get_user_choice_check_input(response: str) -> None:
     """
     Check if user's answer is in the range of 1 to 4.
 
@@ -273,7 +274,7 @@ def get_user_steps() -> str:
     return steps
 
 
-def validate_move(character: dict, direction, steps: str, rows: int, columns: int) -> bool:
+def validate_move(character: dict, direction: str, steps: str, rows: int, columns: int) -> bool:
     """
     Return True if user's move is valid, else False.
 
@@ -302,7 +303,7 @@ def validate_move(character: dict, direction, steps: str, rows: int, columns: in
         return False
 
 
-def move_character(character: dict, direction, steps: str):
+def move_character(character: dict, direction: str, steps: str) -> None:
     """
     Update the current location coordinates of the character dictionary.
 
@@ -324,7 +325,7 @@ def move_character(character: dict, direction, steps: str):
         character['x_coordinate'] += int(steps)
 
 
-def check_for_challenges(board, character) -> bool:
+def check_for_challenges(board: dict, character: dict) -> bool:
     """
     Return True if player is on a space that has a challenge, else False.
 
@@ -345,7 +346,7 @@ def check_for_challenges(board, character) -> bool:
     return False
 
 
-def is_alive(character):
+def is_alive(character: dict) -> bool:
     """
     Return True if the character is alive, else False.
 
@@ -364,7 +365,7 @@ def is_alive(character):
     return character['Current_HP'] > 0
 
 
-def first_time_challenge(character):
+def first_time_challenge(character: dict) -> bool:
     """
     Return True if it is the first time the character is doing one of the
     fixed challenges, else False.
@@ -389,7 +390,7 @@ def first_time_challenge(character):
     return False
 
 
-def execute_challenge_protocol(board, character):
+def execute_challenge_protocol(board: dict, character: dict, data: dict) -> None:
     """
     Return the challenge functions based on the current event on the board.
 
@@ -402,18 +403,18 @@ def execute_challenge_protocol(board, character):
     """
     challenge = board[(character["x_coordinate"], character["y_coordinate"])][1]
     if challenge in ['battle_one', 'battle_two', 'battle_three']:
-        random_battles(challenge, character)
+        challenges.random_battles(challenge, character, data)
     elif challenge in ['battle_four', 'battle_five', 'battle_six']:
         if character[challenge] == 0:
-            fixed_battles(challenge, character)
+            challenges.fixed_battles(challenge, character, data)
     elif challenge == 'battle_final':
         if character[challenge] == 0:
-            battle_final(character)
+            challenges.battle_final(character, data)
     elif challenge in ['trivia_one', 'trivia_two', 'trivia_three', 'trivia_four', 'trivia_five']:
-        trivias(challenge, character)
+        challenges.trivia(challenge, character, data)
 
 
-def character_has_leveled(character, level) -> bool:
+def character_has_leveled(character: dict, level: int) -> bool:
     """
     Return True if character has leveled up, else False.
 
@@ -423,6 +424,15 @@ def character_has_leveled(character, level) -> bool:
     :precondition: level must be a positive non-zero integer
     :postcondition: returns the correct boolean expression, True if character has leveled up, else False
     :return: a boolean expression, True if character has leveled up, else False
+
+    >>> character_1 = {"Level": 3}
+    >>> level_1 = 2
+    >>> character_has_leveled(character_1, level_1)
+    True
+    >>> character_2 = {"Level": 3}
+    >>> level_2 = 1
+    >>> character_has_leveled(character_2, level_2)
+    False
     """
     return character['Level'] - level == 1
 
@@ -434,11 +444,20 @@ def current_level(character):
     :param character: a dictionary
     :precondition: character must be a dictionary where each key is a string of letters
     :postcondition: correctly updates the character's current level
+
+    >>> character_1 = {"Level": 0, "Experience_Points": 456}
+    >>> current_level(character_1)
+    >>> character_1["Level"] == 1
+    True
+    >>> character_2 = {"Level": 1, "Experience_Points": 2674}
+    >>> current_level(character_2)
+    >>> character_2["Level"] == 3
+    True
     """
     character["Level"] = (character["Experience_Points"] // 1000) + 1
 
 
-def execute_glow_up_protocol(character):
+def execute_glow_up_protocol(character: dict) -> None:
     """
     Update character's HP stats and print their new level, HP, and EXP stats.
 
@@ -457,7 +476,7 @@ def execute_glow_up_protocol(character):
           f"Experience Points: {character['Experience_Points']} \n")
 
 
-def check_if_goal_attained(character):
+def check_if_goal_attained(character: dict) -> bool:
     """
     Return True if the character has completed battle_final, else False.
 
@@ -466,325 +485,15 @@ def check_if_goal_attained(character):
     :postcondition: returns the correct boolean expression, True if the
     character has completed battle_final, else False
     :return: a boolean expression, True if the character has completed battle_final, else False
+
+    >>> character_1 = {"battle_final": 0, "Experience_Points": 456}
+    >>> check_if_goal_attained(character_1)
+    False
+    >>> character_2 = {"battle_final": 1, "Experience_Points": 2674}
+    >>> check_if_goal_attained(character_2)
+    True
     """
     return character['battle_final'] == 1
-
-
-#############################################################################################
-
-
-def fixed_battles(challenge_name, character):
-    """
-    Executes fixed battles.
-
-    :param challenge_name:
-    :param character:
-    :return:
-    """
-    file = open('package.json')
-    data = json.load(file)
-
-    options = ("Battle", "Flee")
-    print(data[challenge_name]["opponent_introduction"])
-    for count, options in enumerate(options, start=1):
-        print(count, options)
-    will_battle = input("What do you want to do? (Any key other than 1 will Flee): ")
-    quit_game(will_battle)
-    check_fixed_battles_conditions(challenge_name, character, will_battle, data)
-
-
-def check_fixed_battles_conditions(challenge_name: str, character, will_battle: bool, data):
-    """
-
-    :param challenge_name: a string
-    :param character:
-    :param will_battle:
-    :param data:
-    """
-    if will_battle == "1":
-        if challenge_name == 'battle_five' and character["battle_four"] == 0:
-            print(data[challenge_name]["is_not_ready"])
-        elif challenge_name == 'battle_six' and (character["battle_four"] == 0 or character["battle_five"] == 0):
-            print(data[challenge_name]["is_not_ready"])
-        else:
-            character["Experience_Points"] += random.randint(500, 650)
-            new_randomize_hp = 1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"]
-            if character["Current_HP"] - new_randomize_hp >= 0:
-                character["Current_HP"] -= new_randomize_hp
-                character[challenge_name] = 1
-                print(data[challenge_name]["battle_statement"].format(health=character["Current_HP"],
-                                                                      experience=character["Experience_Points"]))
-            else:
-                character["Current_HP"] = 0
-                print("Uh oh! Pikachu has fainted!")
-    else:
-        if character["Experience_Points"] - 100 >= 0:
-            character["Experience_Points"] -= 100
-            print("You lose 100 EXP Points for fleeing from battle.\nPikachu now has {experience} EXP Points!".format(
-                experience=character["Experience_Points"]))
-        else:
-            character["Experience_Points"] = (character["Experience_Points"] // 1000) * 1000
-            print('Attention! Looks like you have 0 EXP left!')
-
-
-def random_battles(challenge_name: str, character):
-    """
-    Execute random battles.
-
-    :param challenge_name: a string
-    :param character:
-    :precondition:
-    :postcondition:
-    """
-    file = open('package.json')
-    data = json.load(file)
-
-    options = ("Battle", "Flee")
-    print(data[challenge_name]["opponent_introduction"])
-    for count, options in enumerate(options, start=1):
-        print(count, options)
-    will_battle = input("What do you want to do? (Any key other than 1 will Flee): ")
-    quit_game(will_battle)
-    check_random_battles_conditions(challenge_name, character, will_battle, data)
-
-
-def check_random_battles_conditions(challenge_name, character, will_battle, data):
-    """
-
-    :param challenge_name:
-    :param character:
-    :param will_battle:
-    :param data:
-    :return:
-    """
-    if will_battle == "1":
-        character["Experience_Points"] += random.randint(200, 300)
-        new_randomize_hp = 1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"]
-        if character["Current_HP"] - new_randomize_hp >= 0:
-            character["Current_HP"] -= new_randomize_hp
-            character[challenge_name] = 1
-            print(data[challenge_name]["battle_statement"].format(health=character["Current_HP"],
-                                                                  experience=character["Experience_Points"]))
-        else:
-            character["Current_HP"] = 0
-            print("Uh oh! Pikachu has fainted!")
-    else:
-        if character["Experience_Points"] - 100 >= 0:
-            character["Experience_Points"] -= 100
-            print("You lose 100 EXP for fleeing from battle.\nPikachu now has {experience} EXP!".format(
-                experience=character["Experience_Points"]))
-        else:
-            character["Experience_Points"] = (character["Experience_Points"] // 1000) * 1000
-            print('Attention! Looks like you have 0 EXP left!')
-
-
-def trivias(trivia_name: str, character):
-    """
-    Execute trivia questions.
-
-    :param trivia_name: a string
-    :param character:
-    :precondition:
-    :postcondition:
-    """
-    file = open('package.json')
-    data = json.load(file)
-
-    options = data[trivia_name]["options"]
-    print(data[trivia_name]["question"])
-    for count, options in enumerate(options, start=1):
-        print(count, options)
-    answer = input("Please enter the number of the correct answer: ")
-    quit_game(answer)
-    check_trivias_conditions(trivia_name, character, answer, data)
-
-
-def check_trivias_conditions(trivia_name, character, answer, data):
-    """
-
-    :param trivia_name:
-    :param character:
-    :param answer:
-    :param data:
-    :return:
-    """
-    if answer == data[trivia_name]["right_answer"]:
-        if trivia_name == 'trivia_three':
-            character["Experience_Points"] += 500
-        else:
-            character["Experience_Points"] += 100
-        character[trivia_name] = 1
-        print(data[trivia_name]['award'].format(health=character["Current_HP"]))
-        if (character["Current_HP"] < character["Max_HP"]) and trivia_name == 'trivia_three':
-            character["Current_HP"] = character["Max_HP"]
-        elif (character["Current_HP"] < character["Max_HP"]) and trivia_name != 'trivia_three':
-            character["Current_HP"] *= 1.10
-        else:
-            print("Oh, actually, your Pikachu is well rested.")
-    else:
-        print("Oops, you got that wrong.")
-
-
-def battle_final(character):
-    """
-    Executes the final battle.
-
-    :param character:
-    :return:
-    """
-    file = open('package.json')
-    data = json.load(file)
-    print(data['battle_final']['narration'])
-    print("""
-                              ⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣷⠀⠀⠀⠀⣸⣶⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⡞⣿⣷⣮⣻⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣾⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⡝⢿⣿⣿⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⡀⠀⠀⠀⠀⠀⠀⠻⣿⣿⣿⠸⣸⣻⣏⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣿⣿⡿⡀⠀⠀⠀⠀⠀⣾⡞⡝⣿⢿⣿⣿⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠩⣾⣿⣶⢦⣤⣀⠸⠻⢭⣥⡻⣧⠀⡙⠛⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣄⢠⣴⣾⣿⣿⣿⣏⣶⣾⡽⣿⣷⣟⣿⣿⣿⣻⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⣀⣀⣀⠀⠀⠀⠸⣿⡿⠘⠻⢿⣿⣿⠟⠛⠿⠿⠃⢍⣿⣿⢸⣿⣿⣿⡽⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⣰⣟⠛⠛⢿⣿⣦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣜⢿⣿⡿⡷⡿⣼⣶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⢰⣿⠃⠀⠀⠀⠈⢿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⣷⣯⣾⣿⡀⠀⠙⠻⢿⣶⣄⠀⠀⠀⠀⠀⠀⠀
-    ⢸⣿⠀⠀⠀⠀⠀⠀⢻⣿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣧⡀⠀⠀⠀⠙⢿⣧⡀⠀⠀⠀⠀⠀
-    ⢸⣿⡀⠀⠀⠀⠀⠀⠀⢻⣿⣿⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣬⣽⣿⣿⢟⣛⣳⠀⠀⠀⠀⠀⠹⣿⣆⠀⠀⠀⠀
-    ⠀⣿⣇⠀⠀⠀⠀⠀⠀⠈⣿⣿⣿⣷⡀⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣷⢻⣾⣿⣿⣷⡽⣄⠀⠀⢀⣾⣿⣷⣄⠀⠀
-    ⠀⠘⣿⣆⠀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣷⣄⡀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⡇⣿⣿⣿⣿⣿⢹⣦⠀⢸⣇⠀⠹⣏⢧⡀
-    ⠀⠀⠹⣿⣷⡀⠀⠀⠀⠀⠀⠘⣿⣿⣿⣿⣿⣿⣿⡆⣿⣿⣿⣿⣿⣿⣿⣿⣧⣿⣿⣿⣿⣿⢸⣿⡄⠈⠛⠀⣶⠟⠼⠇
-    ⠀⠀⠀⠹⣿⣿⣷⣤⡀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⣿⡿⣼⣿⣿⣿⣿⡿⣾⣿⠁⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠙⣿⣿⣿⣿⣶⣄⠀⠀⠈⠻⣿⣿⣿⣿⢸⣿⣿⣿⣿⣿⣿⡿⣱⣿⣿⣿⣿⢟⣼⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠈⢻⣿⣿⣿⣿⣧⡀⠀⠀⠈⠻⢿⣿⢸⣿⣿⣿⡿⢟⣫⣾⣿⣿⠿⣛⣵⣿⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠙⠿⣿⣿⣿⡇⠀⠀⠀⠀⠀⢈⣾⣿⡟⠙⠚⠛⠛⠋⠉⠀⠘⣿⣿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠁⠀⠀⠀⠀⢀⣾⣿⡟⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⡿⡏⠀⠀⠀⠀⠀⠀⠀⠀⢠⣾⣯⢻⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣧⡀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠋⠘⠻⣿⣿⣷⣶⣒⣒⢢⡄⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⡿⣏⣃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠻⠿⠿⠟⠈⠁⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⡿⠿⠿⠿⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀""")
-    print(data['battle_final']['opponent_introduction'])
-    options = ("Battle", "Flee")
-    for count, options in enumerate(options, start=1):
-        print(count, options)
-    will_battle = input("Will you battle Mewtwo? ")
-    quit_game(will_battle)
-    check_battle_final_conditions(character, will_battle, data)
-
-
-def check_battle_final_conditions(character, will_battle, data):
-    """
-
-    :param character:
-    :param will_battle:
-    :param data:
-    :return:
-    """
-    if will_battle == "1":
-        if character["battle_four"] == 1 and character["battle_four"] == 1 and character["battle_four"] == 1 and \
-                character["Level"] >= 3:
-            character["Experience_Points"] += random.randint(500, 650)
-            character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
-            character["battle_final"] = 1
-            print(data['battle_final']['battle_statement'])
-        elif character["battle_four"] == 0 or character["battle_five"] == 0 or character["battle_six"] == 0:
-            print(data['battle_final']['not_complete_all_fixed_battles'])
-        elif character["Level"] < 3:
-            print(data['battle_final']['not_level_three'])
-
-    else:
-        character["Experience_Points"] -= 100
-        print("You lose 100 EXP Points for fleeing from battle.")
-
-#################################################################################################################
-
-
-def succeed_game(character):
-    """
-    Prints message upon successful completion of the game.
-
-    :return:
-    """
-    print("""
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⡆
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⡇
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⡇⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣿⠿⠋⠁⡇
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡞⠁⠀⠀⢰⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀          ⣀⠴⠋⢳⠀⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⣸⠁⠀⠀⠀⡼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠤⠔⠒⠒⠚⣻⣿⣿⣿⣷⣶⠆⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠈⡆⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢠⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠴⠚⠉⠁⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⠟⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⢣⠀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⢠⠇⠀⠀⢀⡟⢀⣀⣀⡤⠤⠤⢄⣀⣀⡀⠀⠀⠀⣠⠴⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠿⠋⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⢸⡆
-    ⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⣠⠴⠛⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⠶⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠾⠛⠁⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣇
-    ⠀⠀⠀⠀⠀⠀⠀⠀⣸⠟⠁⠀⠀⠀⠀⠀⠀⠀⢀⡴⠶⣤⣀⠀⠀⠀⠠⡀⠀⠀⠀⠀⣀⣀⣠⠤⠔⠒⠉⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸
-    ⠀⠀⠀⠀⠀⠀⠀⣴⢃⣤⡄⠀⠀⠀⠀⠀⠀⠀⠸⣷⣤⣿⣿⠄⠀⠀⠀⠉⠛⢼⣿⠉⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸
-    ⠀⠀⠀⠀⠀⠀⢠⣷⣾⣠⡇⢀⡀⠀⠀⠀⠀⠀⠀⠉⠻⠿⠋⠀⠀⠀⠀⠀⠀⠀⠉⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠁⠀⠀⠀⠀⠀⠀⣀⣀⠀⠄⠀⠀⠀⢀⣠⠶⠋
-    ⠀⠀⠀⠀⠀⠀⣸⠸⠿⠏⠀⢈⡁⠀⠀⠀⣤⡆⠀⠀⠀⢀⡴⠟⠛⠶⣄⠀⠀⠀⠀⢹⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣋⣠⠤⠶⠒⠒⠛⠉⠁⠀⠀⠀⠀⢀⣠⠔⠋⠁
-    ⠀⠀⠀⠀⠀⣰⡿⡄⠀⠐⢺⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⢾⠁⢠⣤⡀⣹⠀⠀⠀⠀⠈⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⡅⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠞⠋
-    ⠀⠀⠀⠀⠀⣟⠀⣷⠀⠀⠈⢻⣿⣿⣿⣿⣿⠀⠀⠀⠀⠘⢷⣤⣈⣶⠟⠀⠀⠀⠀⠀⢳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢻⡀⠀⠀⠀⠀⠀⣀⡤⠞⠋
-    ⠀⠀⠀⠀⠀⢻⣶⠏⠀⠀⠀⠀⠹⣏⠁⠀⢹⡇⠀⠀⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⠈⢧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⡀⠀⠀⠀⠀⡏
-    ⠀⠀⠀⠀⠀⠈⠳⡄⠀⠀⠀⠀⠀⠙⢦⣀⡼⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⠀⠀⠈⢧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢷⡀⠀⠀⠀⣿
-    ⠀⠀⠀⠀⠀⠀⠀⢈⣢⡀⠀⠀⠀⠀⠀⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⡾⢭⣠⡈⡉⠀⠀⠳⡄⠀⠀⠀⠀⠀⠀⠀⠀⠈⢳⠀⠀⠀⢹
-    ⠀⠀⢀⣠⠤⠒⠛⠉⠁⠙⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⠾⠁⠀⠀⠀⠉⠇⠀⠀⠀⢿⣆⠀⠀⠀⠀⠀⠀⣠⠖⠋⠀⠀⠀⢸⡇
-    ⢰⡖⠉⠁⠀⠀⠀⠀⠀⠀⠀⢙⠀⠀⠠⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⢹⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠏⠳⡄⠀⣠⡴⠚⠁⠀⠀⠀⣠⠶⠋⠀⠀⠀⠀⠀⠀⠀⠀
-    ⣻⠁⠻⠁⠀⠀⠀⠀⠀⠀⠀⠀⢣⡀⠀⠈⠳⣄⣀⣠⠄⠀⠀⠀⠀⠀⢳⣄⠀⠀⠀⠀⠀⠀⣀⠀⠀⠀⠀⠈⢧⡈⠳⣄⠀⠀⢰⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⢹⣧⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠻⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠳⢭⣉⣉⣟⡿⠁⠀⠀⠀⠀⠀⠀⢱⣄⠙⢧⣰⣯⣷⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-    ⠀⠀⠀⠉⠛⠒⠤⠤⠤⣄⣀⣀⣀⣀⣹⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣿⣦⣀⣹⣿⣿⣿⣦⡀
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⣷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⠈⢻⣿⣿⠿⠟⠛⠁
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣏⠁
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⣻⣷⡦
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠛⡇
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡤⠞⠁⢠⠇
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀⢀⣠⠴⠒⠚⢻⣭⣥⣤⣀⡀⠀⠒⠒⠒⠒⠒⠋⠉⠀⠀⢠⡟
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠲⢤⣄⣊⣉⣁⣤⠴⠚⠉⠁⠀⠀⠈⠉⠓⠲⠤⣤⣀⣀⣀⣀⣠⡴⢻⡇
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣇⣴⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⡆⠀⢸⡇
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣹⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⣦⢦⣧
-    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣂⡤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⢿⡏
-    """)
-    print(f"Congratulations on beating the game! \nYou've done excellent work. "
-          f"{character['Name']}, these are your current stats:\n"
-          f"Level: {character['Level']} \n"
-          f"Current HP: {character['Current_HP']} \n"
-          f"Max HP: {character['Max_HP']} \n"
-          f"Experience Points: {character['Experience_Points']}"
-          f"\nYou've really proved yourself as a Pokémon Trainer. "
-          f"\nI will be expecting great things from you here on out."
-          f"\nKeep battling with Pikachu and you'll go far."
-          f"\nUntil next time...")
-
-
-def fail_game():
-    """
-    Prints message upon failure of the game before asking user if they want to restart.
-
-    :return:
-    """
-    print("""
-    ⢀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⣠⣤⣶⣶
-    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⢰⣿⣿⣿⣿
-    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣀⣀⣾⣿⣿⣿⣿
-    ⣿⣿⣿⣿⣿⡏⠉⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿
-    ⣿⣿⣿⣿⣿⣿⠀⠀⠀⠈⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠉⠁⠀⣿
-    ⣿⣿⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠙⠿⠿⠿⠻⠿⠿⠟⠿⠛⠉⠀⠀⠀⠀⠀⣸⣿
-    ⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿
-    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣴⣿⣿⣿⣿
-    ⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⢰⣹⡆⠀⠀⠀⠀⠀⠀⣭⣷⠀⠀⠀⠸⣿⣿⣿⣿
-    ⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠈⠉⠀⠀⠤⠄⠀⠀⠀⠉⠁⠀⠀⠀⠀⢿⣿⣿⣿
-    ⣿⣿⣿⣿⣿⣿⣿⣿⢾⣿⣷⠀⠀⠀⠀⡠⠤⢄⠀⠀⠀⠠⣿⣿⣷⠀⢸⣿⣿⣿
-    ⣿⣿⣿⣿⣿⣿⣿⣿⡀⠉⠀⠀⠀⠀⠀⢄⠀⢀⠀⠀⠀⠀⠉⠉⠁⠀⠀⣿⣿⣿
-    ⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿
-    ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿
-    """)
-    print("Oh no! \nPikachu has fainted from running out of HP! \nYou must heal him up before he can do any more "
-          "battles. \nMewtwo is still blocking the path so you must go back to the beginning if you want to pass.")
-    options = ["Restart", "Quit"]
-    for count, options in enumerate(options, start=1):
-        print(count, options)
-    restart_game = input("Would you like to restart? ")
-    if restart_game == "1":
-        game()
-    else:
-        sys.exit()
 
 
 def main():
@@ -792,6 +501,7 @@ def main():
     Drives the program.
     """
     game()
+
 
 if __name__ == "__main__":
     main()

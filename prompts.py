@@ -77,13 +77,9 @@ def game_intro_2(character: dict) -> None:
           f"the game.")
 
 
-def succeed_game(character):
+def succeed_game(character: dict) -> None:
     """
-    Print message upon successful completion of the game and stats.
-
-    :param character: a dictionary where keys are strings of letters
-    :precondition: character must be a dictionary where each key is a string of letters
-    :postcondition: the function correctly prints the intro, without changing character
+    Prints message upon successful completion of the game.
     """
     print("""
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⡆
@@ -132,12 +128,9 @@ def succeed_game(character):
           f"\nUntil next time...")
 
 
-def fail_game():
+def fail_game() -> None:
     """
-    Print message upon failure of the game before asking user if they want to restart.
-
-    A function that call the game function again if the player wants to keep playing
-    or quit the script if they don't want to continue.
+    Prints message upon failure of the game before asking user if they want to restart.
     """
     print("""
     ⢀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⣠⣤⣶⣶
