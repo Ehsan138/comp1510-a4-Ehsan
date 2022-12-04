@@ -289,16 +289,35 @@ def get_user_choice():
     directions = ['North', 'South', 'West', 'East']
     # enumerate_directions = list(enumerate(directions))
 
-    response = ''
+    # response = ''
+    print("Which direction would you like to go?")
+    for number, direction in enumerate(directions, start=1):
+        print(f"{number}:\t {direction}")
+    # response = input(f"Where do u wanna go broski? \n{enumerate_directions} \n")
+    response = input("Please enter the number of your answer: ")
+    quit_game(response)
+    get_user_choice_check_input(response)
+    # while response not in ['1', '2', '3', '4']:
+    #     print("Which direction would you like to go?")
+    #     for number, direction in enumerate(directions, start=1):
+    #         print(f"{number}:\t {direction}")
+    #     response = input("Please enter the number of your answer: ")
+    #     quit_game(response)
+
+    return response
+
+
+def get_user_choice_check_input(response):
+    directions = ['North', 'South', 'West', 'East']
     while response not in ['1', '2', '3', '4']:
         print("Which direction would you like to go?")
         for number, direction in enumerate(directions, start=1):
             print(f"{number}:\t {direction}")
         # response = input(f"Where do u wanna go broski? \n{enumerate_directions} \n")
-        response = input("Please enter the number of your answer: ")
+        response = input("This direction is not reachable.\n"
+                         "The number that you choose must be between 1 and 4.\n"
+                         "Please enter the number of your answer: ")
         quit_game(response)
-
-    return response
 
     # board[(0, 0)] = adfkjdfklj
 
@@ -973,7 +992,8 @@ def battle_final(character):
     will_battle = input("Will you battle Mewtwo? ")
     quit_game(will_battle)
     if will_battle == "1":
-        if character["battle_four"] == 1 and character["battle_four"] == 1 and character["battle_four"] == 1:
+        if character["battle_four"] == 1 and character["battle_four"] == 1 and character["battle_four"] == 1 and \
+                character["Level"] >= 3:
             character["Experience_Points"] += random.randint(500, 650)
             character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
             character["battle_final"] = 1
