@@ -647,12 +647,12 @@ def random_battles(challenge_name, character):
     else:
         if character["Experience_Points"] - 100 >= 0:
             character["Experience_Points"] -= 100
-            print("You lose 50 EXP Points for fleeing from battle.\nPikachu now has {experience} EXP Points!".format(
+            print("You lose 100 EXP for fleeing from battle.\nPikachu now has {experience} EXP!".format(
                 experience=character["Experience_Points"]))
         else:
             character["Experience_Points"] = (character["Experience_Points"] // 1000) * 1000
             # print("We'll let you off the hook since you don't you have enough EXP.")
-            print('Now you have zero EXP for your current level, sorry not sorry :)')
+            print('Attention! Looks like you have 0 EXP left!')
 
 
 def trivias(trivia_name, character):
@@ -920,15 +920,16 @@ def battle_final(character):
             character["Experience_Points"] += random.randint(500, 650)
             character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
             character["battle_final"] = 1
-            print("Go Pikachu! \nPikachu used Thunderbolt! \nOh no, Mewtwo dodged it. \nMewtwo used Confusion! \nPikachu is"
-                  " confused! \nPikachu hurt himself in his confusion! \nMewtwo used Ice Beam! \nPikachu lost 50 hp! "
-                  "\nPikachu snapped out of his confusion. \nPikachu used Thunderbolt! \nMewtwo's hp decreased by 30 hp! "
-                  "\nMewtwo used Flamethrower! \nPikachu's hp went down by 35 hp! \nPikachu used Thunderbolt! \nMewtwo's hp"
-                  " decreased by 40 hp! \nMewtwo used Confusion! \nPikachu moved out of the way just in time. \nPikachu"
-                  "looks at you waiting to be complimented. \nPikachu used Thunderbolt! \nMewtwo's hp decreased by 30 hp! "
-                  "... \nMewtwo fainted! \n...")
+            print("Go Pikachu! \nPikachu used Thunderbolt! \nOh no, Mewtwo dodged it. \nMewtwo used Confusion! "
+                  "\nPikachu is confused! \nPikachu hurt himself in his confusion! \nMewtwo used Ice Beam! \nPikachu "
+                  "is dazed from the impact! \nPikachu snapped out of his confusion. \nPikachu used Thunderbolt! "
+                  "\nMewtwo's HP sharply dropped! \nMewtwo used Flamethrower! \nPikachu's health is now {health} HP! "
+                  "\nPikachu used Thunderbolt! \nIt was a critical hit! \nMewtwo used Confusion! \nPikachu moved out of"
+                  " the way just in time. \nPikachu looks at you waiting to be complimented. \nPikachu used Thunderbolt"
+                  "! \nMewtwo fainted! \nYou have defeated Mewtwo!")
         elif character["battle_four"] == 0 or character["battle_five"] == 0 or character["battle_six"] == 0:
-            print("Oh, seems like Mewtwo deems you unworthy of battle. Maybe go find Team Rocket Jessie 🐍, Team Rocket James 🐱, and Team Rocket Boss Giovanni 🐆 first.")
+            print("Oh, seems like Mewtwo deems you unworthy of battle. Maybe go find Team Rocket Jessie 🐍, Team Rocket"
+                  " James 🐱, and Team Rocket Boss Giovanni 🐆 first.")
         elif character["Level"] < 3:
             print("You must be at least Level 3 to challenge Mewtwo.")
 
