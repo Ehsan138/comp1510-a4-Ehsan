@@ -639,7 +639,7 @@ def random_battles(challenge_name, character):
         print(count, options)
     will_battle = input("What do you want to do? ")
     quit_game(will_battle)
-    andom_battles_execution(challenge_name, character, will_battle)
+    random_battles_execution(challenge_name, character, will_battle)
     # if will_battle == "1":
     #     character["Experience_Points"] += random.randint(200, 300)
     #     new_randomize_hp = 1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"]
