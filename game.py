@@ -11,7 +11,7 @@ import itertools
 import prompts
 
 
-def game():
+def game() -> None:
     prompts.game_intro_1()
     rows = 10
     columns = 10
@@ -46,23 +46,23 @@ def game():
         succeed_game(character)
 
 
-def quit_game(answer):
+def quit_game(answer: str) -> None:
     """
+    End the game if the player types 'quit'.
 
-    :param answer:
-    :return:
+    :param answer: a string
+    :precondition: answer must be a string
+    :postcondition: the function correctly ends the script
     """
     if answer.lower() == 'quit':
         sys.exit()
 
 
-def make_character():
+def make_character() -> dict:
     """
-    Creates and returns a dictionary that contains key:value pairs.
+    Ask user for their name and return a dictionary that contains key:value pairs.
 
-    :precondition:
-    :postcondition
-    :return: dictionary that contains key:value pairs
+    :return: a dictionary that contains key:value pairs, where keys are strings
     """
     name = input("Please enter your name: ")
     quit_game(name)
@@ -78,48 +78,48 @@ def make_character():
     return character_dictionary
 
 
-def make_board(rows, columns):
+def make_board(rows: int, columns: int) -> dict:
     """
-    Makes a board based on specified rows and columns.
+    Return a board based on specified rows and columns.
 
     :param rows: number of rows desired
     :param columns: number of columns desired
-    :precondition:
-    :postcondition:
-    :return:
+    :precondition: rows and columns must be positive non-zero integers
+    :postcondition: correctly returns a board with the specified number of rows and columns
+    :return: a board which is a dictionary
     """
     board = {}
     text = ''
-
     for row in range(1, rows + 1):
         text += '\n'
-
         for column in range(1, columns + 1):
             board[(row, column)] = ['None', 'None']
-
     return board
 
 
 def filtering_fixed_coordinates(coordinate):
     """
+    Return coordinates not in the list of coordinates for fixed events.
 
-    :param coordinate:
-    :return:
+    :param coordinate: a tuple of coordinates
+    :precondition: coordinate must be a tuple of coordinates
+    :postcondition: correctly returns tuples of coordinates not in the list of coordinates for fixed events
+    :return: tuples of coordinates
     """
     list_of_fixed_coordinates = [(1, 1), (10, 10), (3, 3), (5, 8), (8, 3)]
     return coordinate not in list_of_fixed_coordinates
 
 
-def placing_challenges(board, rows, columns):
+def placing_challenges(board: dict, rows: int, columns: int):
     """
-    Places challenges on the board.
+    Place challenges on the board.
 
-    :param board:
-    :param rows:
-    :param columns:
-    :precondition:
-    :postcondition:
-    :return:
+    :param board: a dictionary
+    :param rows: an integer
+    :param columns: an integer
+    :precondition: rows and columns must be positive non-zero integers
+    :postcondition: correctly places challenges on the board
+
     """
     list_of_coordinate = [(x_coordinate, y_coordinate)
                           for x_coordinate in range(1, columns + 1) for y_coordinate in range(1, rows + 1)]
@@ -146,15 +146,17 @@ def placing_challenges(board, rows, columns):
         list_of_coordinate.remove(coordinate)
 
 
-def board_visual(board, rows, columns, character):
+def board_visual(board: dict, rows: int, columns: int, character: dict) -> str:
     """
-    Makes the visuals of the board.
+    Make the visuals of the board.
 
-    :param rows:
-    :param columns:
-    :precondition:
-    :postcondition:
-    :return:
+    :param board: a dictionary
+    :param rows: an integer
+    :param columns: an integer
+    :param character: a dictionary
+    :precondition: rows and columns must be positive non-zero integers
+    :postcondition: correctly displays board as emojis
+    :return: visuals of the board as a string
     """
     text = ''
     special_cases = ['battle_four', 'battle_five', 'battle_six', 'battle_final']
@@ -184,20 +186,19 @@ def board_visual(board, rows, columns, character):
                 text += "🐆"
             elif board[(column, row)][1] == 'battle_final':
                 text += "🐲️"
-
         text += '\n'
 
     return text
 
 
-def describe_current_location(board, character):
+def describe_current_location(board: dict, character: dict):
     """
     Describes character's current location.
 
-    :param board:
-    :param character:
+    :param board: a dictionary
+    :param character: a dictionary
     :precondition:
-    :postcondition:
+    :postcondition: correctly
 
     """
     for coordinate in board:
@@ -207,9 +208,9 @@ def describe_current_location(board, character):
     board[(character["x_coordinate"], character["y_coordinate"])][0] = 'current'
 
 
-def get_user_choice():
+def get_user_choice() -> str:
     """
-    Gets user's choice of which direction they want to move.
+    Get user's choice of which direction they want to move.
 
     :return:
     """
@@ -226,26 +227,29 @@ def get_user_choice():
 
 def get_user_choice_check_input(response):
     """
+    Check if user's answer is in the range of 1 to 4.
 
     :param response:
-    :return:
+    :precondition:
+    :postcondition:
     """
     directions = ['North', 'South', 'West', 'East']
     while response not in ['1', '2', '3', '4']:
         print("Which direction would you like to go?")
         for number, direction in enumerate(directions, start=1):
             print(f"{number}:\t {direction}")
-        response = input("This direction is not reachable.\n"
-                         "The number that you choose must be between 1 and 4.\n"
-                         "Please enter the number of your answer: ")
+        response = input("This direction is not reachable.\nThe number that you choose must be between 1 and 4.\nPlease"
+                         " enter the number of your answer: ")
         quit_game(response)
 
 
-def get_user_steps():
+def get_user_steps() -> str:
     """
-    Asks user how many steps they want to take.
+    Ask user how many steps they want to take.
 
-    :return:
+    :precondition:
+    :postcondition:
+    :return: number of steps as a string
     """
     steps = ''
     while steps not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
@@ -254,19 +258,21 @@ def get_user_steps():
         quit_game(steps)
         if steps not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
             print("Sorry, that's out of bounds. Try another number.")
-
     return steps
 
 
-def validate_move(character, direction, steps, rows, columns):
+def validate_move(character: dict, direction, steps: str, rows: int, columns: int) -> bool:
     """
+    Return True or False if user's move is valid.
 
-    :param character:
+    :param character: a dictionary
     :param direction:
-    :param steps:
-    :param rows:
-    :param columns:
-    :return:
+    :param steps: a string
+    :param rows: an integer
+    :param columns: an integer
+    :precondition:
+    :postcondition:
+    :return: True or False if character's move is valid
     """
     if int(direction) == 1 and character['y_coordinate'] - int(steps) >= 1:
         return True
@@ -280,13 +286,12 @@ def validate_move(character, direction, steps, rows, columns):
         return False
 
 
-def move_character(character, direction, steps):
+def move_character(character: dict, direction, steps: str):
     """
 
     :param character:
     :param direction:
     :param steps:
-    :return:
     """
     if int(direction) == 1:
         character['y_coordinate'] -= int(steps)
@@ -298,13 +303,13 @@ def move_character(character, direction, steps):
         character['x_coordinate'] += int(steps)
 
 
-def check_for_challenges(board, character):
+def check_for_challenges(board, character) -> bool:
     """
-    Checks if there is a challenge in that space.
+    Return True or False if player is on a space that has a challenge.
 
     :param board:
     :param character:
-    :return:
+    :return: True or False if player is on a space that has a challenge
     """
     list_of_challenges = ["trivia_one", "trivia_two", "trivia_three", "trivia_four",
                           "trivia_five", "battle_one", "battle_two", "battle_three",
@@ -312,7 +317,6 @@ def check_for_challenges(board, character):
     for challenge in list_of_challenges:
         if board[(character["x_coordinate"], character["y_coordinate"])][1] == challenge:
             return True
-
     return False
 
 
@@ -361,13 +365,15 @@ def execute_challenge_protocol(board, character):
         trivias(challenge, character)
 
 
-def character_has_leveled(character, level):
+def character_has_leveled(character, level) -> bool:
     """
-    Checks if character has leveled up.
+    Return True or False if character has leveled up.
 
     :param character:
     :param level:
-    :return:
+    :precondition:
+    :postcondition:
+    :return: True or False if character has leveled up
     """
     if character['Level'] - level == 1:
         return True
@@ -377,19 +383,22 @@ def character_has_leveled(character, level):
 
 def current_level(character):
     """
+    Calculate the character's current level
 
     :param character:
-    :return:
+    :precondition:
+    :postcondition:
     """
     character["Level"] = (character["Experience_Points"] // 1000) + 1
 
 
 def execute_glow_up_protocol(character):
     """
-    Executes what happens when character levels up.
+    Increases character's HP stats and prints their new level, HP, and EXP stats.
 
     :param character:
-    :return:
+    :precondition:
+    :postcondition:
     """
     character["Max_HP"] += 100
     character["Current_HP"] = character["Max_HP"]
@@ -403,13 +412,12 @@ def execute_glow_up_protocol(character):
 
 def check_if_goal_attained(character):
     """
-    Checks if the character has
+    Checks if the character has completed battle_final
 
-    :param board:
     :param character:
-    :param rows:
-    :param columns:
-    :return:
+    :precondition:
+    :postcondition:
+    :return: 1 if character has completed battle_final
     """
     return character['battle_final'] == 1
 
@@ -437,14 +445,13 @@ def fixed_battles(challenge_name, character):
     check_fixed_battles_conditions(challenge_name, character, will_battle, data)
 
 
-def check_fixed_battles_conditions(challenge_name, character, will_battle, data):
+def check_fixed_battles_conditions(challenge_name: str, character, will_battle: bool, data):
     """
 
-    :param challenge_name:
+    :param challenge_name: a string
     :param character:
     :param will_battle:
     :param data:
-    :return:
     """
     if will_battle == "1":
         if challenge_name == 'battle_five' and character["battle_four"] == 0:
@@ -469,16 +476,17 @@ def check_fixed_battles_conditions(challenge_name, character, will_battle, data)
                 experience=character["Experience_Points"]))
         else:
             character["Experience_Points"] = (character["Experience_Points"] // 1000) * 1000
-            print('Now you have zero EXP for your current level, sorry not sorry :)')
+            print('Attention! Looks like you have 0 EXP left!')
 
 
-def random_battles(challenge_name, character):
+def random_battles(challenge_name: str, character):
     """
-    Executes random battles.
+    Execute random battles.
 
-    :param challenge_name:
+    :param challenge_name: a string
     :param character:
-    :return:
+    :precondition:
+    :postcondition:
     """
     file = open('package.json')
     data = json.load(file)
@@ -522,13 +530,14 @@ def check_random_battles_conditions(challenge_name, character, will_battle, data
             print('Attention! Looks like you have 0 EXP left!')
 
 
-def trivias(trivia_name, character):
+def trivias(trivia_name: str, character):
     """
-    Executes trivia questions.
+    Execute trivia questions.
 
-    :param trivia_name:
+    :param trivia_name: a string
     :param character:
-    :return:
+    :precondition:
+    :postcondition:
     """
     file = open('package.json')
     data = json.load(file)
@@ -734,8 +743,8 @@ def main():
     """
     Drives the program.
     """
-    game()
-
+    # game()
+    type(board)
 
 if __name__ == "__main__":
     main()
