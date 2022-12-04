@@ -14,8 +14,7 @@ import json
 
 def game() -> None:
     """
-
-    :return:
+    Runs the game.
     """
     prompts.game_intro_1()
     rows = 10
@@ -46,7 +45,6 @@ def game() -> None:
             achieved_goal = check_if_goal_attained(character)
         else:
             print("Sorry, that's out of bounds. Try somewhere else.")
-
     if not is_alive(character):
         prompts.fail_game()
     elif achieved_goal:
@@ -81,7 +79,6 @@ def make_character() -> dict:
                             "battle_one": 0, "battle_two": 0, "battle_three": 0,
                             "battle_four": 0, "battle_five": 0, "battle_six": 0,
                             "battle_final": 0}
-
     return character_dictionary
 
 
@@ -94,9 +91,10 @@ def make_board(rows: int, columns: int) -> dict:
     :precondition: rows and columns must be positive non-zero integers
     :postcondition: correctly returns a board with the specified number of rows and columns
     :return: a board which is a dictionary
-
     >>> make_board(3, 3)
-    {(1, 1): ['None', 'None'], (1, 2): ['None', 'None'], (1, 3): ['None', 'None'], (2, 1): ['None', 'None'], (2, 2): ['None', 'None'], (2, 3): ['None', 'None'], (3, 1): ['None', 'None'], (3, 2): ['None', 'None'], (3, 3): ['None', 'None']}
+    {(1, 1): ['None', 'None'], (1, 2): ['None', 'None'], (1, 3): ['None', 'None'], (2, 1): ['None', 'None'], (2, 2):
+    ['None', 'None'], (2, 3): ['None', 'None'], (3, 1): ['None', 'None'], (3, 2): ['None', 'None'], (3, 3):
+    ['None', 'None']}
     """
     board = {}
     text = ''
@@ -171,7 +169,7 @@ def board_visual(board: dict, rows: int, columns: int, character: dict) -> str:
     :precondition: board must be a tuple of two positive non-zero integers
     :precondition: character must be a dictionary where each key is a string of letters
     :postcondition: correctly displays board as emojis
-    :return: a string which is the visual format of the board⬜️
+    :return: a string which is the visual format of the board
     """
     text = ''
     special_cases = ['battle_four', 'battle_five', 'battle_six', 'battle_final']
@@ -354,7 +352,6 @@ def is_alive(character: dict) -> bool:
     :precondition: character must be a dictionary where each key is a string of letters
     :postcondition: returns the correct boolean expression, True if the character is alive, else False
     :return: a boolean expression, True if the character is alive, else False
-
     >>> character_chris = {"Name": 'Chris', "x_coordinate": 1, "y_coordinate": 1, "Current_HP": 100, "Max_HP": 100}
     >>> is_alive(character_chris)
     True
@@ -396,6 +393,7 @@ def execute_challenge_protocol(board: dict, character: dict, data: dict) -> None
 
     :param board: a dictionary
     :param character: a dictionary
+    :param data: a dictionary
     :precondition: board must be a tuple of two positive non-zero integers
     :precondition: character must be a dictionary where each key is a string of letters
     :postcondition: returns the correct challenge function based on the current
@@ -424,7 +422,6 @@ def character_has_leveled(character: dict, level: int) -> bool:
     :precondition: level must be a positive non-zero integer
     :postcondition: returns the correct boolean expression, True if character has leveled up, else False
     :return: a boolean expression, True if character has leveled up, else False
-
     >>> character_1 = {"Level": 3}
     >>> level_1 = 2
     >>> character_has_leveled(character_1, level_1)
@@ -444,7 +441,6 @@ def current_level(character):
     :param character: a dictionary
     :precondition: character must be a dictionary where each key is a string of letters
     :postcondition: correctly updates the character's current level
-
     >>> character_1 = {"Level": 0, "Experience_Points": 456}
     >>> current_level(character_1)
     >>> character_1["Level"] == 1
@@ -485,7 +481,6 @@ def check_if_goal_attained(character: dict) -> bool:
     :postcondition: returns the correct boolean expression, True if the
     character has completed battle_final, else False
     :return: a boolean expression, True if the character has completed battle_final, else False
-
     >>> character_1 = {"battle_final": 0, "Experience_Points": 456}
     >>> check_if_goal_attained(character_1)
     False
