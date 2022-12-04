@@ -72,9 +72,9 @@ def game():
             print("Sorry, that's out of bounds. Try somewhere else.")
 
     if not is_alive(character):
-        game_fail()
+        fail_game()
     elif achieved_goal:
-        game_succeed()
+        succeed_game()
 
     # Print end of game (congratulations or sorry you died)
 
@@ -448,13 +448,13 @@ def first_time_challenge(character):
 def execute_challenge_protocol(board, character):
     challenge = board[(character["x_coordinate"], character["y_coordinate"])][1]
     if challenge in ['battle_one', 'battle_two', 'battle_three']:
-        random_battles(challenge, character)
+        get_user_choice_random_battles(challenge, character)
     elif challenge in ['battle_four', 'battle_five', 'battle_six']:
-        fixed_battles(challenge, character)
+        get_user_choice_fixed_battles(challenge, character)
     elif challenge == 'battle_final':
         battle_final(character)
     elif challenge in ['trivia_one', 'trivia_two', 'trivia_three', 'trivia_four', 'trivia_five']:
-        trivias(challenge, character)
+        get_user_answer_trivia(challenge, character)
 
 
 
@@ -550,7 +550,7 @@ def check_if_goal_attained(character):
 #############################################################################################
 
 
-def fixed_battles(challenge_name, character):
+def get_user_choice_fixed_battles(challenge_name, character):
     """
     Executes fixed battles.
 
@@ -565,9 +565,9 @@ def fixed_battles(challenge_name, character):
     print(data[challenge_name]["opponent_introduction"])
     for count, options in enumerate(options, start=1):
         print(count, options)
-    will_battle = input("What do you want to do? ")
+    will_battle = input("What do you want to do? (Any key other than 1 will Flee): ")
     quit_game(will_battle)
-    fixed_battles_execution(challenge_name, character, will_battle, data)
+    execute_fixed_battles(challenge_name, character, will_battle, data)
     # if will_battle == "1":
     #     if challenge_name == 'battle_five' and character["battle_four"] == 0:
     #         print(data[challenge_name]["is_not_ready"])
@@ -593,7 +593,7 @@ def fixed_battles(challenge_name, character):
     #         character["Experience_Points"] = (character["Experience_Points"] // 1000) * 1000
     #         print('Now you have zero EXP for your current level, sorry not sorry :)')
 
-def fixed_battles_execution(challenge_name, character, will_battle, data):
+def execute_fixed_battles(challenge_name, character, will_battle, data):
     if will_battle == "1":
         if challenge_name == 'battle_five' and character["battle_four"] == 0:
             print(data[challenge_name]["is_not_ready"])
@@ -613,7 +613,7 @@ def fixed_battles_execution(challenge_name, character, will_battle, data):
     else:
         if character["Experience_Points"] - 100 >= 0:
             character["Experience_Points"] -= 100
-            print("You lose 50 EXP Points for fleeing from battle.\nPikachu now has {experience} EXP Points!".format(
+            print("You lose 100 EXP Points for fleeing from battle.\nPikachu now has {experience} EXP Points!".format(
                 experience=character["Experience_Points"]))
         else:
             character["Experience_Points"] = (character["Experience_Points"] // 1000) * 1000
@@ -622,7 +622,7 @@ def fixed_battles_execution(challenge_name, character, will_battle, data):
 
 
 
-def random_battles(challenge_name, character):
+def get_user_choice_random_battles(challenge_name, character):
     """
     Executes random battles.
 
@@ -637,9 +637,9 @@ def random_battles(challenge_name, character):
     print(data[challenge_name]["opponent_introduction"])
     for count, options in enumerate(options, start=1):
         print(count, options)
-    will_battle = input("What do you want to do? ")
+    will_battle = input("What do you want to do? (Any key other than 1 will Flee): ")
     quit_game(will_battle)
-    random_battles_execution(challenge_name, character, will_battle, data)
+    execute_random_battles(challenge_name, character, will_battle, data)
     # if will_battle == "1":
     #     character["Experience_Points"] += random.randint(200, 300)
     #     new_randomize_hp = 1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"]
@@ -661,7 +661,7 @@ def random_battles(challenge_name, character):
     #         print('Attention! Looks like you have 0 EXP left!')
 
 
-def random_battles_execution(challenge_name, character, will_battle, data):
+def execute_random_battles(challenge_name, character, will_battle, data):
     if will_battle == "1":
         character["Experience_Points"] += random.randint(200, 300)
         new_randomize_hp = 1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"]
@@ -683,8 +683,7 @@ def random_battles_execution(challenge_name, character, will_battle, data):
             print('Attention! Looks like you have 0 EXP left!')
 
 
-
-def trivias(trivia_name, character):
+def get_user_answer_trivia(trivia_name, character):
     """
     Executes trivia questions.
 
@@ -701,7 +700,7 @@ def trivias(trivia_name, character):
         print(count, options)
     answer = input("Please enter the number of the correct answer: ")
     quit_game(answer)
-    trivias_execution(trivia_name, character, answer, data)
+    execute_trivia_protocol(trivia_name, character, answer, data)
     # if answer == data[trivia_name]["right_answer"]:
     #     if trivia_name == 'trivia_three':
     #         character["Experience_Points"] += 500
@@ -719,7 +718,7 @@ def trivias(trivia_name, character):
     #     print("Oops, you got that wrong.")
 
 
-def trivias_execution(trivia_name, character, answer, data):
+def execute_trivia_protocol(trivia_name, character, answer, data):
     if answer == data[trivia_name]["right_answer"]:
         if trivia_name == 'trivia_three':
             character["Experience_Points"] += 500
@@ -991,7 +990,7 @@ def battle_final(character):
 #################################################################################################################
 
 
-def game_succeed():
+def succeed_game():
     """
     Prints message upon successful completion of the game.
 
@@ -1032,9 +1031,8 @@ def game_succeed():
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣹⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⣦⢦⣧
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣂⡤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⢿⡏
     """)
-    # print(f"Congratulations on beating the game! \nYou've done excellent work. \nYou've really proved yourself as a Pokémon Trainer. \nI will be expecting great things from you here on out. \nKeep battling with Pikachu and you'll go far. \nUntil next time...")
     print(f"Congratulations on beating the game! \nYou've done excellent work."
-          f"{character['Name']}, this is current stats:\n"
+          f"{character['Name']}, this is your current stats:\n"
           f"Level: {character['Level']} \n"
           f"Current HP: {character['Current_HP']} \n"
           f"Max HP: {character['Max_HP']} \n"
@@ -1045,9 +1043,9 @@ def game_succeed():
           f"\nUntil next time...")
 
 
-def game_fail():
+def fail_game():
     """
-    Prints message upon failure of the game.
+    Prints message upon failure of the game before asking user if they want to restart.
 
     :return:
     """
