@@ -220,6 +220,11 @@ def get_user_choice():
 
 
 def get_user_choice_check_input(response):
+    """
+
+    :param response:
+    :return:
+    """
     directions = ['North', 'South', 'West', 'East']
     while response not in ['1', '2', '3', '4']:
         print("Which direction would you like to go?")
@@ -271,6 +276,13 @@ def validate_move(character, direction, steps, rows, columns):
 
 
 def move_character(character, direction, steps):
+    """
+
+    :param character:
+    :param direction:
+    :param steps:
+    :return:
+    """
     if int(direction) == 1:
         character['y_coordinate'] -= int(steps)
     elif int(direction) == 2:
@@ -600,6 +612,13 @@ def battle_final(character):
 
 
 def check_battle_final_conditions(character, will_battle, data):
+    """
+
+    :param character:
+    :param will_battle:
+    :param data:
+    :return:
+    """
     if will_battle == "1":
         if character["battle_four"] == 1 and character["battle_four"] == 1 and character["battle_four"] == 1 and \
                 character["Level"] >= 3:
