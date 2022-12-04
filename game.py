@@ -96,6 +96,11 @@ def make_board(rows, columns):
 
 
 def filtering_fixed_coordinates(coordinate):
+    """
+
+    :param coordinate:
+    :return:
+    """
     list_of_fixed_coordinates = [(1, 1), (10, 10), (3, 3), (5, 8), (8, 3)]
     return coordinate not in list_of_fixed_coordinates
 
@@ -320,6 +325,12 @@ def first_time_challenge(character):
 
 
 def execute_challenge_protocol(board, character):
+    """
+
+    :param board:
+    :param character:
+    :return:
+    """
     challenge = board[(character["x_coordinate"], character["y_coordinate"])][1]
     if challenge in ['battle_one', 'battle_two', 'battle_three']:
         random_battles(challenge, character)
@@ -348,6 +359,11 @@ def character_has_leveled(character, level):
 
 
 def current_level(character):
+    """
+
+    :param character:
+    :return:
+    """
     character["Level"] = (character["Experience_Points"] // 1000) + 1
 
 
@@ -405,6 +421,14 @@ def fixed_battles(challenge_name, character):
 
 
 def check_fixed_battles_conditions(challenge_name, character, will_battle, data):
+    """
+
+    :param challenge_name:
+    :param character:
+    :param will_battle:
+    :param data:
+    :return:
+    """
     if will_battle == "1":
         if challenge_name == 'battle_five' and character["battle_four"] == 0:
             print(data[challenge_name]["is_not_ready"])
@@ -452,6 +476,14 @@ def random_battles(challenge_name, character):
 
 
 def check_random_battles_conditions(challenge_name, character, will_battle, data):
+    """
+
+    :param challenge_name:
+    :param character:
+    :param will_battle:
+    :param data:
+    :return:
+    """
     if will_battle == "1":
         character["Experience_Points"] += random.randint(200, 300)
         new_randomize_hp = 1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"]
@@ -494,6 +526,14 @@ def trivias(trivia_name, character):
 
 
 def check_trivias_conditions(trivia_name, character, answer, data):
+    """
+
+    :param trivia_name:
+    :param character:
+    :param answer:
+    :param data:
+    :return:
+    """
     if answer == data[trivia_name]["right_answer"]:
         if trivia_name == 'trivia_three':
             character["Experience_Points"] += 500
