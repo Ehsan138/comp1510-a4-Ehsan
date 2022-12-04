@@ -229,7 +229,7 @@ def board_visual(board, rows, columns):
             if board[(column, row)][0] == 'None' and board[(column, row)][1] not in special_cases:
                 text += "⬜️"
             elif board[(column, row)][0] == 'current' and board[(column, row)][1] not in special_cases:
-                text += "⚡️️"
+                text += "💥"
             elif board[(column, row)][1] == 'battle_four':
                 text += "🐍"
             elif board[(column, row)][1] == 'battle_five':
@@ -242,7 +242,7 @@ def board_visual(board, rows, columns):
                     board[(column, row)][1] not in special_cases:
                 text += "🟨️"
             elif board[(column, row)][1] == 'battle_final':
-                text += "㊙️️"
+                text += "🐲️"
 
         text += '\n'
 

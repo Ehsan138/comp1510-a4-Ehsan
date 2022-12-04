@@ -59,7 +59,7 @@ def game_intro_2(character):
     "direction and then the number of steps you wish to take. \nOn the board, 💥 shows your current location and 🟨 " \
     "shows your past locations. \nPlease note that even if you've already been to the 🐍🐱🐆 spaces, those spaces will" \
     " not change to 🟨. \nFleeing a battle will deduct 50 EXP. If you want to re-attempt a fled battle, you " \
-    "must leave that space and go back to it in order for the battle to happen. ️💣✨️")
+    "must leave that space and go back to it in order for the battle to happen.")
 
 
 def game_succeed():
