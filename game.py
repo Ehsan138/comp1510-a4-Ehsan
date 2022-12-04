@@ -52,8 +52,8 @@ def game():
     prompts.game_intro_2(character)
     while is_alive(character) and not achieved_goal:
         describe_current_location(board, character)
-        print(board)
-        # board_visual(board, rows, columns)
+        print(board_visual(board, rows, columns, character))
+        # print(board)
         direction = get_user_choice()
         steps = get_user_steps()
         valid_move = validate_move(character, direction, steps, rows, columns)
@@ -178,7 +178,7 @@ def placing_challenges(board, rows, columns):
     # list_of_coordinate = [coordinate for coordinate in list_of_coordinate
     #                       if coordinate not in [(1, 1), (10, 10), (3, 3), (5, 8), (8, 3)]]
 
-    random_trivia_coordinates = random.sample(list_of_coordinate, 10)
+
 
 
     # while True:
@@ -189,6 +189,7 @@ def placing_challenges(board, rows, columns):
     # print(random_trivia_coordinates)
 
     list_trivias = ['trivia_one', 'trivia_two', 'trivia_three', 'trivia_four', 'trivia_five']
+    random_trivia_coordinates = random.sample(list_of_coordinate, len(list_trivias) * 2)
     iterator_trivias = itertools.cycle(list_trivias)
 
     for coordinate in random_trivia_coordinates:
@@ -201,9 +202,10 @@ def placing_challenges(board, rows, columns):
 
     # print(board)
 
-    random_battle_coordinates = random.sample(list_of_coordinate, 9)
+
 
     list_random_battles = ['battle_one', 'battle_two', 'battle_three']
+    random_battle_coordinates = random.sample(list_of_coordinate, len(list_random_battles) * 4)
     iterator_random_battles = itertools.cycle(list_random_battles)
 
     for coordinate in random_battle_coordinates:
@@ -275,7 +277,7 @@ def describe_current_location(board, character):
             board[coordinate][0] = 'past_location'
 
     board[(character["x_coordinate"], character["y_coordinate"])][0] = 'current'
-    print(board_visual(board, 10, 10, character))
+    # print(board_visual(board, 10, 10, character))
 
 
 def get_user_choice():

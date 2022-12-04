@@ -3,14 +3,14 @@
     "options": ["Electric, Ground, and Poison", "Grass, Water, and Fire", "Fighting, Psychic, and Ghost", "Dragon, Flying, and Normal"],
     "question": "What are the three types of starter Pokémon?",
     "right_answer": "2",
-    "award": "That's correct!As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.\nYour health is now {health} HP!"
+    "award": "That's correct! As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.\nYour health is now {health} HP!"
   },
 
   "trivia_two": {
     "options": ["Evolution stone", "Lightning stone", "Thunder stone", "Leveling up to Lvl 14"],
     "question": "How do you evolve a Pikachu?",
     "right_answer": "3",
-    "award": "That's correct!As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.\nYour health is now {health} HP!"
+    "award": "That's correct! As a reward, I'll feed your Pikachu this Oran Berry which will help restore his HP.\nYour health is now {health} HP!"
   },
 
   "trivia_three": {
