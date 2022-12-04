@@ -923,10 +923,10 @@ def battle_final(character):
             print("Go Pikachu! \nPikachu used Thunderbolt! \nOh no, Mewtwo dodged it. \nMewtwo used Confusion! "
                   "\nPikachu is confused! \nPikachu hurt himself in his confusion! \nMewtwo used Ice Beam! \nPikachu "
                   "is dazed from the impact! \nPikachu snapped out of his confusion. \nPikachu used Thunderbolt! "
-                  "\nMewtwo's HP sharply dropped! \nMewtwo used Flamethrower! \nPikachu's health is now {health} HP! "
-                  "\nPikachu used Thunderbolt! \nIt was a critical hit! \nMewtwo used Confusion! \nPikachu moved out of"
-                  " the way just in time. \nPikachu looks at you waiting to be complimented. \nPikachu used Thunderbolt"
-                  "! \nMewtwo fainted! \nYou have defeated Mewtwo!")
+                  "\nMewtwo's HP sharply dropped! \nMewtwo used Flamethrower! \nPikachu's health is now {health} HP "
+                  "Points! \nPikachu used Thunderbolt! \nIt was a critical hit! \nMewtwo used Confusion! \nPikachu "
+                  "moved out of the way just in time. \nPikachu looks at you waiting to be complimented. \nPikachu "
+                  "used Thunderbolt! \nMewtwo fainted! \nYou have defeated Mewtwo!")
         elif character["battle_four"] == 0 or character["battle_five"] == 0 or character["battle_six"] == 0:
             print("Oh, seems like Mewtwo deems you unworthy of battle. Maybe go find Team Rocket Jessie 🐍, Team Rocket"
                   " James 🐱, and Team Rocket Boss Giovanni 🐆 first.")
