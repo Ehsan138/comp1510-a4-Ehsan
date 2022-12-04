@@ -1,7 +1,3 @@
-print("Shown on the map are the fixed battles to.... There are also hidden challenges not shown on the map so make sure you spend time searching the nooks and crannies.")
-
-
-
 
 def game_intro():
     print("""                          
