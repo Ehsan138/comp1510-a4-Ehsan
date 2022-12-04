@@ -16,6 +16,7 @@ def game_intro_1():
     """)
     print("Welcome to Pokémon Pikachu Edition!")
 
+
 def game_intro_2(character):
     print("""
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠒⠛⠛⣁⣽⠖⠲⢤⣀⣠⣴⠄⠀⠀⠀⠀⠀⠀⠀
