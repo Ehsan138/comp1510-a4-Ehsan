@@ -62,7 +62,7 @@ def game():
             describe_current_location(board, character)
             print()
             there_is_a_challenge = check_for_challenges(board, character)
-            if there_is_a_challenge and first_time_challenge(board, character):
+            if there_is_a_challenge and first_time_challenge(character):
                 level = character["Level"]
                 execute_challenge_protocol(board, character)
                 current_level(character)
@@ -72,7 +72,7 @@ def game():
         else:
             print("Sorry, that's out of bounds. Try somewhere else.")
 
-    if not (character):
+    if not is_alive(character):
         game_fail()
     elif achieved_goal:
         game_succeed()
@@ -565,10 +565,15 @@ def fixed_battles(challenge_name, character):
             print(data[challenge_name]["is_not_ready"])
         else:
             character["Experience_Points"] += random.randint(500, 650)
-            character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
-            character[challenge_name] = 1
-            print(data[challenge_name]["battle_statement"].format(health=character["Current_HP"],
-                                                                  experience=character["Experience_Points"]))
+            new_randomize_hp = 1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"]
+            if character["Current_HP"] - new_randomize_hp >= 0:
+                character["Current_HP"] -= new_randomize_hp
+                character[challenge_name] = 1
+                print(data[challenge_name]["battle_statement"].format(health=character["Current_HP"],
+                                                                      experience=character["Experience_Points"]))
+            else:
+                character["Current_HP"] = 0
+                print("Uh oh! Pikachu has fainted!")
     else:
         if character["Experience_Points"] - 50 >= 0:
             character["Experience_Points"] -= 50
@@ -618,17 +623,24 @@ def random_battles(challenge_name, character):
     will_battle = input("What do you want to do? ")
     if will_battle == "1":
         character["Experience_Points"] += random.randint(200, 300)
-        character["Current_HP"] -= (1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"])
-        character[challenge_name] = 1
-        print(data[challenge_name]["battle_statement"].format(health=character["Current_HP"],
-                                                              experience=character["Experience_Points"]))
+        new_randomize_hp = 1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"]
+        if character["Current_HP"] - new_randomize_hp >= 0:
+            character["Current_HP"] -= new_randomize_hp
+            character[challenge_name] = 1
+            print(data[challenge_name]["battle_statement"].format(health=character["Current_HP"],
+                                                                  experience=character["Experience_Points"]))
+        else:
+            character["Current_HP"] = 0
+            print("Uh oh! Pikachu has fainted!")
     else:
-        if character["Experience_Points"] - 50 >= 0:
-            character["Experience_Points"] -= 50
+        if character["Experience_Points"] - 1000 >= 0:
+            character["Experience_Points"] -= 1000
             print("You lose 50 EXP Points for fleeing from battle.\nPikachu now has {experience} EXP Points!".format(
                 experience=character["Experience_Points"]))
         else:
-            print("We'll let you off the hook since you don't you have enough EXP.")
+            character["Experience_Points"] = (character["Experience_Points"] // 1000) * 1000
+            # print("We'll let you off the hook since you don't you have enough EXP.")
+            print('Now you have zero EXP for your current level, sorry not sorry :)')
 
 
 def trivias(trivia_name, character):

@@ -121,7 +121,7 @@ def game_fail():
     ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿
     """)
     print("Oh no! \nPikachu has fainted from running out of HP! \nYou must heal him up before he can do any more "
-          "battles. \nMewtwo is still blocking the path so you must go back to the beginning if you want to pass.")
+          "battles.")
     options = ["Restart", "Quit"]
     for count, options in enumerate(options, start=1):
         print(count, options)
