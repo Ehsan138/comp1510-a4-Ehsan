@@ -178,7 +178,7 @@ def board_visual(board: dict, rows: int, columns: int, character: dict) -> str:
         for column in range(1, columns + 1):
 
             if board[(column, row)][0] == 'None' and board[(column, row)][1] not in special_cases:
-                text += "⬜️"
+                text += "⬜"
             elif board[(column, row)][0] == 'current' and board[(column, row)][1] not in special_cases:
                 text += "💥"
             elif board[(column, row)][0] == 'current' and board[(column, row)][1] in special_cases and \
