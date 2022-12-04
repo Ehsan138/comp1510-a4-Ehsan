@@ -1,5 +1,5 @@
 
-def game_intro():
+def game_intro_1():
     print("""                          
                                        ,'\ 
          _.----.        ____         ,'  _\  ___    ___     ____
@@ -15,7 +15,8 @@ def game_intro():
                                     `'                             '-._|
     """)
     print("Welcome to Pokémon Pikachu Edition!")
-    character_name = input("Please enter your name.")
+
+def game_intro_2(character):
     print("""
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠒⠛⠛⣁⣽⠖⠲⢤⣀⣠⣴⠄⠀⠀⠀⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⡞⠃⠀⢀⣤⣞⣿⡟⣠⠴⣚⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀
@@ -49,15 +50,15 @@ def game_intro():
     ⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠉⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⡼⠀⠀⠸⣟⣄⠀⡇⠀⢸⣿⠇⠀⠀⠀⠀⠀⠀⠀⢸⡇⢟⣿⣿⠟⠋⠁⠀⠀⠀⠀⠘⡆⠀⠀⠀⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠃⠀⠀⠀⠈⠈⠻⠇⠀⢸⣿⠇⠀⠀⠀⠀⠀⠀⠀⢸⠃⠘⣿⠇⠀⠀⠀⠀⠀⠀⠀⠀⢹⡀⠀⠀⠀⠀⠀⠀
     """)
-    print("Pleased to make your acquaintance,", character_name)
-    "Listen carefully to these instructions: \nTo battle the final boss (㊙️), you must be at least Level 3 and have "
+    print(f"Pleased to make your acquaintance, {character['Name']}"
+    "\nListen carefully to these instructions: \nTo battle the final boss (㊙), you must be at least Level 3 and have "
     "battled (🐍🐱🐆) in that order. \nOn top of the battles shown on the board, there are hidden random battles and " \
     "trivia that will give you rewards so try finding them. \nIf your HP reaches 0, you will die. \nYou gain EXP " \
     "after each battle and level up every 1000 EXP. \nTo move, you will have to first enter the number of the " \
-    "direction and then the number of steps you wish to take. \nOn the board, ⚡️ shows your current location and 🟨 " \
+    "direction and then the number of steps you wish to take. \nOn the board, ⚡ shows your current location and 🟨 " \
     "shows your past locations. \nPlease note that even if you've already been to the 🐍🐱🐆 spaces, those spaces will" \
     " not change to 🟨. \nFleeing a battle will deduct 50 EXP. If you want to re-attempt a fled battle, you " \
-    "must leave that space and go back to it in order for the battle to happen."
+    "must leave that space and go back to it in order for the battle to happen.")
 
 
 def game_succeed():

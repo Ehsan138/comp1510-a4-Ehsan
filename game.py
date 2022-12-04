@@ -8,6 +8,7 @@ import random
 import sys
 import json
 import itertools
+import prompts
 
 
 # def game():
@@ -41,12 +42,14 @@ import itertools
 
 
 def game():
+    prompts.game_intro_1()
     rows = 10
     columns = 10
     board = make_board(rows, columns)
     character = make_character()
     placing_challenges(board, rows, columns)
     achieved_goal = False
+    prompts.game_intro_2(character)
     while is_alive(character) and not achieved_goal:
         describe_current_location(board, character)
         # board_visual(board, rows, columns)
