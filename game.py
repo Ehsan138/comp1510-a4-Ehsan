@@ -567,7 +567,7 @@ def fixed_battles(challenge_name, character):
         print(count, options)
     will_battle = input("What do you want to do? ")
     quit_game(will_battle)
-    fixed_battles_execution(challenge_name, character, will_battle)
+    fixed_battles_execution(challenge_name, character, will_battle, data)
     # if will_battle == "1":
     #     if challenge_name == 'battle_five' and character["battle_four"] == 0:
     #         print(data[challenge_name]["is_not_ready"])
@@ -639,7 +639,7 @@ def random_battles(challenge_name, character):
         print(count, options)
     will_battle = input("What do you want to do? ")
     quit_game(will_battle)
-    random_battles_execution(challenge_name, character, will_battle)
+    random_battles_execution(challenge_name, character, will_battle, data)
     # if will_battle == "1":
     #     character["Experience_Points"] += random.randint(200, 300)
     #     new_randomize_hp = 1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"]
@@ -701,7 +701,7 @@ def trivias(trivia_name, character):
         print(count, options)
     answer = input("Please enter the number of the correct answer: ")
     quit_game(answer)
-    trivias_execution(trivia_name, character, answer)
+    trivias_execution(trivia_name, character, answer, data)
     # if answer == data[trivia_name]["right_answer"]:
     #     if trivia_name == 'trivia_three':
     #         character["Experience_Points"] += 500
