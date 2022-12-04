@@ -1,9 +1,15 @@
 
 def game_intro_1():
+    """
+    Prints welcome statement for the game.
+
+    :precondition: User must start the game
+    :postcondition: Prints welcome statement.
+    """
     print("""                          
                                        ,'\ 
          _.----.        ____         ,'  _\  ___    ___     ____
-     _,-'       `.     |    |  /`.   \,-'   |   \  /   |   |    \  |`.
+     _,-'       `.     |    |  /`.   \,-'   |   \  /   |   |    \  |`. .
      \      __    \    '-.  | /   `.  ___   |    \/    |   '-.   \ |   |
       \.    \ \   |  __  |  |/    ,','_  `. |          | __  |    \|   |
        \    \/   /,' _`.|      ,' / / / /   |          ,' _`.|     |   |
@@ -18,6 +24,12 @@ def game_intro_1():
 
 
 def game_intro_2(character):
+    """
+    Prints the game's instructions.
+
+    :precondition: User must start the game
+    :postcondition: Prints game's instructions.
+    """
     print("""
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⡴⠒⠛⠛⣁⣽⠖⠲⢤⣀⣠⣴⠄⠀⠀⠀⠀⠀⠀⠀
     ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣴⡞⠃⠀⢀⣤⣞⣿⡟⣠⠴⣚⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀
@@ -55,9 +67,10 @@ def game_intro_2(character):
           f"battle the final boss (🐲️), you must be at least Level 3 and have battled (🐍🐱🐆) in that order. \nOn top "
           f"of the battles shown on the board, there are hidden random battles and trivia that will give you rewards "
           f"so try finding them. \nIf your HP reaches 0, you will die. \nYou gain EXP after each battle and level up "
-          f"every 1000 EXP. \nTo move, you will have to first enter the number of the direction and then the number of "
+          f"every 1000 EXP. \nWhen you level up, your Max HP will increase and your Current HP will be fully restored."
+          f"\nTo move, you will have to first enter the number of the direction and then the number of "
           f"steps you wish to take. \nOn the board, 💥 shows your current location and 🟨 shows your past locations. "
-          f"\nPlease note that even if you've already been to the 🐍🐱🐆 spaces, those spaces will change to 🟨 after "
+          f"\nPlease note that if you've already been to the 🐍🐱🐆 spaces, those spaces will change to 🟨 after "
           f"you leave the space. \nFleeing a battle will deduct 100 EXP. If you want to re-attempt a fled battle, you "
           f"must leave that space and go back to it in order for the battle to happen. \nType quit at any time to stop "
           f"the game.")
