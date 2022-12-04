@@ -60,7 +60,6 @@ def game():
         if valid_move:
             move_character(character, direction, steps)
             describe_current_location(board, character)
-            print()
             there_is_a_challenge = check_for_challenges(board, character)
             if there_is_a_challenge and first_time_challenge(character):
                 level = character["Level"]
@@ -80,6 +79,12 @@ def game():
     # Print end of game (congratulations or sorry you died)
 
 
+def quit_game(answer):
+    if answer.lower() == 'quit':
+        sys.exit()
+
+
+
 def make_character():
     """
     Creates and returns a dictionary that contains key:value pairs.
@@ -89,6 +94,7 @@ def make_character():
     :return: dictionary that contains key:value pairs
     """
     name = input("Name: ")
+    quit_game(name)
     character_dictionary = {"Name": name, "x_coordinate": 1,
                             "y_coordinate": 1, "Current_HP": 100,
                             "Max_HP": 100, "Experience_Points": 0,
@@ -285,6 +291,7 @@ def get_user_choice():
             print(f"{number}:\t {direction}")
         # response = input(f"Where do u wanna go broski? \n{enumerate_directions} \n")
         response = input("Please enter the number of your answer: ")
+        quit_game(response)
 
     return response
 
@@ -328,6 +335,7 @@ def get_user_steps():
     while steps not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
         print("How many steps do you want to take? (This number must be between 1 and 9)")
         steps = input("Please enter your answer: ")
+        quit_game(steps)
         if steps not in ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']:
             print("Sorry, that's out of bounds. Try another number.")
 
@@ -558,6 +566,7 @@ def fixed_battles(challenge_name, character):
     for count, options in enumerate(options, start=1):
         print(count, options)
     will_battle = input("What do you want to do? ")
+    quit_game(will_battle)
     if will_battle == "1":
         if challenge_name == 'battle_five' and character["battle_four"] == 0:
             print(data[challenge_name]["is_not_ready"])
@@ -621,6 +630,7 @@ def random_battles(challenge_name, character):
     for count, options in enumerate(options, start=1):
         print(count, options)
     will_battle = input("What do you want to do? ")
+    quit_game(will_battle)
     if will_battle == "1":
         character["Experience_Points"] += random.randint(200, 300)
         new_randomize_hp = 1 + round(random.uniform(0.10, 0.25), 2) * character["Max_HP"]
@@ -659,6 +669,7 @@ def trivias(trivia_name, character):
     for count, options in enumerate(options, start=1):
         print(count, options)
     answer = input("Please enter the number of the correct answer: ")
+    quit_game(answer)
     if answer == data[trivia_name]["right_answer"]:
         if trivia_name == 'trivia_three':
             character["Experience_Points"] += 500
@@ -901,6 +912,7 @@ def battle_final(character):
     for count, options in enumerate(options, start=1):
         print(count, options)
     will_battle = input("Will you battle Mewtwo?")
+    quit_game(will_battle)
     if will_battle == "1":
         if character["battle_four"] == 1 and character["battle_four"] == 1 and character["battle_four"] == 1:
             character["Experience_Points"] += random.randint(500, 650)
