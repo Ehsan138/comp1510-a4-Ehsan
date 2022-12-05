@@ -1,10 +1,17 @@
-COMP 1510 202230: Assignment 4
+# COMP1510-Assignment-4
 
-Game Title: Pokémon Pikachu Edition
+Every program needs a README.md
 
-Ehsan Emadi A01291627
+This is written in markdown. Read about markdown here: [markdowncheatsheet](https://www.markdownguide.org/cheat-sheet/)
 
-Michelle Kwok A01323329
+## Your name, student number, and GitHub account ID:
+Ehsan Emadi - A01291627 - Ehsan138
+
+Michelle Kwok - A01323329 - mimikwkk
+
+## Any important comments you'd like to make about your work:
+
+Game Title: *Pokémon Pikachu Edition*
 
 | Required Elements             | Line Number         |
 |-------------------------------|---------------------|
@@ -13,7 +20,7 @@ Michelle Kwok A01323329
 | dictionary/list comprehension | 133 in game.py      |
 | if statement                  | 180-198 in game.py  |
 | for/while loop                | 248 in game.py      |
-| membership operator (in)      | 382 in game.py      |
+| membership operator (in)      | 268 in game.py      |
 | range                         | 99 in game.py       |
 | itertools                     | 143, 151 in game.py |
 | enumerate                     | 250 in game.py      |

@@ -138,12 +138,12 @@ def placing_challenges(board: dict, rows: int, columns: int) -> None:
 
     list_of_coordinate = list(filter(filtering_fixed_coordinates, list_of_coordinate))
 
-    list_trivias = ['trivia_one', 'trivia_two', 'trivia_three', 'trivia_four', 'trivia_five']
-    random_trivia_coordinates = random.sample(list_of_coordinate, len(list_trivias) * 2)
-    iterator_trivias = itertools.cycle(list_trivias)
+    list_trivia = ['trivia_one', 'trivia_two', 'trivia_three', 'trivia_four', 'trivia_five']
+    random_trivia_coordinates = random.sample(list_of_coordinate, len(list_trivia) * 2)
+    iterator_trivia = itertools.cycle(list_trivia)
 
     for coordinate in random_trivia_coordinates:
-        board[coordinate][1] = next(iterator_trivias)
+        board[coordinate][1] = next(iterator_trivia)
         list_of_coordinate.remove(coordinate)
 
     list_random_battles = ['battle_one', 'battle_two', 'battle_three']
