@@ -5,7 +5,7 @@ Michelle Kwok A01323329
 
 
 from unittest import TestCase
-from game import board_visual, make_board, make_character
+from game import board_visual, make_board
 
 
 class TestGameBoardVisual(TestCase):
