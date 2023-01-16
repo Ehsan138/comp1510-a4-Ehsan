@@ -32,7 +32,7 @@ def fixed_battles(challenge_name: str, character: dict, data: dict) -> None:
 
 def check_fixed_battles_conditions(challenge_name: str, character: dict, will_battle: str, data: dict) -> None:
     """
-    Update character dictionary and print differnt game scripts based on the value of will_battle.
+    Update character dictionary and print different game scripts based on the value of will_battle.
 
     :param challenge_name: a string
     :param character: a dictionary
@@ -94,7 +94,7 @@ def random_battles(challenge_name: str, character: dict, data: dict) -> None:
 
 def check_random_battles_conditions(challenge_name: str, character: dict, will_battle: str, data: dict) -> None:
     """
-    Update character dictionary and print differnt game scripts based on the value of will_battle.
+    Update character dictionary and print different game scripts based on the value of will_battle.
 
     :param challenge_name: a string
     :param character: a dictionary
@@ -151,7 +151,7 @@ def trivia(trivia_name: str, character: dict, data: dict) -> None:
 
 def check_trivia_conditions(trivia_name: str, character: dict, answer: str, data: dict) -> None:
     """
-    Update character dictionary and print differnt game scripts based on the value of answer.
+    Update character dictionary and print different game scripts based on the value of answer.
 
     :param trivia_name: a string
     :param character: a dictionary
@@ -160,7 +160,7 @@ def check_trivia_conditions(trivia_name: str, character: dict, answer: str, data
     :precondition: trivia_name must be a string of letters which should be in character
     dictionary and package.json file
     :precondition: character and data must be dictionaries where each key is a string of letters
-    postcondition: correctly updates character dictionary and print differnt game scripts
+    postcondition: correctly updates character dictionary and print different game scripts
     based on the value of answer
     """
     if answer == data[trivia_name]["right_answer"]:
@@ -230,13 +230,13 @@ def battle_final(character: dict, data: dict) -> None:
 
 def check_battle_final_conditions(character: dict, will_battle: str, data: dict) -> None:
     """
-    Update character dictionary and print differnt game scripts based on the value of will_battle.
+    Update character dictionary and print different game scripts based on the value of will_battle.
 
     :param character: a dictionary
     :param will_battle: a string
     :param data: a dictionary
     :precondition: character and data must be dictionaries where each key is a string of letters
-    postcondition: correctly updates character dictionary and print differnt game scripts
+    postcondition: correctly updates character dictionary and print different game scripts
     based on the value of will_battle
     """
     if will_battle == "1":
